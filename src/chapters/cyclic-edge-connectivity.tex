@@ -1,0 +1,37 @@
+\chapter{Cyclic Edge Connectivity}\label{ch:cyclic-edge-connectivity}
+
+\todo{bla bla bla}
+
+As in other areas of graph theory, we may want to look for somewhat equivalent graphs in terms of a specific property, which are more simple (for example contain less vertices), but have the same value of the property as the original graph. When talking about cyclic edge connectivity, those are called \textit{reduced forms} and result from a graph by removing all of its trees, as mentioned in these lemmas.
+
+\begin{lemma}[{{\cite[Lemma 1]{Lou2008}}}]
+	Let $G$ be a graph and let $v$ be a vertex of degree 1 in $G$. Then $\zeta(G-v)=\zeta(G)$. \todo{definuj odstranenie vrchola ci??}
+\end{lemma}
+
+By the repeated application of this lemma we get the following result.
+
+\begin{lemma}[{{\cite[Lemma 2]{Lou2008}}}]
+	Let $G$ be a graph with an edge cut of size 1. Let the only edge in this cut be $e=uv\in E(G)$. Let the component of $G-\{e\}$ connecting vertex $v$ be a tree $T$. Then $\zeta(G)=\zeta(G-T)$ \todo{definuj odstranenie vrcholov, resp. grafov... Lebo mame len odstranenie hran}
+\end{lemma}
+
+The tree $T$ from the latter lemma is called a \textit{pendant tree}. By the removal of each pendant tree in $G$ we obtain the mentioned reduced form $G'$ and the cyclic edge connectivity stays the same \cite{Lou2008}.
+
+It is also possible to suppress a vertex of degree 2 in specific cases to not change the cyclic edge connectivity.
+
+\begin{lemma}[{{\cite[Lemma 4]{Lou2008}}}]
+	Let $G$ be a graph, let $x$ be a vertex of degree 2 in $G$ and let $xy, xz\in E(G)$. Let $G'$ be the graph obtained from $G$ by suppressing $x$. Then $\zeta(G')=\zeta(G)$ unless $G$ has a triangle $C=xyzx$. \todo{tu si pozri dôkaz poriadne, možno to neni úplne dobre}
+\end{lemma}
+
+\section{Infinite Cyclic Edge Connectivity}
+
+Graphs with infinite cyclic edge connectivity, in other words without a cycle separating edge cut, were already widely explored \cite{atoms-of-cyclic, Lou2008, lovasz1965graphs}. For cubic graphs, there are however not that many possibilities. As it comes from the following proposition, the only three possibilities are $K_4$, $K_{3,3}$ and $\Theta_2$, which is a graph consisting of two vertices and three parallel edges between them.
+
+\begin{proposition}[{{\cite[Proposition 1]{atoms-of-cyclic}}}]
+	A connected cubic graph $G$ has no cycle separating edge cut if and only if it is isomorphic to one of $K_4$, $K_{3,3}$, $\Theta_2$. In fact, if $C$ is a shortest cycle in $G$, then $E(C,V(G)-C)$ is a cycle separating edge cut unless $G$ is $K_4$, or $K_{3,3}$, or $\Theta_2$.
+\end{proposition}
+
+We say that two cycles $C_1$ and $C_2$ in a graph $G$ are independent if $V(C_1)\cap V(C_2) = \emptyset$. For arbitrary graphs, a rather obvious observation is that $\zeta(G)\neq\infty$ if and only if $G$ has two independent cycles.
+
+\todo{TU tie kktiny od Loua su celkom ze ocividne. Zaujimave je potom az tvrdenie Theorem 7}
+
+\section{Cyclic $k$-parts}\label{sec:cyclic-k-parts}
