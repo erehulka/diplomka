@@ -7,6 +7,9 @@
 \usepackage{commath}
 \usepackage{bm}
 
+\usepackage{caption}
+\usepackage{subcaption}
+
 \usepackage{subcaption}
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -14,10 +17,34 @@
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{positioning}
 
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+
 \usepackage{url}
 \usepackage[hidelinks,breaklinks]{hyperref}
 \usepackage{cleveref}
 \usepackage{emptypage}
+
+\crefname{figure}{Figure}{Figures}
+\Crefname{figure}{Figure}{Figures}
+\crefname{section}{Section}{Sections}
+\Crefname{section}{Section}{Sections}
+\crefname{definition}{Definition}{Definitions}
+\Crefname{definition}{Definition}{Definitions}
+\crefname{lemma}{Lemma}{Lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\crefname{theorem}{Theorem}{Theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\crefname{proposition}{Proposition}{Propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\crefname{table}{Table}{Tables}
+\Crefname{table}{Table}{Tables}
+\crefname{corollary}{Corollary}{Corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+\crefname{chapter}{Chapter}{Chapters}
+\Crefname{chapter}{Chapter}{Chapters}
+
+
 
 \usepackage{enumitem}
 \usepackage{listings}
@@ -44,6 +71,7 @@
 \newtheorem{axiom}{Axiom}
 \newtheorem{property}{Property}
 \newtheorem{assumption}{Assumption}
+\newtheorem{claim}{Claim}
 \newtheorem{hypothesis}{Hypothesis}
 \newtheorem{optimization}{Optimization} \crefname{optimization}{opt.}{opts.}
 
@@ -51,7 +79,6 @@
 \newtheorem{remark}{Remark}
 \newtheorem{note}{Note}
 \newtheorem{notation}{Notation}
-\newtheorem{claim}{Claim}
 \newtheorem{summary}{Summary}
 \newtheorem{acknowledgment}{Acknowledgment}
 \newtheorem{case}{Case}

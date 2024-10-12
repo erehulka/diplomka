@@ -2,6 +2,8 @@
 
 Definitions not provided in our work can be found in the book \quotes{Graph Theory} by Diestel \cite{Diestel}. All graphs considered in this work are undirected, connected and finite. We do not allow trivial graphs, but sometimes for the sake of complete definition we address them. We permit multiple edges, however loops are not allowed.
 
+A \textit{girth} of a graph $G$, denoted by $g(G)$ is the minimum length of a cycle in $G$. If $G$ does not contain a cycle, we set the girth to $\infty$.
+
 While we work only with cyclic connectivity, for the sake of providing the definition completely in our work, we shall start with definining how we will compute connectivity, but more importantly, how we will work with edge cuts.
 
 \section{Multipoles}\label{sec:multipoles}
@@ -19,13 +21,31 @@ In our work, we allow a specific type of graph, which allows ends of its edges t
 	\end{enumerate}
 \end{definition}
 
-\todo{dokonci nejake definicie, ako napriklad semiedges, junction a podobne}
+A \textit{semiedge} is an edge end not incident with any vertex. For a given multipole $M$, we define $S(M)$ to be the tuple containing all the semiedges in that multipole. A set of all links in $M$ is denoted as $E_L(M)$.
+
+A multipole $M$ with $n$ semiedges and $S(M) = (a_1, \cdots, a_n)$ can also be denoted as $M(a_1,\cdots,a_n)$. Similarly to graphs, the \textit{order} of a multipole $M$, denoted by $|M|$, is the number of its vertices. Also the \textit{degree} of a vertex $v$ of a multipole, denoted by $\deg(v)$, is the number of edge ends incident with $v$. A multipole with $k$ semiedges is usually called a \textit{k-pole}. It can be seen, that a graph can be defined as a 0-pole.
+
+One of the features of multipoles is connecting them to form bigger multipoles or even graphs. They can be seen as small building blocks for constructing larger graphs or multipoles. For this case, dividing $S(M)$ into pairwise disjoint tuples called connectors is convenient.
+
+\begin{definition}
+	Let $M$ be a multipole. Parts of the partition of $S(M)$ into pairwise disjoint tuples $S_1,\cdots, S_n$ are called \textit{connectors}.
+\end{definition}
+
+A multipole $M$ with $n$ connectors $S_1,\cdots,S_n$, where $S_i$ has $c_i$ semiedges for each $i$ from $1$ to $n$, is denoted by $M(S_1,\cdots,S_n)$ and is also called a $(c_1,\cdots,c_n)$-pole.
+
+Now, let $e$ and $f$ be edges (not necessarily distinct) and $e',~f'$ two of their semiedges respectively, such that $e'\neq f'$. If $e\neq f$, the result of the \textit{junction} of $e'$ and $f'$ is a new edge, having the other edge ends of $e$ and $f$ and a deletion of $e$ and $f$. If $e=f$, the result of the \textit{junction} of $e'$ and $f'$ is just the deletion of the edge.
+
+Let $S=(e_1,\cdots,e_n)$ and $T=(f_1,\cdots,f_n)$ be two connectors, both with $n$ semiedges. The junction of two connectors $S$ and $T$ consists of $n$ individual junctions of semiedges $e_i$ and $f_i$ for $i$ from $1$ to $n$.
+
+The junction of two $(c_1,\cdots,c_n)$-poles $M(S_1,\cdots,S_n)$ and $N(T_1,\cdots,T_n)$ consists of $n$ individual junctions of connectors $S_i$ and $T_i$, for $i$ from $1$ to $n$.
+
+Consider two multipoles $M(a_1,\cdots,a_n)$ and $N(b_1,\cdots,b_m)$. Their \textit{partial junction} is a junction of some semiedges $(a_{i_1},\cdots, a_{i_k})$ and $(b_{j_1},\cdots, b_{j_k})$, where $k\leq n$ and $k\leq m$. In contrast to a normal junction, which results in a graph, the partial junction can still result in a multipole.
+
+\todo{prepis vsecko, nech to neni kopia bakalarky}
 
 When we write some link $e$ as $xy$, we mean a link between vertices $x$ and $y$. On the other hand, when we just regard it as an edge $xy$, then $x$ and $y$ are its edge ends.
 
 Since we allow these dangling and isolated edges, we can introduce so-called \textit{edge severing}. By severing an edge $e=e_1e_2$, we mean the removal of $e$, along with adding two new edges: $e_1e_3$ and $e_4e_2$, where $e_3$ and $e_4$ are new edge ends. It is evident that by severing a link we obtain two new dangling edges, by severing a dangling edge we obtain a new dangling edge and an isolated edge, and by severing an isolated edge we obtain two new isolated edges.
-
-\todo{Celkom chudobná kapitola, bolo by fajn doplniť ešte zvyšok definícíi}
 
 \section{Edge Cuts and Connectivity}\label{sec:edge-cuts}
 
@@ -63,5 +83,6 @@ Similarly to edge connectivity, we say that graph $G$ is \textit{cyclically k-ed
 
 If there is no cycle separating edge cut in a graph $G$, we say that $\zeta(G)=\infty$ \cite{Lou2008}.
 
+More properties of cyclic edge connectivity are regarded in \cref{ch:cyclic-edge-connectivity}.
 
-\todo{Síce som spomenul takmer všetko čo som chcel, ale je tu ešte veľa miesta. Určite sa bude dať niečo spomenúť.}
+\section{Graph Decomposition}\label{sec:graph-decomposition}
