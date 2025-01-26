@@ -518,6 +518,42 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 
 \todo{Zamyslenie nad algoritmom na zisťovanie/generovanie cyklických častí}
 
+Potencially cyclically k-connected:
+\begin{itemize}
+	\item Neobsahuje cyklický $l$-pól pre $l<k$.
+\end{itemize}
+
+\begin{theorem}
+	Let $M_1$ and $M_2$ be potencially cyclically $k$-connected multipoles with the same number of semiedges. Let $m_i$ be the size of the smallest edge cut in $M_i$ such that one of the components contains at least 2 semiedges from $M_i$. If $m_1,m_2>1$ and $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potencially cyclically $k$-connected unless $M$ has less than $k$ semiedges.
+\end{theorem}
+
+\begin{proof}
+	Notes:
+	\begin{itemize}
+		\item Contradiction - there is an $l$-pole $X$ with $l<k$.
+		\item $A_1,\cdots$ same as before, however $x_i$ equals semiedges from $A_i$.
+		\item We prove that $M-X$ contains a cycle. We can easily prove that it is non-empty, thus contains some parts from $M_1$ or $M_2$. TODO NOT SO EASY! Possible fix - change the definition of potentially cyclically $k$-connected to not containing such $l$-pole $X$, that $G-X$ contains a cycle. This should not disrupt the equivalence in graphs between potentially cyclically connected and cyclically connected.
+		
+		Former notes: This should be from the fact that it is an independent edge cut and if there are vertices with degree 1 or 0 in $M-X$ we can modify the cut for it to have the same length or less.
+		\begin{enumerate}
+			\item If there is a vertex with degree 0, we have cut at least 2 of the edges incident with the vertex. This should lead to a contradiction with the cut being independent.
+			\item If there is a vertex with degree with degree 1, there are multiple possibilities. We cut 2 edges, 1 edge, or none. If we cut 2, it should lead to a contradiction with the fact that the cut is independent. If we cut none, it would violate the condition of $m_i>1$ (the vertex has two dangling edges). If we cut one, then TODO.
+		\end{enumerate}
+		\item We shall prove that all $A_i$ are non-empty. $A_1$ and $A_2$ are easy, otherwise the whole $l$-pole is in $M_1$ or $M_2$.
+		\item $A_3$ and $A_4$ can't be empty in the same time because $M$ has $k$ or more semiedges.
+		\item If $A_3$ is empty, then the whole $M_2$ is contained in $X$. We then prove that $M-X$ is a cyclic $j$-pole with $j\leq l < k$, and contained in $M_1$ leading to a contradiction. We know that $M-X$ has a cycle, and number of its semiedges is in this case $c+d+x_4$, since $A_3$ is empty. also we know that $x_1+x_2=x_3$ since $M_1$ and $M_2$ have the same number of semiedges. We then know that $c+b+d+f+x_1+x_2<k$, from what we can see that $c+d+x_4<k$. Same goes for empty $A_4$.
+		\item Then we must prove that $a$ is at least 2. If it was 0, then there would be a cyclic pole with less than $l$ semiedges in $M_1$ or $M_2$. If it was 1, then the whole cycle would be in $A_1$ or $A_2$. Suppose it is in $A_1$. We know that $c+b+d+f+x_1+x_2<k$. $a=1$, thus $a\leq k$ and $c+b+d+a+x_1+x_2<k$. From this we see that $a+b+c+x_1<k$, meaning there would be a cyclic $j$-pole with $j<k$ in $M_1$, leading to a contradiction.
+		\item Because of this $c$ and $f$ must hold that $c+f\geq k$. They are cuts in $M_1, M_2$ because all $A_i$ are non-empty and they are connected components (TODO - should we say that in the theorem that they must be connected?). This leads to a contradiction with the fact that $c+b+d+f+x_1+x_2=l<k$.
+	\end{itemize}
+\end{proof}
+
+PROBLEMS:
+
+Momentálne berieme ako $m_i$ najmenší rez, kde jeden z komponentov má aspoň 2 polhrany pôvodného. To je ale vždy zhora ohraničené 3, bude to treba zovšeobecniť. Napríklad, že ten druhý komponent musí obsahovať cyklus alebo aspoň 2 polhrany? Respektíve 1 polhranu?
+
+Potom by sme museli pridať pred posledným krokom aj dôkaz, že $A_4$ má cyklus, alebo $e+d+x_4\geq 1$ a rovnako pre $A_3$ (alebo 2)? 
+
+
 \section{Cyclic part inflations}\label{sec:cyclic-part-inflations}
 
 \begin{definition}[{{\cite[Definition 10]{HISTs}}}]
