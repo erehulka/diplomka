@@ -489,7 +489,7 @@ If we would be able to construct a cyclic $k$-pole for each $k$, such that it co
 \end{lemma}
 
 \begin{proof}
-	For $k$ equal to 1 and 2 we see that $C_k$ fulfills the requirements, we shall only explore $k\geq 3$. For given $k$ we construct a cubic Cayley graph with girth $2k$ according to \cref{th:cayley-girth-valence}. Let us denote this graph as $G$. Then $\zeta(G)=2k$ by utilizing \cref{th:cyclic-connectivity-of-transitive}. Next let $P$ be a path of length $k-3$ in $G$. Since $k\geq 3$ and $|V(G)|$ is evidently at least $2k$, there will always be such path. Remove all of the vertices on this path and denote the result as $G'$. Since by removing some vertices and edges from a graph it is not possible to lower a girth, or introduce a new smaller cyclic $l$-pole, we must prove only the third condition about the distance between the semiedges. To be precise, we need to prove that
+	For $k$ equal to 1 and 2 we see that $C_k$ fulfills the requirements, we shall only explore $k\geq 3$. For given $k$ we construct a cubic Cayley graph with girth $2k$ according to \cref{th:cayley-girth-valence}. Let us denote this graph as $G$. Then $\zeta(G)=2k$ by utilizing \cref{th:cyclic-connectivity-of-transitive}. Next let $P$ be a path of length $k-2$ in $G$. Since $k\geq 3$ and $|V(G)|$ is evidently at least $2k$, there will always be such path. Remove all of the vertices on this path and denote the result as $G'$. Since by removing some vertices and edges from a graph it is not possible to lower a girth, or introduce a new smaller cyclic $l$-pole, we must prove only the third condition about the distance between the semiedges. To be precise, we need to prove that
 	\begin{enumerate}
 		\item $G'$ is a cyclic $k$-pole,
 		\item the distance between any pair of semiedges in $G'$ is at least $k-2$.
@@ -523,8 +523,22 @@ Potencially cyclically k-connected:
 	\item Neobsahuje cyklický $l$-pól pre $l<k$.
 \end{itemize}
 
+\todo{Toto pod tým treba len pre aspoň 2-póly, resp. ak neobsahuje taký rez daný graf tak túto hodnotu nastavme na $k$ defaultne, lebo nám to nič nepokazí asi}.
+
+\begin{lemma}\label{le:junction-two-no-small-girth}
+	Let $M_1$ and $M_2$ be cyclic cubic $k$-poles which are potencially cyclically $k$-connected. Let $m_i$ be the size of the smallest independent edge cut in $M_i$ such that one of the components contains at least 2 semiedges from $M_i$. Let $G$ be the junction of $M_1$ and $M_2$. If $m_1+m_2\geq k$ then $g(G)\geq k$.
+\end{lemma}
+
+\todo{Túto lemu by sme mohli spraviť aj tak (alebo druhú lemu), že ak je vzdialenosť medzi ľubovoľnou dvojicou polhrán aspoň $m_i$ a $m_1+m_2\geq k$, tak obvod je aspoň $k$ alebo tak nejak.} Toto by sa dalo spraviť nejak tak, že sporný cyklus prechádza pôvodnými multipólmi, pričom ak do nejakého vojde tak z neho musí vyjsť. 
+
+Pozor ale neskôr na to, že jednotlivé komponenty môžu byť teoreticky aj stromy, vtedy je vzdialenosť 0, to bude treba ošetriť, ale v tom našom spôsobne spájania 4 6-pólov nám výjdu cyklické (nákres v zošite), pričom tie vzdialenosti budú aspoň 3 pre oba (ak to tak ošetríme).
+
+\begin{proof}
+	\todo{} suppose the girth is smaller than k. If $k=1$, then there is no new cycle after the junction and the girth is okay (contradiction). If $k\geq 2$, then the shortest cycle must go through two of the new edges. Since both multipoles are cyclic, we have to cut this new cycle out from both of them, and thus we need to cut at least $m_1+m_2$ edges leading to a contradiction.
+\end{proof}
+
 \begin{theorem}\label{th:connecting-potencially-k-connected}
-	Let $M_1$ and $M_2$ be potencially cyclically $k$-connected multipoles with the same number of semiedges, which do not contain an independent edge cut of size $a$, such that after the cut there is an acyclic component with $b$ former semiedges (not resulting from the cut) and $b>a$. Let $m_i$ be the size of the smallest independent edge cut in $M_i$ such that one of the components contains at least 2 semiedges from $M_i$. If $m_1,m_2>0$ (TODO toto treba? Nestačí že sú connected?) and $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potencially cyclically $k$-connected unless $M$ has less than $k$ semiedges. (Nie je to úplne formálne, to potom prepíšem)
+	Let $M_1$ and $M_2$ be connected and potencially cyclically $k$-connected multipoles with the same number of semiedges, which do not contain an independent edge cut of size $a$, such that after the cut there is an acyclic component with $b$ former semiedges (not resulting from the cut) and $b>a$. Let $m_i$ be the size of the smallest independent edge cut in $M_i$ such that one of the components contains at least 2 semiedges from $M_i$. If $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potencially cyclically $k$-connected unless $M$ has less than $k$ semiedges. (Nie je to úplne formálne, to potom prepíšem)
 \end{theorem}
 
 \begin{proof}
@@ -541,7 +555,7 @@ Potencially cyclically k-connected:
 		\item We shall prove that all $A_i$ are non-empty. $A_1$ and $A_2$ are easy, otherwise the whole $l$-pole is in $M_1$ or $M_2$.
 		\item $A_3$ and $A_4$ can't be empty in the same time because $M$ has $k$ or more semiedges (we have proved it before).
 		\item Suppose $A_3$ is empty, then the whole $M_2$ is contained in $X$. We then prove that $M-X$ is a cyclic $j$-pole with $j\leq l < k$, and contained in $M_1$ leading to a contradiction. We know that $M-X$ has a cycle, and number of its semiedges is in this case $c+d+x_4$, since $A_3$ is empty. Also we know that $x_1+x_4=x_2$ since $M_1$ and $M_2$ have the same number of semiedges. We then know that $c+d+x_1+x_2<k$, and $x_4\leq x_2$ since $x_1+x_4=x_2$. From this we get $c+d+x_1+x_4<k$, and thus $c+d+x_4<k$, contradicting the fact that $M_1$ is potencially cyclically $k$-connected. Same goes for empty $A_4$.
-		\item Then we must prove that $a$ is at least 2. If it was 0, then there would be a cyclic pole with less than $l$ semiedges in $M_1$ or $M_2$. If it was 1, then there would be a cycle in $A_1$ or $A_2$. Suppose it is in $A_1$. We know that $c+b+d+f+x_1+x_2<k$. Then $f\geq 1$ since $M_2$ is connected (TODO should we put this in the theorem?) and $a=1$ thus $a\leq f$ and thus $c+b+d+a+x_1+x_2<k$. From this we see that $a+b+c+x_1<k$, meaning $A_1$ would be a cyclic $j$-pole with $j<k$ in $M_1$, leading to a contradiction.
+		\item Then we must prove that $a$ is at least 2. If it was 0, then there would be a cyclic pole with less than $l$ semiedges in $M_1$ or $M_2$. If it was 1, then there would be a cycle in $A_1$ or $A_2$. Suppose it is in $A_1$. We know that $c+b+d+f+x_1+x_2<k$. Then $f\geq 1$ since $M_2$ is connected and $a=1$ thus $a\leq f$ and thus $c+b+d+a+x_1+x_2<k$. From this we see that $a+b+c+x_1<k$, meaning $A_1$ would be a cyclic $j$-pole with $j<k$ in $M_1$, leading to a contradiction.
 		\item The cut separating $X$ from $M-X$ is independent. This can be easily proven, if it was not independent we could obtain $X'$ with less semiedges, however we should put it in the proof.
 		\item Because of this for $c$ and $f$ it must hold that $c+f\geq k$. They are cuts in $M_1, M_2$ because all $A_i$ are non-empty and they are connected components. This leads to a contradiction with the fact that $c+b+d+f+x_1+x_2=l<k$.
 	\end{itemize}
@@ -557,6 +571,36 @@ PROBLEMS:
 \end{itemize}
 
 \todo{}We can also prove that there will be no problematic cut leaving the acyclic graph with more dangling edges than the cut size. Suppose that after the junction from the theorem above there will be a cut of size $a$, such that one of the components have $b$ former semiedges and $b>a$. The proof is basically in the theorem above, but we can formulate it in a separate lemma, and use it later during specific constructions. Also, we can use it then in the theorem proof, making the proof that $M-X$ contains a cycle easier (and the whole proof shorter ofc.)
+
+\todo{PREDOBHAJOBY:}
+\begin{itemize}
+	\item Nájsť najmenší graf s cyklickou súvislosťou 7 (Mazák) - RIEŠENIE nie je to náhodou mcgee graph? Pre ten mi vyšla cykl. súvislosť 7 a je to najmenší graf kubický s obvodom 7 ((3,7)-cage). Každopádne viem vytvoriť nejaké stavebné bloky na stavanie cykl. 7-súvislých.
+	\item Prípadne aj nájsť spôsob konštruovanie najmenších takých grafov, prípadne stavebných blokov na najmenšie.
+\end{itemize}
+
+Veta s trocha menej predpokladmi, ale s obmedzením na počet výsledných polhrán.
+\begin{theorem}
+	Let $M_1$ and $M_2$ be connected and potencially cyclically $k$-connected multipoles with more than 1 semiedge. Let $m_i$ be the size of the smallest independent edte cut in $M_i$ such that at least one of the components contains at least 2 semiedges from $M_i$. Let $M$ be a result of a partial junction $M_1*M_2$ of size $j$. Let us denote by $s_i$ the number of remaning semiedges after the partial junction in $M_i$, meaning $|S(M_i)|-j$. If $M$ has at least $k$ semiedges, $m_1+m_2\geq k$, $m_1+s_2\geq k$ and $s_1+m_2\geq k$, then $M$ is potencially cyclically $k$-connected.
+\end{theorem}
+
+\begin{proof}
+	\begin{itemize}
+		\item Contradiction - there is $l$-pole $X$, which has smallest $l$ and is largest possible.
+		\item $A_1,\dots$ as before
+		\item $A_1,A_2$ are non-empty.
+		\item At least one from $A_3,A_4$ is not empty (from the number of semiedges of $M$). Then this means that $c$ or $f$ is at least 1.
+		\item Then we must prove that $a$ is at least 2. If it was 0, then there would be a cyclic pole with less than $l$ semiedges in $M_1$ or $M_2$. If it was 1, then there would be a cycle in $A_1$ or $A_2$. Suppose it is in $A_1$. 
+		
+		If $f=0$, then $A_2=M_2$. Since $M_2$ has more than 1 semiedge, it means that $x_2\geq 1$. We know that $c+b+d+f+x_1+x_2<k$ and thus $a\leq x_2$ and $c+b+d+f+x_1+a<k$. From this we see that $a+b+c+x_1<k$, meaning $A_1$ would be a cyclic $j$-pole with $j<k$ in $M_1$, leading to a contradiction.
+		
+		If $f\geq 1$, similarly $a\leq f$ and thus $c+b+d+a+x_1+x_2<k$. From this we see that $a+b+c+x_1<k$, leading again to contradiction.
+		\item So we know that $a$ is at least 2. The cut separating $X$ from $M-X$ is independent, same as before.
+		\begin{itemize}
+			\item If both $A_3$ and $A_4$ are nonempty we get $c+f\geq k$, leading to a contradiction same as before.
+			\item Suppose one is empty, say $A_3$. Then $c\geq m_1$, $x_3=0$ and thus $x_2=s_2$. Since $m_1+s_2\geq k$ this will also lead to contradiction same as before. For empty $A_4$ the proof is the same.
+		\end{itemize}
+	\end{itemize}
+\end{proof}
 
 \section{Cyclic part inflations}\label{sec:cyclic-part-inflations}
 
@@ -644,7 +688,7 @@ First construction is the junction of 3 potencially 5-connected cyclic 5-poles a
 \begin{enumerate}
 	\item We say that they must fulfill the requirements from \cref{th:connecting-potencially-k-connected}. Also, one of them can have the smallest edge cut ($m_i$) of size 2, other must have size 3.
 	\item We first connect the one with cut of size 2 and one with size 3. By the mentioned theorem the result will be potencially cyclically 5-connected 6-pole.
-	\item We then connect the point. Since the theorem cannot be used here, we must prove that after the connection the result will still be potencially cyclically 5-connected.
+	\item We then connect the point. Since the theorem cannot be used here, we must prove that after the connection the result will still be potencially cyclically 5-connected. \todo{prove that it will not contain the problematic cut leaving the acyclic component...}
 	\item $M$ is the result after connecting the point, $M_1,M_2$ are the former...
 	\begin{enumerate}
 		\item Suppose it is not, let $X$ be a cyclic $l$-pole with the least semiedges and the largest possible.
@@ -657,7 +701,7 @@ First construction is the junction of 3 potencially 5-connected cyclic 5-poles a
 		\item Maybe it can be better proved by some illustration with some inequalities, like in the theorem before.
 	\end{enumerate}
 	\item Thus after the point addition we get a potencially cyclically 5-connected component, for which the smallest $m_i$ cut is 2. It can't be 0 since it is connected and also cannot be 1, since it would have to be in one of $M_1,M_2$, contradicting the facts about their smallest cuts being at least 2 or 3.
-	\item Now we can connect the remaining part either by using the first theorem and checking the girth, or using the second theorem, since the last part has $m_i$ cut of size 3.
+	\item Now we can connect the remaining part by using \cref{le:junction-two-no-small-girth} and then \cref{th:junction-of-kpoles-cyclic-edge-connectivity}, since the last part has $m_i$ cut of size 3.
 \end{enumerate}
 
 Second thing is the connection of 4 6-poles. There it won't be necessary to prove something about connecting some point, but only putting some requirements about the connected components. \todo{}
