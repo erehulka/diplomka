@@ -529,12 +529,22 @@ Potencially cyclically k-connected:
 	Let $M_1$ and $M_2$ be cyclic cubic $k$-poles which are potencially cyclically $k$-connected. Let $m_i$ be the size of the smallest independent edge cut in $M_i$ such that one of the components contains at least 2 semiedges from $M_i$. Let $G$ be the junction of $M_1$ and $M_2$. If $m_1+m_2\geq k$ then $g(G)\geq k$.
 \end{lemma}
 
-\todo{Túto lemu by sme mohli spraviť aj tak (alebo druhú lemu), že ak je vzdialenosť medzi ľubovoľnou dvojicou polhrán aspoň $m_i$ a $m_1+m_2\geq k$, tak obvod je aspoň $k$ alebo tak nejak.} Toto by sa dalo spraviť nejak tak, že sporný cyklus prechádza pôvodnými multipólmi, pričom ak do nejakého vojde tak z neho musí vyjsť. 
-
-Pozor ale neskôr na to, že jednotlivé komponenty môžu byť teoreticky aj stromy, vtedy je vzdialenosť 0, to bude treba ošetriť, ale v tom našom spôsobne spájania 4 6-pólov nám výjdu cyklické (nákres v zošite), pričom tie vzdialenosti budú aspoň 3 pre oba (ak to tak ošetríme).
+\todo{túto lemu asi vieme generalizovať aj nie len že to sú k-póly, ale ľubovoľné potenciálne cyklicky súvislé a nemusí to byť junction ale aj partial junction}
 
 \begin{proof}
-	\todo{} suppose the girth is smaller than k. If $k=1$, then there is no new cycle after the junction and the girth is okay (contradiction). If $k\geq 2$, then the shortest cycle must go through two of the new edges. Since both multipoles are cyclic, we have to cut this new cycle out from both of them, and thus we need to cut at least $m_1+m_2$ edges leading to a contradiction.
+	\todo{} suppose the girth is smaller than k. If $k=1$, then there is no new cycle after the junction and the girth is okay (contradiction). If $k\geq 2$, then the shortest cycle must go through two of the new edges. Since both multipoles are cyclic, we have to cut this new cycle out from both of them, and thus we need to cut at least $m_1+m_2$ edges leading to a contradiction. \todo{Pozor ale že nemusíme robiť cut, možno to vedia byť hocijaké k-póly, nie len cyklické. Princíp je ten, že ide cez aspoň 2 nové hrany (vie aj viac), ale ak musíme dačo orezať tak to bude aspoň $m_i$, pozor ešte na independent}
+\end{proof}
+
+\todo{Definícia partial junction: NEMUSÍ spojiť všetky polhrany, ale môže (junction teda je prípad partial junction)}
+
+\begin{lemma}\label{lem:cyclic-multipoles-with-girth-and-distance}
+	Let $M_1$ and $M_2$ be multipoles with girth at least $k$. Let $d_i$ be the minimal distance between any pair of semiedges in $M_i$. Let $M$ be a partial junction $M_1*M_2$. If $d_1+d_2\geq k-2$ then $g(M)\geq k$.
+\end{lemma}
+
+\begin{proof}
+	\todo{}Toto by sa dalo spraviť nejak tak, že sporný cyklus prechádza pôvodnými multipólmi, pričom ak do nejakého vojde tak z neho musí vyjsť.
+	
+	Pozor ale neskôr na to, že jednotlivé komponenty môžu byť teoreticky aj stromy, vtedy je vzdialenosť 0, to bude treba ošetriť, ale v tom našom spôsobne spájania 4 6-pólov nám výjdu cyklické (nákres v zošite), pričom tie vzdialenosti budú aspoň 3 pre oba (ak to tak ošetríme).
 \end{proof}
 
 \begin{theorem}\label{th:connecting-potencially-k-connected}
@@ -579,7 +589,7 @@ PROBLEMS:
 \end{itemize}
 
 Veta s trocha menej predpokladmi, ale s obmedzením na počet výsledných polhrán.
-\begin{theorem}
+\begin{theorem}\label{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges}
 	Let $M_1$ and $M_2$ be connected and potencially cyclically $k$-connected multipoles with more than 1 semiedge. Let $m_i$ be the size of the smallest independent edte cut in $M_i$ such that at least one of the components contains at least 2 semiedges from $M_i$. Let $M$ be a result of a partial junction $M_1*M_2$ of size $j$. Let us denote by $s_i$ the number of remaning semiedges after the partial junction in $M_i$, meaning $|S(M_i)|-j$. If $M$ has at least $k$ semiedges, $m_1+m_2\geq k$, $m_1+s_2\geq k$ and $s_1+m_2\geq k$, then $M$ is potencially cyclically $k$-connected.
 \end{theorem}
 
@@ -704,7 +714,25 @@ First construction is the junction of 3 potencially 5-connected cyclic 5-poles a
 	\item Now we can connect the remaining part by using \cref{le:junction-two-no-small-girth} and then \cref{th:junction-of-kpoles-cyclic-edge-connectivity}, since the last part has $m_i$ cut of size 3.
 \end{enumerate}
 
-Second thing is the connection of 4 6-poles. There it won't be necessary to prove something about connecting some point, but only putting some requirements about the connected components. \todo{}
+\todo{we can also use \cref{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges} and lower the necessary conditions, this will hold as well and we won't have to prove anything about the smallest cut leaving acyclic components, the proof will be easier}
+
+Second thing is the connection of 4 6-poles.
+
+\begin{enumerate}
+	\item We first say that all 4 6-poles must have the smallest $m_i$ cut at least 3 and be potencially cyclically $6$-connected.
+	\item We connect two of them creating 2 new edges. By \cref{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges} the result is potencially cyclically $6$-connected.
+	\item We do the same thing with remaining two.
+	\item We prove that the distance between any pair of semiedges in both components is at least $m_i-1$, thus 2.
+	\begin{enumerate}
+		\item Let $r,s$ be two semiedges and let $P$ be the shortest path between them.
+		\item First suppose that they are in the same former multipole.
+		\item The former component can not be acyclic, since then $m_i$ would be $\leq 1$ contradicting assumption that it is at least 3.
+		\item If it was cyclic, it cannot be a cycle $C_l$ with $l\geq 6$ (because of the girth), because then the minimal cut would be $2$. Thus we can cut out the path from the rest of the multipole. However we then would need to cut at least $3$ edges because of $m_i$, thus the distance would be at least 2.
+		\item If each semiedge is in different former multipole, the shortest path must go through some created edge $e$, Let $P'$ be the part in one of the multipoles. Then we can repeat the proof, since we would need to cut out a former semiedge $t$ which was junctioned to form an edge, and this would mean that $P'$ is at least 2, so $P$ must be at least 2.
+	\end{enumerate}
+	\item We connect these two multipoles to form the result and by utilizing \cref{lem:cyclic-multipoles-with-girth-and-distance} we see that the girth is at least $6$.
+	\item Now by \cref{th:junction-of-kpoles-cyclic-edge-connectivity} the result is cyclically 6-connected.
+\end{enumerate}
 
 % BIBLIOGRAPHY
 \newpage
