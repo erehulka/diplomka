@@ -149,7 +149,9 @@
 
 \chapter{Preliminaries}\label{ch:preliminaries}
 
-Definitions not provided in our work can be found in the book \quotes{Graph Theory} by Diestel \cite{Diestel}. All graphs considered in this work are undirected, connected and finite. We do not allow trivial graphs, but sometimes for the sake of complete definition we address them. We permit multiple edges, however loops are not allowed.
+\section{Basic notions}
+
+Definitions not provided in our work can be found in the book \quotes{Graph Theory} by Diestel \cite{Diestel}. All graphs considered in this work are undirected and finite. We do not allow trivial graphs, but sometimes for the sake of complete definition we address them. We permit multiple edges, as well as loops.
 
 A \textit{girth} of a graph $G$, denoted by $g(G)$ is the minimum length of a cycle in $G$. If $G$ does not contain a cycle, we set the girth to $\infty$.
 
@@ -167,12 +169,13 @@ In our work, we allow a specific type of graph, which allows ends of its edges t
 	According to the incidence of edge ends, we define four types of edges:
 	\begin{enumerate}[nolistsep]
 		\item A \textit{link} is an edge whose ends are incident with two distinct vertices.
+		\item A \textit{loop} is an edge whose ends are incident with the same vertex.
 		\item A \textit{dangling edge} is an edge whose one end is incident with a vertex, and the other is not.
 		\item An \textit{isolated edge} is an edge whose both ends are not incident with any vertex.
 	\end{enumerate}
 \end{definition}
 
-A \textit{semiedge} is an edge end not incident with any vertex. For a given multipole $M$, we define $S(M)$ to be the tuple containing all the semiedges in that multipole. A set of all links in $M$ is denoted as $E_L(M)$.
+A \textit{semiedge} is an edge end not incident with any vertex. For a given multipole $M$, we define $S(M)$ to be the tuple containing all the semiedges in that multipole. A multipole is connected if there exists a path between each pair of semiedges. It can be observed that if a multipole contains an isolated edge it is not connected.
 
 A multipole $M$ with $n$ semiedges and $S(M) = (a_1, \cdots, a_n)$ can also be denoted as $M(a_1,\cdots,a_n)$. Similarly to graphs, the \textit{order} of a multipole $M$, denoted by $|M|$, is the number of its vertices. Also the \textit{degree} of a vertex $v$ of a multipole, denoted by $\deg(v)$, is the number of edge ends incident with $v$. A multipole with $k$ semiedges is usually called a \textit{k-pole}. It can be seen, that a graph can be defined as a 0-pole.
 
@@ -184,15 +187,20 @@ The junction of two $k$-poles $M(a_1,\dots,a_k)$ and $N(b_1,\dots,b_k)$ consists
 
 Consider two multipoles $M(a_1,\cdots,a_n)$ and $N(b_1,\cdots,b_m)$. Their \textit{partial junction of size $k$} is a junction of some semiedges $(a_{i_1},\cdots, a_{i_k})$ and $(b_{j_1},\cdots, b_{j_k})$, where $k\leq n$ and $k\leq m$. In contrast to a normal junction, which results in a graph, the partial junction can still result in a multipole.
 
-\todo{prepis vsecko, nech to neni kopia bakalarky}
-
 We say that a multipole $M$ contains a multipole $N$, or simply $N$ is in $M$ when there exists a multipole $P$ and a partial junction $*$ such that $N=M*P$
 
-\todo{definuj cyclic multipole/cyclic k-pole}
+Same as in graphs, a multipole is cyclic if it contains a path which starts and ends in the same vertex, thus contains a cycle.
 
-When we write some link $e$ as $xy$, we mean a link between vertices $x$ and $y$. On the other hand, when we just regard it as an edge $xy$, then $x$ and $y$ are its edge ends.
+The distance between two semiedges $a$ and $b$ is equal to
+\begin{itemize}
+	\item 0 if both are part of the same edge,
+	\item $\infty$ if at least one of $a,b$ is in an isolated edge,
+	\item $d(x,y)$ where $x$ and $y$ are the vertices with which are incident the edges containing $a$ and $b$, respectively.
+\end{itemize}
 
-Since we allow these dangling and isolated edges, we can introduce so-called \textit{edge severing}. By severing an edge $e=e_1e_2$, we mean the removal of $e$, along with adding two new edges: $e_1e_3$ and $e_4e_2$, where $e_3$ and $e_4$ are new edge ends. It is evident that by severing a link we obtain two new dangling edges, by severing a dangling edge we obtain a new dangling edge and an isolated edge, and by severing an isolated edge we obtain two new isolated edges.
+Since we allow these dangling and isolated edges, we can introduce so-called \textit{edge severing}. By severing an edge $e=e_1e_2$, we mean the removal of $e$, along with adding two new edges: $e_1e_3$ and $e_4e_2$, where $e_3$ and $e_4$ are new edge ends. It is evident that by severing a link we obtain two new dangling edges, by severing a dangling edge we obtain a new dangling edge and an isolated edge, and by severing an isolated edge we obtain two new isolated edges. In our work this also applies to cuts. When we say that and edge has been \textit{cut}, it means it has been severed.
+
+Even though edges as we know them from graphs are denoted as links or loops in multipoles, we will keep calling them edges from now on. The reason is that we want to showcase the difference between edges which connect two (not necessarily distinct) vertices, and edges which have at least one end not incident with a vertex. Because of this when we will mention an edge in a multipole from now on, we mean a link or a loop in that multipole. We only differ from these edges by mentioning the separate semiedges, we do not need to differ between dangling and isolated edges.
 
 \section{Edge Cuts and Connectivity}\label{sec:edge-cuts}
 
@@ -210,109 +218,185 @@ A graph $G$ is \textit{k-edge-connected} (for $k\in\mathbb{N}$), if $|G|>k$ and 
 	Let $G$ be a graph. The \textit{edge conectivity} of $G$, denoted by $\lambda(G)$ is the greatest $k\in\mathbb{N}$ such that $G$ is $k$-edge-connected.
 \end{definition}
 
-In other words, it is the size of the smallest edge cut in the graph. It can be easily proven, that for each non-trivial graph $G:~\lambda(G)\leq\delta(G)$, where $\delta(G)$ is the minimum degree. The proof comes from the fact, that all edges incident with a vertex are indeed edge cuts, separating the vertex from the rest of the graph, meaning there is an edge cut of size $\delta(G)$ in each graph.
+In other words, it is the size of the smallest edge cut in the graph. It can be easily proven, that for each non-trivial graph $G$ it holds that $\lambda(G)\leq\delta(G)$. The proof comes from the fact, that all edges incident with a vertex are indeed edge cuts, separating the vertex from the rest of the graph, meaning there is an edge cut of size $\delta(G)$ in each graph. Also it holds that if $G$ is disconnected, $\lambda(G)=0$.
+
+\section{Vertex connectivity}
+
+In vertex connectivity we do not cut or remove edges, but remove vertices. By removing a vertex in a multipole $M$ we mean removing this vertex along with all of its incident edges. A \textit{vertex cut} is in that case a subset of vertices of $G$, such that after their removal we obtain a disconnected graph.
+
+A graph $G$ is called \textit{k-connected} for $k\in\mathbb{N}$ if $|G|>k$ and $G-X$ is connected for every subset $X\subseteq V(G)$ with $|X|<k$. In other words, there is no vertex cut in $G$ with less than $k$ semiedges. We can also specify that it is connected to vertex conectivity by denoting it as \textit{k-vertex-connected}, however in our work we use only the first name.
+
+Similarly to edge connectivity, a \textit{vertex connectivity}, or just connectivity of $G$, denoted by $\kappa(G)$, is the greatest integer $k$ such that $G$ is $k$-connected.
+
+Note that we can use the same argument for the upper bound of $\kappa(G)$ being $\delta(G)$, since we can just select a vertex with the minimal degree, and its neighbors will be a vertex cut, excluding loops to not remove the selected vertex. The only difference is in complete graphs, where from the definition the connectivity of $K_n$ is $n-1$, since no set of vertices represents a vertex cut, however $\delta(K_n)=n-1$, thus this also holds. In comparison with edge-connectivity, in nontrivial graphs for each such graph $G$ it holds that $\kappa(G)\leq \lambda(G) \leq \delta(G)$.
+
+\section{Cyclic Edge Connectivity}\label{sec:cyclic-edge-connectivity}
+
+The fact that  can be a huge limitation, since for example when trying to explore cubic graphs, the upper bound of the edge connectivity is three. Because of this, a new metrics regarding edge cuts were introduced, requiring both of the components resulting after severing edges from an edge cut to contain cycles. The notation is similar as before, just with a keyword \textit{cyclic} before it. To maintain a reasonable level of formalism, we shall define these properties more precise.
+
+An edge cut $E(V_1,V_2)$ in a graph $G$ is called \textit{cycle separating}, if both induced subgraphs $G[V_1]$ and $G[V_2]$ contain a cycle. In contrast to edge cuts, there are non-trivial graphs which do not contain a cycle separating edge cut \cite{atoms-of-cyclic, Lou2008, lovasz1965graphs}, for example trees. In cubic graphs however, there are only three of such graphs: $K_{3,3}, K_4, \Theta_2$ \cite{atoms-of-cyclic} visible in \cref{fig:graphs-k33-k4-theta2}.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[c]{0.3\textwidth}
+		\centering
+		\begin{tikzpicture}[baseline]
+			% Define nodes for the left side (A)
+			\foreach \x in {1,2,3}
+			\node (A\x) at (\x,0) {};
+			
+			% Define nodes for the right side (B)
+			\foreach \y in {1,2,3}
+			\node (B\y) at (\y,-2) {};
+			
+			% Draw edges between the nodes
+			\foreach \x in {1,2,3}
+			\foreach \y in {1,2,3}
+			\draw (A\x) -- (B\y);
+		\end{tikzpicture}
+	\end{subfigure}%
+	\begin{subfigure}[c]{0.3\textwidth}
+		\centering
+		\begin{tikzpicture}[baseline]
+			% Define vertices
+			\node (A) at (0,2) {};
+			\node (B) at (2,2) {};
+			\node (C) at (2,0) {};
+			\node (D) at (0,0) {};
+			
+			% Draw edges
+			\draw (A) -- (B);
+			\draw (A) -- (C);
+			\draw (A) -- (D);
+			\draw (B) -- (C);
+			\draw (B) -- (D);
+			\draw (C) -- (D);
+		\end{tikzpicture}
+	\end{subfigure}%
+	\begin{subfigure}[c]{0.3\textwidth}
+		\centering
+		\begin{tikzpicture}[baseline]
+			\node (A) at (0,0) {};
+			\node (B) at (2,0) {};
+			
+			% Three parallel edges with different curvatures
+			\draw (A) to[bend left=30] (B);
+			\draw (A) -- (B);
+			\draw (A) to[bend right=30] (B);
+		\end{tikzpicture}
+	\end{subfigure}
+	\caption{Graphs $K_{3,3},K_4$ and $\Theta_2$}
+	\label{fig:graphs-k33-k4-theta2}
+\end{figure}
+
+Similarly to edge connectivity, we say that graph $G$ is \textit{cyclically k-edge-connected}, if there is no cycle separating edge cut with less than $k$ edges.
+
+Let $\beta(G)=|E|-|V|+1$ be the cycle rank of $G$. Deleting any set of $k\geq \beta(G)$ yields either a disconnected graph or a graph without cycles, thus if $G$ contains a cycle separating edge cut, it must contain one with no more than $\beta(G)-1$ edges \cite{atoms-of-cyclic}.
+
+\begin{definition}[\cite{atoms-of-cyclic}]
+	Let $G$ be a graph. The \textit{cyclic edge conectivity} of $G$, denoted by $\zeta(G)$ is the largest integer $k \leq \beta(G)$ such that $G$ is cyclically $k$-edge-connected.
+\end{definition}
+
+This means, that if a graph $G$ does not contain a cycle separating edge cut, its cyclic edge connectivity is equal to $\beta(G)$. Note that for acyclic graphs this number is 0, for the three mentioned cubic graphs the values are $\zeta(K_{3,3})=4, \zeta(K_4)=3, \zeta(\Theta_2)=2$.
+
+More properties of cyclic edge connectivity are regarded in \cref{ch:cyclic-edge-connectivity}.
 
 \section{Transitive graphs}\label{sec:transitive-graphs}
 
-A graph $G$ is called vertex-transitive if for any two vertices $x,y\in V(G)$ there is an automorphism of $G$ mapping $x$ to $y$. Similarly, it is called edge-transitive if for any two edges \todo{dokonči korektne}
+In proving the results of our work, we have used so-called \textit{Cayley graphs}, for which there are some proved theorems and can be helpful with their properties for our results. To properly define them, we need to dive a bit into an algebraic graph theory, and prove what it means for a graph to be transitive. All of these definitions were taken from a book by Godsil and Royle \cite{algebraic-graph-theory}.
 
-A vertex-transitive connected graph $G$ is called Cayley if it has a group $\Gamma$ of automorphisms such that for all $u, v \in V(G)$ there exists exactly one automorphism $\phi\in\Gamma$ such that $\phi(u)=v$. In other words, $\Gamma$ acts regularly on $V(G)$. The fact that there is a family of vertex-transitive graphs is very helpful for proving subsequent theorems, since cyclic-edge connectivity is interesting to explore on vertex-transitive graphs. For now we shall mention the following theorem about the existence of vertex-transitive graph with arbitrary girth and valence, which we will use to construct cubic vertex-transitive graphs.
+An automorphism on a graph $G$ is an isomorphism from $G$ to itself, in other words a permutation of the vertices of $G$ that maps edges to edges and nonedges to nonedges. Trivial case of an automorphism is an identity permutation. It holds that the set of all automorphisms of $G$ forms a group.
 
-\begin{theorem}[\cite{small-vertex-transitive}]\label{th:cayley-girth-valence}
-	For every pair of parameters $k \geq 2, g \geq 3$, there exists a finite Cayley graph $C(\Gamma, X)$ of valence $k$ and girth $g$.
+A graph $G$ is called vertex-transitive if for any two vertices $x,y\in V(G)$ there is an automorphism of $G$ mapping $x$ to $y$. Similarly, it is called edge-transitive if for any two edges $e,f$ there is an automorphism of $G$ that maps $e$ to $f$. It must be noted that these properties are not equivalent. If a graph is edge-transitive, it does not have to be vertex-transitive. Take for example complete bipartite graph $K_{m,n}$ where $m\neq n$. They are edge transitive, however they can not be vertex transitive, since no automorphism can map a vertex of degree $m$ to a vertex of degree $n$ where $m\neq n$.
+
+A vertex-transitive connected graph $G$ is called Cayley if it has a group $\Gamma$ of automorphisms such that for all $u, v \in V(G)$ there exists exactly one automorphism $\phi\in\Gamma$ such that $\phi(u)=v$. In other words, $\Gamma$ acts regularly on $V(G)$. The fact that there is a family of vertex-transitive graphs is very helpful for proving subsequent theorems, since cyclic-edge connectivity is interesting to explore on vertex-transitive graphs. For now we shall mention the following theorem about the existence of $k$-regular vertex-transitive graph with arbitrary girth and $k$, which we will use to construct cubic vertex-transitive graphs.
+
+\begin{theorem}[\cite{small-vertex-transitive}]\label{th:cayley-girth-regular}
+	For every pair of parameters $k \geq 2, g \geq 3$, there exists a finite $k$-regular Cayley graph $C(\Gamma, X)$ of girth $g$.
 \end{theorem}
 
 Thus there is a cubic vertex-transitive graph of arbitrary girth.
 
-\section{Cyclic Edge Connectivity}\label{sec:cyclic-edge-connectivity}
-
-The latter can be a huge limitation, since for example when trying to explore cubic graphs, there is already an upper bound on the edge connectivity. Because of this, a new metrics regarding edge cuts were introduced, requiring both of the components resulting after severing edges from an edge cut to contain cycles. The notation is similar as before, just with a keyword \textit{cyclic} before it. To maintain a reasonable level of formalism, we shall define these properties more precise.
-
-An edge cut $E(V_1,V_2)$ in a graph $G$ is called \textit{cycle separating}, if both induced subgraphs $G[V_1]$ and $G[V_2]$ contain a cycle. In contrast to edge cuts, there are non-trivial graphs which do not contain a cycle separating edge cut \cite{atoms-of-cyclic, Lou2008, lovasz1965graphs}, for example trees. 
-
-Similarly to edge connectivity, we say that graph $G$ is \textit{cyclically k-edge-connected} (for $k\in\mathbb{N}$), if there is no cycle separating edge cut with less than $k$ edges.
-
-\begin{definition}[\cite{atoms-of-cyclic}]
-	Let $G$ be a graph. The \textit{cyclic edge conectivity} of $G$, denoted by $\zeta(G)$ is the greatest $k\in\mathbb{N}$ such that $G$ is cyclically $k$-edge-connected.
-\end{definition}
-
-If there is no cycle separating edge cut in a graph $G$, we say that $\zeta(G)=\infty$ \cite{Lou2008}. \todo{Betti number!}
-
-\todo{Poriadnejšie definovať cyklickú k-časť, nech nie je viazaná na pôvodný graf}
-
-More properties of cyclic edge connectivity are regarded in \cref{ch:cyclic-edge-connectivity}.
-
 \chapter{Cyclic Edge Connectivity}\label{ch:cyclic-edge-connectivity}
 
-As in other areas of graph theory, we may want to look for somewhat equivalent graphs in terms of a specific property, which are more simple (for example contain less vertices), but have the same value of the property as the original graph. When talking about cyclic edge connectivity, those are called \textit{reduced forms} and result from a graph by removing all of its trees, as mentioned in these lemmas. To be formally precise, when removing a vertex we also remove all of its incident edges, unless specified otherwise.
+From this chapter, all of the used graphs and multipoles will be cyclic, if not stated otherwise.
 
-\todo{všetky tieto veci z toho článku dať preč... Nebudeme to používať.}
+\begin{proposition}[{{\cite[Proposition 2]{atoms-of-cyclic}}}]\label{prop:cyclic-con-less-than-girth}
+	For every connected cubic graph $G$ it holds that $\zeta(G)\leq g(G)$.
+\end{proposition}
 
-\begin{lemma}[{{\cite[Lemma 1]{Lou2008}}}]
-	Let $G$ be a graph and let $v$ be a vertex of degree 1 in $G$. Then $\zeta(G-v)=\zeta(G)$.
-\end{lemma}
+\section{Cyclic Vertex Connectivity}
 
-By the repeated application of this lemma we get the following result.
+\todo{} tu definuj najskôr vertex cut, následne čo je cyclic vertex connectivity, potom hentú vetu o ekvivalencii (na ňu sa potom môžeš odvolať) a uzavri to že vlastne je to rovnaké v kubických grafoch tak to je vlastne OK.
 
-\begin{lemma}[{{\cite[Lemma 2]{Lou2008}}}]
-	Let $G$ be a graph with an edge cut of size 1. Let the only edge in this cut be $e=uv\in E(G)$. Let the component of $G-\{e\}$ connecting vertex $v$ be a tree $T$. Then $\zeta(G)=\zeta(G-T)$.
-\end{lemma}
-
-The tree $T$ from the latter lemma is called a \textit{pendant tree}. By the removal of each pendant tree in $G$ we obtain the mentioned reduced form $G'$ and the cyclic edge connectivity stays the same \cite{Lou2008}.
-
-It is also possible to suppress a vertex of degree 2 in specific cases to not change the cyclic edge connectivity.
-
-\begin{lemma}[{{\cite[Lemma 4]{Lou2008}}}]
-	Let $G$ be a graph, let $x$ be a vertex of degree 2 in $G$ and let $xy, xz\in E(G)$. Let $G'$ be the graph obtained from $G$ by suppressing $x$. Then $\zeta(G')=\zeta(G)$ unless $G$ has a triangle $C=xyzx$. \todo{tu si pozri dôkaz poriadne, možno to neni úplne dobre}
-\end{lemma}
-
-
-% !!!! Toto asi nechceme použiť, len Betti number ako upper bound a spomenutie tých kubických grafov ktoré nemajú cycle separating cut !!!!!!
-%
-%\section{Infinite Cyclic Edge Connectivity}
-%
-%Graphs with infinite cyclic edge connectivity, in other words without a cycle separating edge cut, were already widely explored \cite{atoms-of-cyclic, Lou2008, lovasz1965graphs}. For cubic graphs, there are however not that many possibilities. As it comes from the following proposition, the only three possibilities are $K_4$, $K_{3,3}$ and $\Theta_2$, which is a graph consisting of two vertices and three parallel edges between them.
-%
-%\begin{proposition}[{{\cite[Proposition 1]{atoms-of-cyclic}}}]
-%	A connected cubic graph $G$ has no cycle separating edge cut if and only if it is isomorphic to one of $K_4$, $K_{3,3}$, $\Theta_2$. In fact, if $C$ is a shortest cycle in $G$, then $E(C,V(G)-C)$ is a cycle separating edge cut unless $G$ is $K_4$, or $K_{3,3}$, or $\Theta_2$.
-%\end{proposition}
-%
-%We say that two cycles $C_1$ and $C_2$ in a graph $G$ are independent if $V(C_1)\cap V(C_2) = \emptyset$. For arbitrary graphs, a rather obvious observation is that $\zeta(G)\neq\infty$ if and only if $G$ has two independent cycles.
-%
-%For graphs containing vertices of degree 1 and 2 (in other words graphs $G$ with $\delta(G)\leq 2$) we have already shown that it is possible to remove or suppress them and get a reduced form of $G$, which has the same cyclic edge connectivity as the original. For graphs with $\delta(G)\geq 3$ it is possible to describe when they have infinite cyclic edge connectivity.
-%
-%\begin{theorem}[{{\cite[Theorem 7]{Lou2008}}}]
-%	Let $G$ be a connected graph with $\delta(G)\geq 3$ and $g(G)\geq 5$. Then $\zeta(G)\neq \infty$ if and only if $v(G)\geq 2g(G)$.
-%\end{theorem}
-%
-%\todo{TU tie veci od Loua su celkom ze ocividne. Zaujimave je potom az tvrdenie Theorem 7}
+\begin{theorem}[{{\cite{atoms-of-cyclic,mccuaig-edge-reductions}}}]
+	Let $G$ be a connected cubic graph not isomorphic to $K_{3,3},K_4$ or $\Theta_2$. Then the following conditions are equivalent:
+	\begin{enumerate}
+		\item $G$ is cyclically $k$-edge-connected,
+		\item $G$ is cyclically $k$-vertex-connected,
+		\item Each independent edge cut has at least $k$ edges.
+	\end{enumerate}
+\end{theorem}
 
 \section{Cyclic parts}\label{sec:cyclic-parts}
 
-\begin{proposition}[{{\cite[Proposition 2]{atoms-of-cyclic}}}]\label{prop:cyclic-con-less-than-girth}
-	For every connected cubic graph $G$ it holds that $\zeta(G)\leq g(g)$.
-\end{proposition}
+\begin{definition}
+	Let $G$ be a graph and let $X$ be a minimum cycle separating edge cut in $G$. Then the components which arise after cutting $X$ in $G$ are called \textit{cyclic parts} of $G$. More specifically, if $|B|=k$, then we can refer to them as cyclic $k$-parts.
+\end{definition}
+
+By this definition, if there is a problem of deciding if a multipole $M$ is a cyclic part, it is a problem if there exists a graph $G$ with a minimum cycle separating cut $X$ such that one of the components of $G-X$ is isomorphic to $M$. These cyclic parts can be used as potential building blocks of building graphs with desired cyclic connectivity, as proved in the following theorem.
+
+\begin{theorem}[{{\cite[Theorem 5.2]{Rajnik_phd}}}]
+	Let $M_1$ and $M_2$ be cyclic $k$-parts such that both $M_1$ and $M_2$ are diﬀerent from the cycle of length $k$ or $k\leq 5$. Let $G$ be a junction of $M_1$ and $M_2$. Then $G$ is cyclically $k$-connected unless the girth of $G$ is smaller than $k$.
+\end{theorem}
 
 \begin{lemma}[{{\cite[Lemma 5.1]{Rajnik_phd}}}]\label{lem:rajnik5.1}
 	Let $M$ be an $s$-pole with girth at least $k$ different from a $k$-cycle for some $s\leq k$. Then $|M| \geq 2k - 4$.
 \end{lemma}
 
+A cyclic part which is a single cycle $C_k$ is called \textit{trivial}, otherwise it is nontrivial. A cyclic part minimal under inclusion is called an \textit{atom}. Two atoms of a single graph may differ in in the number of vertices \cite{atoms-of-cyclic}, those with the minimum number of vertices are called \textit{proper} atoms.
+
+\begin{proposition}[{{\cite[Proposition 5]{atoms-of-cyclic}}}]
+	Let $G$ be a connected graph of girth $g$. Then $\zeta(G)<g$ if and only if it has a nontrivial proper atom.
+\end{proposition}
+
 \begin{theorem}[{{\cite[Theorem 17]{atoms-of-cyclic}}}]\label{th:cyclic-connectivity-of-transitive}
-	Let $G$ be a cubic vertex-transitive or edge-transitive graph of girth $g$. Then $G$ has no non-trivial proper atom. In particular, $\zeta(G) = g$.
+	Let $G$ be a cubic vertex-transitive or edge-transitive graph of girth $g$. Then $G$ has no nontrivial proper atom. In particular, $\zeta(G) = g$.
+\end{theorem}
+
+\todo{Theorem 7 - lower bound on size of cyclic parts and atoms}
+
+\section{Adjuncts}
+
+\todo{}
+
+\section{Inflations}
+
+Let $G$ be a graph and $V$ a subset of its vertices. By \textit{contracting} $V$ in $G$ we obtain a new graph $G'$, such that:
+\begin{itemize}
+	\item For the vertices of $G'$ it holds that $V(G') = (V(G)-V)\cup \{v\}$ where $v$ is a new vertex.
+	\item Let $E$ be a set containing such edges from $G$, which are incident with one vertex in $V$ and one in $V(G)-V$. Formally, ${E=\{xy~|~xy\in E(G), x\in V, y\notin V\}}$. Let $E'$ be a set of edges, which are incident with two vertices from $V$, formally ${E'=\{xy ~|~ xy\in E(G), x\in V, y\in V\}}$. Finally let $E''$ be a set of new edges, such that $E''=\{vy~|~ xy\in E, x\in V\}$.
+	
+	For the edges of $G'$ it holds that ${E(G')=(E(G)-E')\cup E''}$.
+\end{itemize}
+
+\begin{definition}[{{\cite[Definition 10]{HISTs}}}]
+	Let $G$ be a graph and let $H$ be a cubic graph. Then $H$ is called an inflation of $G$ if $H$ contains a 2-factor $F$ consisting of chordless cycles such that the graph obtained from $H$ by contracting each cycle of $F$ to a vertex is isomorphic to $G$. By $I(G)$ we denote the set of all inflations of $G$.
+\end{definition}
+
+Informally speaking, one can obtain an inflation of $G$ by expanding each of its vertices to a cycle with the length same as the degree of the respective vertex in $G$.
+
+\begin{theorem}[{{\cite[Theorem 11]{HISTs}}}]\label{th:inflations-cyclic-connectivity}
+	Let $k \geq 3$ and let $G$ be a $k$-connected graph with girth at least $k$. Then every $H \in I(G)$ is cyclically $k$-edge-connected.
 \end{theorem}
 
 \section{Algorithms}\label{sec:algorithms}
 
-In this chapter we provide known algorithms to determine cyclic edge connectivity of graphs. It is a long standing problem, whether to determine cyclic edge connectivity of an arbitrary graph is in $P$ \todo{zdroj?}. However, there are several polynomial algorithms for determining the cyclic edge connectivity of graphs with some specific attributes.
+In this chapter we provide known algorithms to determine cyclic edge connectivity of graphs.
 
 \chapter{Formulation of our problems}\label{ch:problem-formulation}
 
 In this chapter we introduce the problems investigated in this thesis, along with a motivation and goals we want to fulfill. In the end we provide the main results from given problem.
-
-\section{Cyclic Edge Connectivity of junctions of cubic cyclic $k$-parts}
-
-\section{Cyclic edge connectivity of cubic graph decompositions}
-
 
 \chapter{Results}\label{ch:results}
 
@@ -325,7 +409,7 @@ We denote the $k$-pole, which is the $k$-cycle where each vertex is incident wit
 \end{lemma}
 
 \begin{proof}
-	For given $k$ we can construct a cubic Cayley graph with girth $k$ according to \cref{th:cayley-girth-valence}. Let us denote this graph as $G_k$. Then $\zeta(G_k)=k$ by utilizing \cref{th:cyclic-connectivity-of-transitive}. Since the girth of $G_k$ is $k$, it contains a cycle of length $k$ and thus $G_k=C_k*P$ for some other $k$-pole $P$. It is evident that if $P$ contains a cycle, the edge cut $E(V(C_k), V(P))$ in $G_k$ is cycle-separating and since $|E(V(C_k), V(P))|=k$ (both are $k$-poles) $C_k$ is a cyclic $k$-part.
+	For given $k$ we can construct a cubic Cayley graph with girth $k$ according to \cref{th:cayley-girth-regular}. Let us denote this graph as $G_k$. Then $\zeta(G_k)=k$ by utilizing \cref{th:cyclic-connectivity-of-transitive}. Since the girth of $G_k$ is $k$, it contains a cycle of length $k$ and thus $G_k=C_k*P$ for some other $k$-pole $P$. It is evident that if $P$ contains a cycle, the edge cut $E(V(C_k), V(P))$ in $G_k$ is cycle-separating and since $|E(V(C_k), V(P))|=k$ (both are $k$-poles) $C_k$ is a cyclic $k$-part.
 	
 	We prove that the $\delta(P)=2$, this leads to proving $P$ contains a cycle. Suppose $\delta(P)<2$, this would mean that there is a vertex in $P$ incident with more than one dangling edge. Say these two dangling edges are $e',f'$. Then in $G_k$ these are junctioned with some dangling edges in $C_k$, let $X$ be the shortest path between these dangling edges in $C_k$. We see that $|X|<\frac{k}{2}$ since $C_k$ is a cycle. Let $e,f$ be the links in $G_k$ resulting from the junction of $C_k$ and $P$ such that $e$ resulted from a junction of two dangling edges containing $e'$ and $f$ from a junction containing $f'$. Then there is a cycle $eXf$ in $G_k$ of length smaller than $\frac{k}{2}+2$. The girth of $G_k$ is $k$ thus $k<\frac{k}{2}+2$, leading to the fact that $k<4$. This leads to a contradiction for $k\geq 4$, however we need to prove that $C_1,C_2$ and $C_3$ are in fact cyclic $k$-parts.
 	
@@ -382,55 +466,20 @@ We denote the $k$-pole, which is the $k$-cycle where each vertex is incident wit
 	As seen in \cref{fig:C1C2C3_junctions} by performing an arbitrary junction $C_i*C_i$ we obtain a graph with $\zeta(C_i*C_i)=i$ for each $i\in \{1,2,3\}$. This proves that for each $k\geq 1$ the $k$-pole $C_k$ is a cyclic $k$-part.
 \end{proof}
 
-\todo{vymeniť submultipole za contains}
+\todo{najprv vyriešiť 1,2,3, potom pre k aspoň 4.}
 
-\begin{lemma}\label{lem:cyclic-part-no-small-submultipole}
-	Let $P$ be a cyclic $k$-part. Then for each $l<k$ it holds that $P$ does not contain a cyclic $l$-pole as a submultipole.
+\begin{lemma}\label{lem:cyclic-part-no-small-cyclic-l-pole}
+	Let $P$ be a cyclic $k$-part. Then for each $l<k$ it holds that $P$ does not contain a cyclic $l$-pole.
 \end{lemma}
 
 \begin{proof}
-	Suppose by contradiction that $P$ contains a cyclic $l$-pole $Q$ as a submultipole, where $l<k$. Let $R$ be the other multipole for which $P=Q*_fR$ for some injection $f:S(Q)\rightarrow S(R)$. Since $P$ is a cyclic $k$-part, there is a graph $G$ with $\zeta(G)=k$ which is a junction of $P$ and some other cyclic $k$-part $P'$, thus $G=P*_gP'$ for some injection $g:S(P)\rightarrow S(P')$. Let $E$ be the set of links of $G$, which result from the partial junctions $*_f$ and $*_g$ and one of the junctioned semiedges is from $S(Q)$. We see that $E$ is an edge cut separating $G$ into $Q$ and $R*_gP'$, let us denote the second multipole as $T$. Since $Q$ is cyclic and $P'$ as well, implying $T$ is also cyclic, $E$ is cycle separating. From the definition of $E$ we see that $|E|=|S(Q)|$ and since $|S(Q)|=l$, we have found a cycle separating edge cut with less than $k$ edges in $G$, leading to a contradiction.
+	Suppose by contradiction that $P$ contains a cyclic $l$-pole $Q$, where $l<k$. Let $R$ be the other multipole for which $P=Q*_fR$ for some injection $f:S(Q)\rightarrow S(R)$. Since $P$ is a cyclic $k$-part, there is a graph $G$ with $\zeta(G)=k$ which is a junction of $P$ and some other cyclic $k$-part $P'$, thus $G=P*_gP'$ for some injection $g:S(P)\rightarrow S(P')$. Let $E$ be the set of links of $G$, which result from the partial junctions $*_f$ and $*_g$ and one of the junctioned semiedges is from $S(Q)$. We see that $E$ is an edge cut separating $G$ into $Q$ and $R*_gP'$, let us denote the second multipole as $T$. Since $Q$ is cyclic and $P'$ as well, implying $T$ is also cyclic, $E$ is cycle separating. From the definition of $E$ we see that $|E|=|S(Q)|$ and since $|S(Q)|=l$, we have found a cycle separating edge cut with less than $k$ edges in $G$, leading to a contradiction.
 \end{proof}
 
-From this we can construct one corollary, which will be useful in proving subsequent theorems.
-
-\begin{corollary}
-	Let $M$ be a cyclic $k$-part. Then there is no edge cut $S$ of size $l$ separating $M$ into two multipoles $M_1$ and $M_2$ such that $M_1$ contains a cycle and $k_1$ semiedges from the former $k$-pole $M$, for which $l+k_1 < k$.
-\end{corollary}
-
-\begin{proof}
-	Let $G$ be a cubic graph with $\zeta(G)=k$ such that $G=M*N$ for some cyclic $k$-part $N$. We know that at least one of these graphs exists, since $M$ is a cyclic $k$-part. Suppose that there would be such edge cut $S$ of size $l$ in $M$ separating it into two multipoles $M_1$ and $M_2$ such that $M_1$ contains a cycle and $k_1$ semiedges from $M$ and $l+k_1 < k$. This would however mean that $M$ contains a cyclic $(l+k_1)$-pole $M_1$, contradicting \cref{lem:cyclic-part-no-small-submultipole}.
-\end{proof}
-
-% Toto je podľa mňa príliš zložito spísaný dôkaz toho pred tým, asi to nepotrebujeme, len potom to treba správne použiť v dôkaze kde sa to používalo.
-%
-%\begin{lemma}
-%	\label{lem:cyclic-part-no-short-cut}
-%	Let $P$ be a cyclic $k$-part. Let $S$ be an edge cut separating $P$ into two components $P_1$ and $P_2$ such that $P_1$ contains a cycle. Then it holds that ${|S| \geq |S(P)\cap S(P_2)|}$.
-%\end{lemma}
-%
-%\begin{proof}
-%	Note that $S(P)\cap S(P_i)$ contains all of the semiedges from $P$, which are in $P_i$ after cutting the edges, for both $i\in\{1,2\}$.
-%	
-%	Let $G$ be a cubic graph with cyclic edge-connectivity $k$ and let $S_G$ be a cycle-separating $k$-edge-cut such that one of the cyclic $k$-parts of $G-S_G$ is $P$. Let us denote the other cyclic $k$-part by $Q$. Suppose that there is such edge cut $S$, for which it holds that $|S| < |S(P)\cap S(P_2)|$. 
-%	
-%	When severing an edge $e$, let the new created semiedges be denoted as $e_1$ and $e_2$. For $i\in\{1,2\}$ denote by $E_i$ the set of edges such that $$E_i=\{e ~|~ e\in S_G, \exists i \in \{1,2\}: e_i\in S(P_i)\}$$
-%	
-%	so edges from $S_G$, for which after their severing, one of the new created semiedges is in $P_i$. We prove that $S_G=E_1\cup E_2$. Since $E_i\subseteq S_G$ for both $i\in\{1,2\}$, it is evident that $E_1\cup E_2\subseteq S_G$. For each edge in $S_G$, one of the resulting semiedges is in $P$ and the other in $Q$. Suppose otherwise, so there is an edge $e$, for which both resulting semiedges are in one of $P$ or $Q$. Without loss of generality, let both be in $P$. Then $S_G-\{e\}$ is a cycle-separating edge-cut in G with $k-1$ edges, contradicting the fact that $G$ is cyclically $k$-edge-connected. Since from each edge $f\in S_G$ one of the resulting semiedges is in $P$, say $f_1$, it must be in $P_1$ or $P_2$, thus $S_G\subseteq E_1\cup E_2$.
-%	
-%	Note that $S\cup E_1$ is an edge-cut in $G$, separating it into components $P_1$ and a partial junction of $P_2$ and $Q$. By assumption $P_1$ contains a cycle and $Q$ is a cyclic part, thus also contains a cycle, which means that $S\cup E_1$ is cycle-separating.
-%	
-%	We prove that $|S(P)\cap S(P_2)|=E_2$. Since $E_2$ contains all edges from $S_G$, which create a semiedge in $S(P)\cap S(P_2)$, it holds that $|E_2|\leq |S(P)\cap S(P_2)|$. For the other inequality, we see that all semiedges in $S(P)\cap S(P_2)$ were created by the cut $S_G$, specifically by its subset $E_2$. Each edge from $E_2$ creates only one such semiedge. Suppose the contrary, so there would be some edge $e\in E_2$, for which both semiedges $e_1$ and $e_2$ would be in $P_2$. It is evident that $S_G-\{e\}$ is a cycle-separating edge-cut in $G$ with $k-1$ edges, contradicting the fact that $G$ is cyclically $k$-edge-connected. Because of this $|S(P)\cap S(P_2)|\leq |E_2|$. 
-%	
-%	Note, that $|S| < |E_2|$, since $|S| < |S(P)\cap S(P_2)|$ and $|S(P)\cap S(P_2)|=|E_2|$. It holds that $S\cap E_1=\emptyset$, since $S$ is an edge cut in $P$ and there are no edges left in $P$ from $E_1$, as each of them was severed when creating $P$. Also $E_1\cap E_2=\emptyset$. Suppose the contrary, so there would be some edge $e$ which is in $E_1$ and $E_2$. This would mean that both of its incident vertices would be in $P$, which contradicts the assumption that $G$ is cyclically $k$-edge-connected, as we have proved above. However, this would mean that $|S\cup E_1|< |E_1\cup E_2| = |S_G|=k$, thus $S\cup E_1$ is a cycle-separating cut with at most $k-1$ edges, contradicting the assumption that $G$ is cyclically $k$-edge-connected.
-%	
-%	\todo{uviesť ilustrácie}
-%\end{proof}
-
-\todo{Túto vetu treba nejak modifikovať. Lebo ak ju chceme použiť aj na tie potenciálne cyklicky k-súvislé, tak nemôžeme predpokladať že počet polhrán je práve k, treba to nejak modifikovať}.
+\todo{Túto vetu treba nejak modifikovať. Lebo ak ju chceme použiť aj na tie potenciálne cyklicky k-súvislé, tak nemôžeme predpokladať že počet polhrán je práve k, treba to nejak modifikovať. Alebo vytvoriť novú pre potenciálne cyklicky k-súvislé aj s použitím prípadu kde výsledok je graf teda $|S(M)|=0$}.
 
 \begin{theorem}\label{th:junction-of-kpoles-cyclic-edge-connectivity}
-	Let $M_1$ and $M_2$ be cyclic cubic $k$-poles such that neither contains a cyclic $l$-pole as a submultipole for $l<k$. Let both $M_1$ and $M_2$ be different from the cycle of length $k$ or $k\leq 5$. Let $G$ be the junction of $M_1$ and $M_2$. Then $\zeta(G)=k$ unless the girth of $G$ is smaller than $k$.
+	Let $M_1$ and $M_2$ be cyclic cubic $k$-poles such that neither contains a cyclic $l$-pole for $l<k$. Let both $M_1$ and $M_2$ be different from the cycle of length $k$ or $k\leq 5$. Let $G$ be the junction of $M_1$ and $M_2$. Then $\zeta(G)=k$ unless the girth of $G$ is smaller than $k$.
 \end{theorem}
 
 \begin{proof}
@@ -477,8 +526,6 @@ A corollary of this theorem is that in this case the cyclic $k$-poles $M_1$ and 
 
 If we would be able to construct a cyclic $k$-pole for each $k$, such that it contains a cycle, has girth at least $k$ and does not create short cycles when connected to another cyclic $k$-pole, we could make it easier to decide if given cyclic $k$-pole is a cyclic $k$-part. If it does not contain a cyclic $l$-pole such that $l<k$, the \cref{th:junction-of-kpoles-cyclic-edge-connectivity} can be applied and thus it would be a cyclic $k$-part. However we first need to find such cyclic $k$-poles for each $k$. \todo{spomeň asi nejak adjuncts}
 
-\todo{výraz submultipole nechceme používať, skôr že čo znamená keď graf obsahuje (contains) nejaký multipól}
-
 \begin{lemma}\label{lem:cyclic-k-pole-no-short-cycles-exists}
 	For each $k\geq 1$, there exists a cyclic $k$-pole with the following properties:
 	\begin{enumerate}
@@ -489,7 +536,7 @@ If we would be able to construct a cyclic $k$-pole for each $k$, such that it co
 \end{lemma}
 
 \begin{proof}
-	For $k$ equal to 1 and 2 we see that $C_k$ fulfills the requirements, we shall only explore $k\geq 3$. For given $k$ we construct a cubic Cayley graph with girth $2k$ according to \cref{th:cayley-girth-valence}. Let us denote this graph as $G$. Then $\zeta(G)=2k$ by utilizing \cref{th:cyclic-connectivity-of-transitive}. Next let $P$ be a path of length $k-2$ in $G$. Since $k\geq 3$ and $|V(G)|$ is evidently at least $2k$, there will always be such path. Remove all of the vertices on this path and denote the result as $G'$. Since by removing some vertices and edges from a graph it is not possible to lower a girth, or introduce a new smaller cyclic $l$-pole, we must prove only the third condition about the distance between the semiedges. To be precise, we need to prove that
+	For $k$ equal to 1 and 2 we see that $C_k$ fulfills the requirements, we shall only explore $k\geq 3$. For given $k$ we construct a cubic Cayley graph with girth $2k$ according to \cref{th:cayley-girth-regular}. Let us denote this graph as $G$. Then $\zeta(G)=2k$ by utilizing \cref{th:cyclic-connectivity-of-transitive}. Next let $P$ be a path of length $k-2$ in $G$. Since $k\geq 3$ and $|V(G)|$ is evidently at least $2k$, there will always be such path. Remove all of the vertices on this path and denote the result as $G'$. Since by removing some vertices and edges from a graph it is not possible to lower a girth, or introduce a new smaller cyclic $l$-pole, we must prove only the third condition about the distance between the semiedges. To be precise, we need to prove that
 	\begin{enumerate}
 		\item $G'$ is a cyclic $k$-pole,
 		\item the distance between any pair of semiedges in $G'$ is at least $k-2$.
@@ -630,42 +677,26 @@ Veta s trocha menej predpokladmi, ale s obmedzením na počet výsledných polhr
 
 \section{Cyclic part inflations}\label{sec:cyclic-part-inflations}
 
-\begin{definition}[{{\cite[Definition 10]{HISTs}}}]
-	Let $G$ be a graph and let $H$ be a cubic graph. Then $H$ is called an inflation of $G$ if $H$ contains a 2-factor $F$ consisting of chordless cycles such that the graph obtained from $H$ by contracting each cycle of $F$ to a vertex is isomorphic to $G$. By $I(G)$ we denote the set of all inflations of $G$.
-\end{definition}
-
-Informally speaking, one can obtain an inflation of $G$ by expanding each of its vertices to a cycle with the length same as the degree of the respective vertex in $G$. We can extend this definition, by allowing expanding each vertex of the original graph into a cyclic $k$-part, where $k$ is the degree of the respective vertex.
+We can extend the definition of inflations, by allowing expanding each vertex of the original graph into a cyclic $k$-part, where $k$ is the degree of the respective vertex.
 
 \todo{Definovať kedy vrcholy korešpondujú cyklickej časti v grafe, teda keď pospájam cyklické časti $P_1,\cdots, P_n$ do výsledku $G$, tak kedy nejaká množina vrcholov $V$ korešponduje v $G$ s $P_i$. Resp. treba to definovať?}
-
-Let $G$ be a graph and $V$ a subset of its vertices. By \textit{contracting} $V$ in $G$ we obtain a new graph $G'$, such that:
-\begin{itemize}
-	\item For the vertices of $G'$ it holds that $V(G') = (V(G)-V)\cup \{v\}$ where $v$ is a new vertex.
-	\item Let $E$ be a set containing such edges from $G$, which are incident with one vertex in $V$ and one in $V(G)-V$. Formally, ${E=\{xy~|~xy\in E(G), x\in V, y\notin V\}}$. Let $E'$ be a set of edges, which are incident with two vertices from $V$, formally ${E'=\{xy ~|~ xy\in E(G), x\in V, y\in V\}}$. Finally let $E''$ be a set of new edges, such that $E''=\{vy~|~ xy\in E, x\in V\}$.
-	
-	For the edges of $G'$ it holds that ${E(G')=(E(G)-E')\cup E''}$.
-\end{itemize}
 
 \begin{definition}
 	\label{def:cyclic-part-inflation}
 	Let $G$ be a graph and let $H$ be a cubic graph resulting from performing partial junctions on cyclic parts $P=\{P_1,\cdots,P_n\}$. Let $V=\{V_1,\cdots, V_n\}$ be a partition of $V(H)$ such that for each $i$ from 1 to $n$ the set $V_i$ corresponds to the cyclic part $P_i$. Then $H$ is called a \textit{cyclic part inflation} of $G$ if the graph obtained from $H$ by contracting each set $V_i\in V$ into a single vertex is isomorphic to $G$. The set of all cyclic part inflations of $G$ is denoted by $I_P(G)$.
 \end{definition}
 
-For inflations it has been proved, that in specific cases if the original graph is $k$-connected, then each of its inflations is cyclically $k$-connected. First observation about these cyclic part inflations is in the form of a lemma, and is basically saying, that cyclic edge-connectivity of the inflation is bounded from above by the normal edge-connectivity of the former graph.
+For inflations it has been proved, that in specific cases if the original graph is $k$-connected, then each of its inflations is cyclically $k$-connected. First observation about these cyclic part inflations is in the form of a lemma, and is basically saying, that cyclic edge-connectivity of the inflation is bounded from above by the edge-connectivity of the former graph.
 
 \begin{lemma}
-	Let $G$ be a graph with $\lambda(G)=k$. Then for each $H\in I_P(G)$ it holds that $\zeta(H)\leq k$.
+	Let $G$ be a nontrivial graph with $\lambda(G)=k$. Then for each $H\in I_P(G)$ it holds that $\zeta(H)\leq k$.
 \end{lemma}
 
 \begin{proof}
-	Let $S$ be the smallest edge-cut in $G$. \todo{dokonci, je to easy, len ukaz ze oddeluje 2 vrcholy ktore v tych inflaciach obsauju cykly}
+	Let $S$ be the smallest edge-cut in $G$ separating it into components $M_1$ and $M_2$, and $G'$ be a cyclic part inflation from $I_P(G)$. In $G'$ this edge cut is cycle separating, since there is at least one cycle in each component which arose after the cyclic part inflation, and is of size $k$, thus the smallest cycle separating cut in $G'$ must be of size at most $k$.
 \end{proof}
 
-\begin{theorem}[{{\cite[Theorem 11]{HISTs}}}]
-	Let $k \geq 3$ and let $G$ be a $k$-connected graph with girth at least $k$. Then every $H \in I(G)$ is cyclically $k$-edge-connected.
-\end{theorem}
-
-We can prove a similar theorem for cyclic part inflations. The proof is similar to the one used to prove the mentioned theorem for inflations, however it is needed to tackle some more edge-cases.
+Similar to \cref{th:inflations-cyclic-connectivity}.
 
 \begin{theorem}
 	Let $k\geq 3$ and let $G$ be a $k$-connected graph with girth at least $k$. Then every  $H\in I_P(G)$ is cyclically $k$-edge-connected.
@@ -766,6 +797,14 @@ We say that we need at least one with minimal potentially cycle separating cut 3
 \section{Decompositions}
 
 \todo{}
+
+\section{Problems for further research}
+
+\todo{}
+
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+\markboth{Conclusion}{Conclusion}
 
 % BIBLIOGRAPHY
 \newpage
