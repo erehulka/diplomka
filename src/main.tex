@@ -185,7 +185,7 @@ Now, let $e$ and $f$ be edges (not necessarily distinct) and $e',~f'$ two of the
 
 The junction of two $k$-poles $M(a_1,\dots,a_k)$ and $N(b_1,\dots,b_k)$ consists of $k$ individual junctions of semiedges $a_i$ and $b_{f(i)}$, for $i$ from $1$ to $k$ and a bijection $f:\{1,\dots,k\}\rightarrow\{1,\dots,k\}$. We denote the junction as $M*_fN$, if we use an arbitrary bijection we simply denote it as $M*N$.
 
-Consider two multipoles $M(a_1,\cdots,a_n)$ and $N(b_1,\cdots,b_m)$. Their \textit{partial junction of size $k$} is a junction of some semiedges $(a_{i_1},\cdots, a_{i_k})$ and $(b_{j_1},\cdots, b_{j_k})$, where $k\leq n$ and $k\leq m$. In contrast to a normal junction, which results in a graph, the partial junction can still result in a multipole.
+Consider two multipoles $M(a_1,\cdots,a_n)$ and $N(b_1,\cdots,b_m)$. Their \textit{partial junction of size $k$} is a junction of some semiedges $(a_{i_1},\cdots, a_{i_k})$ and $(b_{j_1},\cdots, b_{j_k})$, where $k\leq n$ and $k\leq m$. In contrast to a normal junction, which results in a graph, the partial junction can still result in a multipole. However we allow in partial junction the junction of all semiedges, thus a junction is a special case of partial junction where the result is a graph.
 
 We say that a multipole $M$ contains a multipole $N$, or simply $N$ is in $M$ when there exists a multipole $P$ and a partial junction $*$ such that $N=M*P$
 
@@ -400,6 +400,14 @@ In this chapter we provide known algorithms to determine cyclic edge connectivit
 	Let $M$ be a multipole. We say that $M$ is \textit{potentially cyclically $k$-connected} if for every $l < k$, $M$ does not contain a cyclic $l$-pole.
 \end{definition}
 
+\begin{lemma}\label{lem:graphs-potential-and-normal-cyclic-connected-eq}
+	A cubic graph is cyclically $k$-connected for integer $k$ if and only if it is potentially cyclically $k$-connected.
+\end{lemma}
+
+\begin{proof}
+	\todo{todo}
+\end{proof}
+
 \begin{definition}
 	Let $M$ be a multipole. If $|M|=1$, or $|S(M)|\leq 1$ we say that $M$ is \textit{cyclically trivial}. Otherwise it is cyclically nontrivial. 
 \end{definition}
@@ -481,8 +489,6 @@ We denote the $k$-pole, which is the $k$-cycle where each vertex is incident wit
 \begin{proof}
 	Suppose by contradiction that $P$ contains a cyclic $l$-pole $Q$, where $l<k$. Let $R$ be the other multipole for which $P=Q*_fR$ for some injection $f:S(Q)\rightarrow S(R)$. Since $P$ is a cyclic $k$-part, there is a graph $G$ with $\zeta(G)=k$ which is a junction of $P$ and some other cyclic $k$-part $P'$, thus $G=P*_gP'$ for some injection $g:S(P)\rightarrow S(P')$. Let $E$ be the set of links of $G$, which result from the partial junctions $*_f$ and $*_g$ and one of the junctioned semiedges is from $S(Q)$. We see that $E$ is an edge cut separating $G$ into $Q$ and $R*_gP'$, let us denote the second multipole as $T$. Since $Q$ is cyclic and $P'$ as well, implying $T$ is also cyclic, $E$ is cycle separating. From the definition of $E$ we see that $|E|=|S(Q)|$ and since $|S(Q)|=l$, we have found a cycle separating edge cut with less than $k$ edges in $G$, leading to a contradiction.
 \end{proof}
-
-\todo{Túto vetu treba nejak modifikovať. Lebo ak ju chceme použiť aj na tie potenciálne cyklicky k-súvislé, tak nemôžeme predpokladať že počet polhrán je práve k, treba to nejak modifikovať. Alebo vytvoriť novú pre potenciálne cyklicky k-súvislé aj s použitím prípadu kde výsledok je graf teda $|S(M)|=0$}.
 
 \begin{theorem}\label{th:junction-of-kpoles-cyclic-edge-connectivity}
 	Let $M_1$ and $M_2$ be cyclic potentially cyclically $k$-connected $k$-poles. Let both $M_1$ and $M_2$ be different from the cycle of length $k$ or $k\leq 5$. Let $G$ be the junction of $M_1$ and $M_2$. Then $\zeta(G)=k$ unless the girth of $G$ is smaller than $k$.
@@ -579,8 +585,6 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 
 \section{Junctions of multiple multipoles}
 
-\todo{Toto pod tým treba len pre aspoň 2-póly, resp. ak neobsahuje taký rez daný graf tak túto hodnotu nastavme na $k$ defaultne, lebo nám to nič nepokazí asi}.
-
 \begin{lemma}\label{le:junction-two-no-small-girth}
 	Let $M_1$ and $M_2$ be cyclic, potentially cyclically $k$-connected and cyclically nontrivial $k$-poles. Let $m_i$ be the size of the smallest potentially cycle separating cut in $M_i$. Let $G$ be the junction of $M_1$ and $M_2$. If $m_1+m_2\geq k$ then $g(G)\geq k$. \todo{tie požiadavky znejú hrozne, nejak to modifikovať...}
 \end{lemma}
@@ -591,14 +595,29 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 	\todo{} suppose the girth is smaller than k. If $k=1$, then there is no new cycle after the junction and the girth is okay (contradiction). If $k\geq 2$, then the shortest cycle must go through two of the new edges. Since both multipoles are cyclic, we have to cut this new cycle out from both of them, and thus we need to cut at least $m_1+m_2$ edges leading to a contradiction. \todo{Pozor ale že nemusíme robiť cut, možno to vedia byť hocijaké k-póly, nie len cyklické. Princíp je ten, že ide cez aspoň 2 nové hrany (vie aj viac), ale ak musíme dačo orezať tak to bude aspoň $m_i$, pozor ešte na independent}
 \end{proof}
 
-\todo{Definícia partial junction: NEMUSÍ spojiť všetky polhrany, ale môže (junction teda je prípad partial junction)}
-
 \begin{lemma}\label{lem:cyclic-multipoles-with-girth-and-distance}
 	Let $M_1$ and $M_2$ be multipoles with girth at least $k$. Let $d_i$ be the minimal distance between any pair of semiedges in $M_i$. Let $M$ be a partial junction $M_1*M_2$. If $d_1+d_2\geq k-2$ then $g(M)\geq k$.
 \end{lemma}
 
 \begin{proof}
-	\todo{}Toto by sa dalo spraviť nejak tak, že sporný cyklus prechádza pôvodnými multipólmi, pričom ak do nejakého vojde tak z neho musí vyjsť.
+	Suppose that the girth of $M$ is less than $k$. Since both $M_1$ and $M_2$ have girth at least $k$, any shortest cycle must use edges from both multipoles, necessarily crossing between them at least twice.
+	
+	Let $e_1,\dots,e_j$ denote the edges in $M$ that were created by the partial junction between $M_1$ and $M_2$. Consider a shortest cycle $C$ in $M$. This cycle must:
+	
+	\begin{enumerate}
+		\item Enter $M_1$ through some edge $e_1$ and leave through another edge $e_2$, following a path $P$ in $M_1$,
+		\item After entering $M_2$ through $e_2$, leave through an edge $e_3$ (which may or may not be $e_1$), following a path $Q$ in $M_2$.
+	\end{enumerate}
+
+	Thus, a part of cycle $C$ contains the path $e_1Pe_2Q$. Observe that the path $P$ represents a path between a pair of semiedges in former $M_1$, similarly $Q$ in $M_2$. Thus by definition of $d_1$ and $d_2$:
+	
+	\begin{enumerate}
+		\item Path $P$ has length at least $d_1$,
+		\item Path $Q$ has length at least $d_2$,
+		\item The edges $e_1$ and $e_2$ contribute length 2.
+	\end{enumerate}
+
+	Therefore, the total length of this path is at least $2+d_1+d_2 \geq 2+(k-2) = k$, contradicting our assumption that $M$ contains a cycle shorter than $k$.
 \end{proof}
 
 \begin{lemma}\label{lem:size-of-minimal-potentially-cycle-separating-after-junction}
@@ -616,7 +635,7 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 \end{proof}
 
 \begin{theorem}\label{th:connecting-potencially-k-connected}
-	Let $M_1$ and $M_2$ be connected and potencially cyclically $k$-connected multipoles with the same number of semiedges, which do not contain an independent edge cut of size $a$, such that after the cut there is an acyclic component with $b$ former semiedges (not resulting from the cut) and $b>a$. Let $m_i$ be the size of the smallest independent edge cut in $M_i$ such that one of the components contains at least 2 semiedges from $M_i$. If $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potencially cyclically $k$-connected unless $M$ has less than $k$ semiedges. (Nie je to úplne formálne, to potom prepíšem)
+	Let $M_1$ and $M_2$ be connected and potencially cyclically $k$-connected multipoles with the same number of semiedges, which do not contain an independent edge cut of size $a$, such that after the cut there is an acyclic component with $b$ former semiedges (not resulting from the cut) and $b>a$. Let $m_1$ and $m_2$ be the sizes of minimal potentially cycle separating cuts in $M_1$ and $M_2$ respectively. If $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potencially cyclically $k$-connected unless $M$ has less than $k$ semiedges. (Nie je to úplne formálne, to potom prepíšem)
 \end{theorem}
 
 \begin{proof}
@@ -695,34 +714,54 @@ PROBLEMS:
 
 \subsection{Examples}
 
-Tu chceme využiť tú vetu o spájaní potenciálne cyklicky k-súvislých a ukázať, ako vieme zistiť niečo o špecifických konštrukciach.
-
 First construction is the junction of 3 potencially 5-connected cyclic 5-poles along with one point in the middle.
 
-\begin{enumerate}
-	\item We say that they must fulfill the requirements from \cref{th:connecting-potencially-k-connected}. Also, one of them can have the smallest edge cut ($m_i$) of size 2, other must have size 3.
-	\item We first connect the one with cut of size 2 and one with size 3. By the mentioned theorem the result will be potencially cyclically 5-connected 6-pole.
-	\item We then connect the point. Since the theorem cannot be used here, we must prove that after the connection the result will still be potencially cyclically 5-connected. \todo{prove that it will not contain the problematic cut leaving the acyclic component...}
-	\item $M$ is the result after connecting the point, $M_1,M_2$ are the former...
+\begin{example}
+	Suppose we want to connect three 5-poles, along with one point in the middle, and we want to decide whether the result is cyclically 5-connected. The illustration can be seen in \cref{fig:3-5-poles-connected}. We can put some requirements on the connected 5-poles, and by utilizing proved theorems we can prove that in these cases, the result will in fact be potentially cyclically 5-connected.
+	
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			% Big nodes (triangle vertices)
+			\node[circle, draw, fill=white, minimum size=15pt] (A) at (0,2) {};
+			\node[circle, draw, fill=white, minimum size=15pt] (B) at (-1.5,0) {};
+			\node[circle, draw, fill=white, minimum size=15pt] (C) at (1.5,0) {};
+			
+			% Center node
+			\node[circle, draw, fill=black, minimum size=5pt, inner sep=0pt] (D) at (0,0.7) {};
+			
+			% Parallel edges between triangle vertices
+			\draw (A.-120) -- (B.50)  (A.-140) --(B.70);
+			\draw (A.-40) -- (C.120)  (A.-60) --(C.140);
+			\draw (B.-10) -- (C.190)  (B.10) --(C.170);
+			
+			% Edges from center to triangle vertices
+			\draw (D) -- (A);
+			\draw (D) -- (B);
+			\draw (D) -- (C);
+		\end{tikzpicture}
+		\caption{TODO}
+		\label{fig:3-5-poles-connected}
+	\end{figure}
+	
+	Let $M_1,M_2,M_3$ be potentially cyclically 5-connected 5-poles, with sizes of their minimal potentially cycle separating cuts $m_1,m_2,m_3$ respectively, such that $m_1\geq 2,m_2\geq 3$ and $m_3\geq 3$ as illustrated in \todo{figure}.
+	
+	In the first step, we perform a partial junction of size two on $M_1$ and $M_2$ as illustrated in \todo{figure}. By \cref{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges} the result is potentially cyclically 5-connected, let us denote it as $M_{12}$. About its minimal potentially cycle separating cut we know that $m_{12}\geq 2$ by utilizing \cref{lem:size-of-minimal-potentially-cycle-separating-after-junction}. It can be observed that the size of the cut is exactly two.
+	
+	Now we perform a partial junction with the singular point and $M_{12}$ resulting in $M'$ as shown on \todo{ilustrácia}. Since it is cyclically trivial, we can not utilize any of the theorems proved so far. Because of this, we have to prove that the result will be potentially cyclically 5-connected.
+	
+	Suppose it is not, let $X$ be a cyclic $l$-pole in $M'$ for $l<5$, with the least semiedges and the largest from those. We know that $X$ must contain the added point, otherwise it would be present in $M'$ and would contradict the fact that it is potentially cyclically 5-connected. Also it must contain both neighbors of the newly added point, otherwise we could obtain a cyclic multipole with less than $l$ semiedges, as it is visible in \todo{figure}. Let $e_1,e_2$ be the two edges which were created by the partial junction of $M_1$ and $M_2$, as visible in \todo{figure}.  It must hold that $M-X$ is non-empty, otherwise $X=M$ and it would contradict the fact that $X$ has less than 5 semiedges.
 	\begin{enumerate}
-		\item Suppose it is not, let $X$ be a cyclic $l$-pole with the least semiedges and the largest possible.
-		\item We know that it must contain the added point, otherwise it would contradict the fact that it is potencially cyclically 5-connected.
-		\item Let $e_1,e_2$ be the two edges which connect the former two 5-poles (resulting from the partial junction).
-		\item $M-X$ must be non-empty, since $X$ would then be a 5-pole contradicting the fact about $X$.
-		\item Suppose at least one $e_1,e_2$ is in $X$.
-		\item Suppose $M_1$ is the component with $m_1\geq 2$. If $M$ contains whole $M_2$ (but not $M_1$), then it has at least $2+1+m_1\geq 5$ semiedges, since $X$ has at least one $e_i$ and the edge connecting $M_1$ to the new point, formerly two semiedges in $M_1$, thus it is a cut in $M_1$ fulfilling the needs for $m_1$, leading to a contradiction. If it contains the whole $M_1$ it also leads to a contradiction, $2+1+m_2\geq 6$ since $m_2\geq 3$. 
-		\item Suppose it does not contain $e_1,e_2$. Then a cycle from $X$ must be in $M_1$ or $M_2$, suppose in $M_1$. Let $s$ be the number of semiedges in $X[M_1]$ (in $X$ from vertices of $M_1$). $X$ also contains at least the one semiedge from the added point, thus $s+1<k$. Now we can modify $X$ in a way, that we will completely leave out $M_2$, and also the added vertex. Then the number of semiedges of the modified $X$ is $s+1$, which is less than $k$, leading to a contradiction since $M_1$ would not be potencially cyclically 5-connected. (Here it will be harder to say formally, but we can modify it easily, since $X$ does not contain any $M_1M_2$ edges).
-		\item Maybe it can be better proved by some illustration with some inequalities, like in the theorem before.
+		\item First suppose that at least one edge from $e_1,e_2$ is in $X$. If $X$ contains the whole $M_2$, then $X$ has at least $2+1+m_1$ semiedges, that is because $M_2$ has two semiedges, the added point has one, and since we need to perform a cut in $M_1$ which leaves two former semiedges, the size must be at least $m_1$. Since $m_1\geq 2$, it holds that $X$ has at least 5 semiedges, leading to a contradiction. Thus it means that $X$ does not contain whole $M_2$. Similarly if $X$ would contain the whole $M_1$, we would get that $X$ has at least $2+1+m_2$ semiedges, that is at least 6, leading to a contradiction. Thus it does not contain whole $M_1$ and neither $M_2$, meaning it cuts out two former semiedges from both, thus $X$ has at least $m_1+m_2+1$ semiedges, which is at least 6, leading to a contradiction.
+		\item Now suppose that $X$ does not contain $e_1$ and neither $e_2$. This means that the cycle in $X$ must be whole in $M_1$ or $M_2$, suppose it is in $M_1$. Now, modify $X$ in a way, that we will keep only the vertices originally from $M_1$ as showcased in \todo{figure}, resulting in $X'$. There will be a new semiedge, resulting from cutting the edge connecting $M_1$ to the new vertex, however we will remove the semiedge from the added point, as well as all semiedges from the vertices in $M_2$, which means that $X'$ has at most semiedges as $X$. This leads to a contradiction, since $X'$ would be a cyclic multipole with less than $k$ semiedges in $M_1$.
 	\end{enumerate}
-	\item Thus after the point addition we get a potencially cyclically 5-connected component, for which the smallest $m_i$ cut is 2. It can't be 0 since it is connected and also cannot be 1, since it would have to be in one of $M_1,M_2$, contradicting the facts about their smallest cuts being at least 2 or 3.
-	\item Now we can connect the remaining part by using \cref{le:junction-two-no-small-girth} and then \cref{th:junction-of-kpoles-cyclic-edge-connectivity}, since the last part has $m_i$ cut of size 3.
-\end{enumerate}
 
-\todo{we can also use \cref{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges} and lower the necessary conditions, this will hold as well and we won't have to prove anything about the smallest cut leaving acyclic components, the proof will be easier}
+	We have proved that after adding the point the resulting multipole $M'$ is potentially cyclically 5-connected. The size of the minimal potentially cycle separating cut in $M'$ will still be at least two, since we have not created a bridge.
+	
+	At last, we perform a junction of $M'$ and $M_3$ forming $G$. By \cref{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges} and the case where $|S(G)|=0$ it holds that $G$ is potentially cyclically 5-connected, meaning it is cyclically 5-connected by \cref{lem:graphs-potential-and-normal-cyclic-connected-eq}.
+\end{example}
 
-\todo{we do not have to prove that after the first junction the result will have the mininal cut of size 2, we can just use \cref{lem:size-of-minimal-potentially-cycle-separating-after-junction}. However after connecting the point we have to prove everything.}
-
-Second thing is the connection of 4 6-poles.
+\textbf{Second thing is the connection of 4 6-poles.}
 
 \begin{enumerate}
 	\item We first say that all 4 6-poles must have the smallest $m_i$ cut at least 3 and be potencially cyclically $6$-connected.
