@@ -721,8 +721,10 @@ PROBLEMS:
 \end{proof}
 
 \begin{theorem}
-	Let $H$ be an arbitrary $k$-regular graph for an integer $k\geq 4$ such that $\zeta(H)\geq k, \lambda(H)=k$ and each pair of vertices is connected by at least one edge. Let $G$ be a cyclic part inflation of $H$. If for each used cyclic part it holds that the size of its minimal potentially cycle separating cut is at least $\frac{k}{2}$, then $\zeta(G)=k$. \todo{Niektoré požiadavky asi vyplynú z toho že je to kompletný multigraf ktorý je $k$-regulárny}.
+	Let $H$ be an arbitrary $k$-regular graph for an integer $k\geq 4$ \todo{nestačí $\delta(H)=k$? možno netreba aby bol regular} such that $\lambda(H)=k$ and each pair of vertices is connected by at least one edge. Let $G$ be a cyclic part inflation of $H$. If for each used cyclic part it holds that the size of its minimal potentially cycle separating cut is at least $\frac{k}{2}$, then $\zeta(G)=k$. \todo{Niektoré požiadavky asi vyplynú z toho že je to kompletný multigraf ktorý je $k$-regulárny}.
 \end{theorem}
+
+\todo{toto vieme rovno použiť na to spájanie 4 6-pólov, tie musia byť cyklické časti lebo minimálny rez je aspoň 3, teda nemôžu byť acyklické kde to je 1, to by sme mohli niekde spomenúť že pre acyklické to je 1 (prípadne ak majú aspoň 3 polhrany)}
 
 \begin{proof}
 	\todo{Toto bude potrebovať veľa roboty...}
