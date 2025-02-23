@@ -401,16 +401,18 @@ In this chapter we provide known algorithms to determine cyclic edge connectivit
 \end{definition}
 
 \begin{lemma}\label{lem:graphs-potential-and-normal-cyclic-connected-eq}
-	A cubic graph is cyclically $k$-connected for integer $k$ if and only if it is potentially cyclically $k$-connected.
+	A cubic graph other than $\Theta_2$ is cyclically $k$-connected for integer $k$ if and only if it is potentially cyclically $k$-connected.
 \end{lemma}
 
 \begin{proof}
-	Since we will work with cycle seprarating cuts, we need to address the three cubic graphs not containing such cuts separately, that is $K_{3,3}, K_4, \Theta_2$. Since we know their cyclic edge connectivity, we know that the largest $k$ for which they are cyclically $k$-connected is that cyclic edge connectivity. Namely $\zeta(K_{3,3})=4, \zeta(K_4)=4, \zeta(\Theta_2)=2$. By exploring these graphs, we see that the cyclic $l$-pole contained in them with the least semiedges is: a cyclic $4$-pole in $K_{3,3}$, a cyclic $3$-pole in $K_4$ and a cyclic $2$-pole in $\Theta_2$. This means that the largest $k$ for which they are potentially cyclically $k$-connected are 4 for $K_{3,3}$, 3 for $K_4$ and 2 for $\Theta_2$. This proves the theorem for these three graphs.
+	Since we will work with cycle seprarating cuts, we need to address the three cubic graphs not containing such cuts separately, that is $K_{3,3}, K_4$. Since we know their cyclic edge connectivity, we know that the largest $k$ for which they are cyclically $k$-connected is that cyclic edge connectivity. Namely $\zeta(K_{3,3})=4, \zeta(K_4)=4$. By exploring these graphs, we see that the cyclic $l$-pole contained in them with the least semiedges is: a cyclic $4$-pole in $K_{3,3}$ and a cyclic $3$-pole in $K_4$. This means that the largest $k$ for which they are potentially cyclically $k$-connected are 4 for $K_{3,3}$ and 3 for $K_4$. This proves the theorem for these three graphs.
 	
 	Suppose that a cubic graph $G$ is cyclically $k$-connected, but is not potentially cyclically $k$-connected, thus contains a cyclic $l$-pole $X$ for some $l<k$. Let this $l$ be the smallest possible. Let $S$ be the edge cut separating $X$ from the rest of $G$. We know that $|S|=l$ and it is an independent cut, otherwise we could obtain a cyclic multipole with less than $l$ semiedges. Then $G-X$ contains a cycle as well and $S$ is cycle separating cut of size $l<k$ in $G$ leading to a contradiction.
 	
 	For the converse implication suppose that $G$ is potentially cyclically $k$-connected but is not cyclically $k$-connected. This means that it contains a cycle separating edge cut of size $l<k$, separating $G$ into components $M_1$ and $M_2$. However both are cyclic $l$-poles contained in $G$, contradicting the fact that $G$ is potentially cyclically $k$-connected.
 \end{proof}
+
+We have not proved this for $\Theta_2$, however it does not bother us, since it can be created by a junction of two points with three semiedges each, which we will disallow in our theorems.
 
 \begin{definition}
 	Let $M$ be a multipole. If $|M|=1$, or $|S(M)|\leq 1$ we say that $M$ is \textit{cyclically trivial}. Otherwise it is cyclically nontrivial. 
@@ -489,12 +491,14 @@ We denote the $k$-pole, which is the $k$-cycle where each vertex is incident wit
 \end{proof}
 
 \begin{lemma}\label{lem:cyclic-part-no-small-cyclic-l-pole}
-	Let $P$ be a cyclic $k$-part. Then for each $l<k$ it holds that $P$ does not contain a cyclic $l$-pole. \todo{tento dôkaz je príliš technický, asi sa dá zjednodušiť}
+	Let $P$ be a cyclic $k$-part. Then for each $l<k$ it holds that $P$ does not contain a cyclic $l$-pole.
 \end{lemma}
 
 \begin{proof}
-	Suppose by contradiction that $P$ contains a cyclic $l$-pole $Q$, where $l<k$. Let $R$ be the other multipole for which $P=Q*_fR$. Since $P$ is a cyclic $k$-part, there is a graph $G$ with $\zeta(G)=k$ which is a junction of $P$ and some other cyclic $k$-part $P'$, thus $G=P*_gP'$. Let $E$ be the set of links of $G$, which result from the partial junctions $*_f$ and $*_g$ and one of the junctioned semiedges is from $S(Q)$. We see that $E$ is an edge cut separating $G$ into $Q$ and $R*_gP'$, let us denote the second multipole as $T$. Since $Q$ is cyclic and $P'$ as well, implying $T$ is also cyclic, $E$ is cycle separating. From the definition of $E$ we see that $|E|=|S(Q)|$ and since $|S(Q)|=l$, we have found a cycle separating edge cut with less than $k$ edges in $G$, leading to a contradiction.
+	Suppose by contradiction that $P$ contains a cyclic $l$-pole $Q$, where $l<k$. Since $P$ is a cyclic $k$-part, there is a graph $G$ with $\zeta(G)=k$ which is a junction of $P$ and some other cyclic $k$-part $P'$, thus $G=P*P'$. However since $\zeta(G)=k$ it holds by \cref{lem:graphs-potential-and-normal-cyclic-connected-eq} that $G$ is potentially cyclically $k$-connected, contradicting the fact that it contains a cyclic $l$-pole $Q$.
 \end{proof}
+
+\todo{skúsiť dokázať aj pre potenciálne cyklicky $k$-súvislé $j$-póly. To by sa nám dosť hodilo.}
 
 \begin{theorem}\label{th:junction-of-kpoles-cyclic-edge-connectivity}
 	Let $M_1$ and $M_2$ be cyclic potentially cyclically $k$-connected $k$-poles. Let both $M_1$ and $M_2$ be different from the cycle of length $k$ or $k\leq 5$. Let $G$ be the junction of $M_1$ and $M_2$. Then $\zeta(G)=k$ unless the girth of $G$ is smaller than $k$.
@@ -641,27 +645,25 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 \end{proof}
 
 \begin{theorem}\label{th:connecting-potencially-k-connected}
-	Let $M_1$ and $M_2$ be connected and potencially cyclically $k$-connected multipoles with the same number of semiedges, which do not contain an independent edge cut of size $a$, such that after the cut there is an acyclic component with $b$ former semiedges (not resulting from the cut) and $b>a$. Let $m_1$ and $m_2$ be the sizes of minimal potentially cycle separating cuts in $M_1$ and $M_2$ respectively. If $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potencially cyclically $k$-connected unless $M$ has less than $k$ semiedges. (Nie je to úplne formálne, to potom prepíšem)
+	Let $M_1$ and $M_2$ be connected and potencially cyclically $k$-connected multipoles with the same number of semiedges, which do not contain an independent edge cut of size $a$, such that after the cut there is an acyclic component with $b$ former semiedges (not resulting from the cut) and $b>a$. Let $m_1$ and $m_2$ be the sizes of minimal potentially cycle separating cuts in $M_1$ and $M_2$ respectively. If $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potencially cyclically $k$-connected unless $M$ has less than $k$ semiedges.
 \end{theorem}
 
 \begin{proof}
-	Notes:
-	\begin{itemize}
-		\item Contradiction - there is an $l$-pole $X$ with $l<k$. Let this $l$-pole have the smallest $l$ and is the largest possible (number of edges, or some inclusion, does not really matter imo.)
-		\item $A_1,\cdots$ the illustration same as before, however $x_i$ equals semiedges from $A_i$.
-		\item We prove that $M-X$ contains a cycle. We can easily prove that it is non-empty, if it was empty then $M=X$ and $M$ would have less than $k$ semiedges ($l$ to be precise) leading to a contradiction.
-		
-		Now, suppose that $M-X$ does not contain a cycle, thus is a forest. Let's look at any tree in this forest, $T$. The tree contains $a$ semiedges resulting from the cut and $b$ former semiedges. If $b\leq a$ it would lead to a contradiction that $X$ has the least semiedges and is the largest possible, by not cutting out this tree we would obtain $X'$ with at most semiedges as $X$ and larger. Thus $b>a$. 
-		
-		If the whole tree was part of $M_1$ or $M_2$ this directly leads to a contradiction. Thus suppose that this tree contains parts from $M_1$ and $M_2$. Let $b_1$ be semiedges incident to vertices from $M_1$ in $b$ and $a_1$ similarly from $a$. For $M_2$ we have $a_2$ and $b_2$. Since $b=b_1+b_2, a=a_1+a_2$ and $b>a$, it must hold that $b_1>a_1$ or $b_2>a_2$. Suppose $b_1>a_1$. Then (and this will be hard to formulate :D) if we cut out only the vertices from $M_1$ from $T$, we would obtain an acyclic component formerly part of $M_1$. The new semiedges resulting from the cut are former semiedges from $M_1$, since they became edges after the junction with $M_2$, thus they are type ''b'' vertices. Let the number of these semiedges be $b'_1$. Now we have an acyclic component from $M_1$ with $b'_1+b_1$ former semiedges, and cut out by $a_1$ edges, such that $b'_1+b_1>a_1$ (since $b_1>a_1$) contradicting the assumption by $M_1$. (This is needed to be formulated better, however the main idea should be captured there).
-		
-		\item We shall prove that all $A_i$ are non-empty. $A_1$ and $A_2$ are easy, otherwise the whole $l$-pole is in $M_1$ or $M_2$.
-		\item $A_3$ and $A_4$ can't be empty in the same time because $M$ has $k$ or more semiedges (we have proved it before).
-		\item Suppose $A_3$ is empty, then the whole $M_2$ is contained in $X$. We then prove that $M-X$ is a cyclic $j$-pole with $j\leq l < k$, and contained in $M_1$ leading to a contradiction. We know that $M-X$ has a cycle, and number of its semiedges is in this case $c+d+x_4$, since $A_3$ is empty. Also we know that $x_1+x_4=x_2$ since $M_1$ and $M_2$ have the same number of semiedges. We then know that $c+d+x_1+x_2<k$, and $x_4\leq x_2$ since $x_1+x_4=x_2$. From this we get $c+d+x_1+x_4<k$, and thus $c+d+x_4<k$, contradicting the fact that $M_1$ is potencially cyclically $k$-connected. Same goes for empty $A_4$.
-		\item Then we must prove that $a$ is at least 2. If it was 0, then there would be a cyclic pole with less than $l$ semiedges in $M_1$ or $M_2$. If it was 1, then there would be a cycle in $A_1$ or $A_2$. Suppose it is in $A_1$. We know that $c+b+d+f+x_1+x_2<k$. Then $f\geq 1$ since $M_2$ is connected and $a=1$ thus $a\leq f$ and thus $c+b+d+a+x_1+x_2<k$. From this we see that $a+b+c+x_1<k$, meaning $A_1$ would be a cyclic $j$-pole with $j<k$ in $M_1$, leading to a contradiction. \todo{maybe separate this in some separate lemma, so we will not repeat the proof in multiple theorems}
-		\item The cut separating $X$ from $M-X$ is independent. This can be easily proven, if it was not independent we could obtain $X'$ with less semiedges, however we should put it in the proof.
-		\item Because of this for $c$ and $f$ it must hold that $c+f\geq k$. They are cuts in $M_1, M_2$ because all $A_i$ are non-empty and they are connected components. This leads to a contradiction with the fact that $c+b+d+f+x_1+x_2=l<k$.
-	\end{itemize}
+	Suppose by contradiction that there is an $l$-pole $X$ in $M$, which has the smallest $l$ and from such is the largest by number of vertices. Let us denote the other component as $M-X$. Let $A_1,A_2,A_3,A_4$ denote the subgraphs of $G$ induced by $V(X_1)\cap V(M_1), V(X_1)\cap V(M_2), V(X_2)\cap V(M_2), V(X_2)\cap V(M_1)$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, $A_1$ and $A_3$, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$ and $A_4$, $A_2$ and $A_3$ respectively. Let $x_i$ be the number of dangling edges from $A_i$ as seen in \todo{ilustrácia}. By looking at the illustration we see that $b+c+d+f+x_1+x_2=l<k$.
+	
+	We first prove that $M-X$ contains a cycle. It must be non-empty, otherwise $M=X$ and $M$ would have less than $k$ semiedges, leading to a contradiction. Now, suppose that $M-X$ does not contain a cycle, thus is a forest. Let's look at any tree in this forest, $T$. The tree contains $a$ semiedges resulting from the cut and $b$ former semiedges. If $b\leq a$ it would lead to a contradiction that $X$ has the least semiedges and is the largest possible, by adding this tree to $X$ we would obtain a cyclic multipole with at most semiedges as $X$ and larger. Thus $b>a$. 
+	
+	If all vertices in $T$ were from one of $M_1,M_2$, it would lead to a contradiction that such cut is not present in $M_1$ and $M_2$. Thus this tree must contain vertices from $M_1$ as well as $M_2$. Let $b_1$ be the number of former semiedges on dangling edges from vertices in $M_1$ and $a_1$ on the semiedges resulting from the cut. Same goes for $M_2$, where the numbers are $b_2$ and $a_2$. Since $b=b_1+b_2, a=a_1+a_2$ and $b>a$, it must hold that $b_1>a_1$ or $b_2>a_2$.  Suppose $b_1>a_1$.
+	
+	Then if we cut out only the vertices from $M_1$ from $T$, we would obtain an acyclic component formerly part of $M_1$. The new semiedges resulting from the cut are former semiedges from $M_1$, since they became edges after the junction with $M_2$, thus they are type ''b'' vertices. Let the number of these semiedges be $b'_1$. Now we have an acyclic component from $M_1$ with $b'_1+b_1$ former semiedges, and cut out by $a_1$ edges, such that $b'_1+b_1>a_1$ (since $b_1>a_1$) contradicting the assumption by $M_1$ \todo{Formulate this better, or add some illustration}. This proves that $M-X$ must contain a cycle.
+	
+	We shall prove that for each $i$ in $\{1,2,3,4\}$ it holds that $A_i$ is nonempty. If $A_1$ or $A_2$ were empty, then the whole $l$-pole $X$ would be in $M_2$ or $M_1$ respectively, leading to a contradiction. Suppose that $A_3$ is empty, meaning $M_2$ is contained in $X$. Since $A_3$ and $A_4$ can not be empty at the same time, $A_4$ is non-empty. We then prove that $M-X$ is a cyclic $j$-pole with $j\leq l < k$, and contained in $M_1$ leading to a contradiction. 
+	
+	We know that $M-X$ has a cycle, and number of its semiedges is in this case $c+d+x_4$, since $A_3$ is empty. Also we know that $x_1+x_4=x_2$ since $M_1$ and $M_2$ have the same number of semiedges. We then know that $c+d+x_1+x_2<k$, and $x_4\leq x_2$ since $x_1+x_4=x_2$. From this we get $c+d+x_1+x_4<k$, and thus $c+d+x_4<k$, contradicting the fact that $M_1$ is potencially cyclically $k$-connected.
+	
+	Then we must prove that $a$ is at least 2. If it was 0, then there would be a cyclic pole with less than $l$ semiedges in $M_1$ or $M_2$. If it was 1, then there would be a cycle in $A_1$ or $A_2$. Suppose it is in $A_1$. We know that $c+b+d+f+x_1+x_2<k$. It also holds that $f\geq 1$ since $A_2$ and $A_3$ are non-empty, meaning $a\leq f$ and $c+b+d+a+x_1+x_2<k$. From this we see that $a+b+c+x_1<k$, meaning $A_1$ would be a cyclic $j$-pole with $j<k$ in $M_1$, leading to a contradiction. \todo{maybe separate this in some separate lemma, so we will not repeat the proof in multiple theorems}
+	
+	The cut separating $X$ from $M-X$ is independent. This can be easily proven, if it was not independent we could obtain a cyclic multipole with less than $l$ semiedges in $M$, leading to a contradiction about $X$. Because of this and the fact that $a\geq 2$ $c$ and $f$ represent potentially cycle separating cuts in $M_1$ and $c\geq m_1$ and $f\geq m_2$. Thus $c+f\geq k$, which leads to a contradiction with the fact that $c+b+d+f+x_1+x_2=l<k$.
 \end{proof}
 
 PROBLEMS:
@@ -718,6 +720,30 @@ PROBLEMS:
 	\end{enumerate}
 \end{proof}
 
+\begin{theorem}
+	Let $H$ be an arbitrary $k$-regular graph for an integer $k\geq 4$ such that $\zeta(H)\geq k, \lambda(H)=k$ and each pair of vertices is connected by at least one edge. Let $G$ be a cyclic part inflation of $H$. If for each used cyclic part it holds that the size of its minimal potentially cycle separating cut is at least $\frac{k}{2}$, then $\zeta(G)=k$. \todo{Niektoré požiadavky asi vyplynú z toho že je to kompletný multigraf ktorý je $k$-regulárny}.
+\end{theorem}
+
+\begin{proof}
+	\todo{Toto bude potrebovať veľa roboty...}
+	
+	Suppose that $\zeta(G)<k$, thus it contains a cyclic $l$-pole $X$ for $l<k$ and $l$ is the minimal possible. By only cutting $l$ edges from the former graph $H$ we do not obtain a disconnected graph since $\lambda(G)=k$, thus we need to cut some edges in the cyclic parts. Let $M$ be the cyclic part containing edges from the cut. These edges would disconnect $M$ since it is a minimal cut, if it would not disconnect $M$ we could leave these edges out and obtain a smaller cut, contradicting the assumption about $l$. Since $|S(M)|\geq 3$ each cut is potentially cycle separating (one of the components must contain at least two semiedges) thus we need to cut at least $\frac{k}{2}$ edges in $M$.
+	
+	If we cut edges in another cyclic part we would get a cut at least $2\frac{k}{2}=k$ leading to a contradiction. Thus we need to cut only the former edges.
+	
+	\todo{If we cut all edges connecting the disconnected part to neighbors we would get to a contradiction that $X$ is contained in $M$. This will need some polishing, since we need to prove that it must be cyclic, since it is the smallest $l$-pole and we make the graph disconnected etc}.
+	
+	Thus it has at least one neighbor \todo{mention that we can cut some edges with former neighbors, but at least one will stay}. To make the graph disconnected we need to cut edges connecting these neighbors to other cyclic parts. Each cyclic part is connected by at least one edge to all others, thus the number of edges that need to be cut is at least $n\cdot (k-n-1)$. $(k-n-1)$ represents the other cyclic parts, and $n$ since each neighbor needs to be cut from the others. We prove that $n\cdot (k-n-1)\geq \frac{k}{2}$ for each $n$ from 1 to $k-2$ \todo{prove why in this range}.
+	
+	By editing we get $-2n^2+(2k-2)n-k\geq 0$. It is a quadratic function in $n$ and since the coefficient for $n^2$ is negative the parabola goes down (je obrátená). Thus we need to prove that it will be more than 0 in both border (okrajové) points.
+	
+	For $n=1$ we get $2k-4\geq k$, which holds for $k\geq 4$ \todo{opíš asi postup že skúšame pôvodný tvar}.
+	
+	For $n=k-2$ we get $2(k-2)(k-(k-2)-1)\geq k$, thus $2k-4\geq k$ which also holds.
+	
+	This should finish the proof.
+\end{proof}
+
 \subsection{Examples}
 
 First construction is the junction of 3 potencially 5-connected cyclic 5-poles along with one point in the middle.
@@ -768,6 +794,8 @@ First construction is the junction of 3 potencially 5-connected cyclic 5-poles a
 \end{example}
 
 \textbf{Second thing is the connection of 4 6-poles.}
+
+\todo{Toto neplatí. Nemáme zatiaľ aparát ako by sme to vedeli spojiť, lebo nám tam vznikajú malé pot. cykly separujúce rezy veľkosti 2. Chce to novú vetu, alebo toto pôjde do potential problems. Alebo to dokážeme šepcificky pre tie 2 8-póly}
 
 \begin{enumerate}
 	\item We first say that all 4 6-poles must have the smallest $m_i$ cut at least 3 and be potencially cyclically $6$-connected.
