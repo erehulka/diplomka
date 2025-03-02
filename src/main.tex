@@ -816,7 +816,7 @@ For inflations it has been proved, that in specific cases if the original graph 
 
 We now prove our modified version of \cref{th:inflations-cyclic-connectivity}. Although the proof follows a similar structure to the original theorem, we have made several adjustments to accommodate arbitrary cyclic parts. It is worth noting that traditional inflations can be viewed as a special case of cyclic part inflations, since \cref{lem:each-cycle-cyclic-part} shows that all $k$-cycles are cyclic parts. This means our new theorem naturally extends to cover both traditional inflations as well as cyclic part inflations.
 
-\begin{theorem}
+\begin{theorem}\label{th:cyclic-part-inflations}
 	Let $k\geq 3$ and let $G$ be a $k$-connected graph with girth at least $k$. Then every  $H\in I_P(G)$ is cyclically $k$-edge-connected.
 \end{theorem}
 
@@ -842,13 +842,40 @@ We now prove our modified version of \cref{th:inflations-cyclic-connectivity}. A
 	
 	This means, that $|S_V\cup S_E|\leq |S|$, which means after putting everything together that $$|S_V|+|S_E|=|S_V\cup S_E|\leq |S|\leq k-1.$$
 	
-	Suppose that $V(D_i^G)-S_V\neq\emptyset$ for each $i\in \{1,2\}$, meaning there is a whole cyclic part in both $D_1$ and $D_2$. Then $G-S_v^G-S_E$ has two components $F_1^G$ and $F_2^G$ \todo{dokáž že to je rez naozaj}. The number of vertex disjoint paths from a vertex of $F_1^G$ to a vertex of $F_2^G$ in $G$ is at most $|S_V|+|S_E|\leq k-1$ \todo{prečo?}, which contradicts by Menger's Theorem that $G$ is $k$-connected.
+	Suppose that $V(D_i^G)-S_V\neq\emptyset$ for each $i\in \{1,2\}$, meaning there is a whole cyclic part in both $D_1$ and $D_2$. We peove that by removing vertices $S_V$ and edges $S_E$ from $G$ we obtain a disconnected graph. Let $P_1$ and $P_2$ be the whole cyclic parts in $D_1$ and $D_2$ respectively. Let $v_1$ and $v_2$ be their corresponding vertices in $G$ respectively. Suppose there is a path between $v_1$ and $v_2$ in $G-S_v^G-S_E$. This path goes through edges not in $S_E$ and vertices not in $S_V$. This would hovever mean that there is path in $H-S$ between a vertex in $P_1$ and a vertex in $P_2$: it would go through the uncut edges not in $S_E$ and cyclic parts whose corresponding vertices in $G$ are not in $S_V$, leading to a contradiction.
+	
+	Thus $G-S_v^G-S_E$ has two components $F_1^G$ and $F_2^G$. The number of vertex disjoint paths from a vertex of $F_1^G$ to a vertex of $F_2^G$ in $G$ is at most $|S_V|+|S_E|\leq k-1$, since each path must go through either through a vertex in $S_V$, or edge in $S_E$, which contradicts by Menger's Theorem that $G$ is $k$-connected.
 	
 	Therefore we may assume without loss of generality that $V(D_1^G)-S_V=\emptyset$, meaning there is no whole cyclic part in $D_1$.
 	
 	Another thing to note is that in this case the component $D_2$ must contain at least one unsplit cyclic part, or in other words $V(D_2^G)-S_V\neq\emptyset$. Suppose that $V(D_2^G)-S_V=\emptyset$, which would mean that each cyclic part has been split by $S$. However $G$ is $k$-connected, thus $|V(G)|>k$ and since $S$ contains an edge from each of the cyclic parts it must hold that $|S|\geq |V(G)|>k$ which contradicts that $|S|\leq k-1$.
 	
-	By assumption $D_1$ contains a cycle, say $C_1$. Suppose that this cycle is non-traversal, thus $C_1\subseteq P_v$ for some $v\in V(G)$. It must hold that $v\in S_V$, since there is no unsplit cyclic part in $D_1$, meaning $P_v$ has been split by $S$. Let $V_1$ and $V_2$ be the sets of vertices from $P_v$ in $D_1$ and $D_2$ respectively. Let $E_1$ and $E_2$ be the sets of dangling edges in $P_v$, which have one edge end incident with a vertex in $V_1$ or $V_2$ respectively as visible in \todo{figure}. It is evident that if $P_v$ is a cyclic $m$-part, $|E_1|+|E_2|=m$. If $|S_P|<|E_2|$, the cut $S_P$ in $P_v$ would yield a cyclic $n$-pole, with $n=|E_1|+|S_P|<|E_1|+|E_2|=m$ leading to a contradiction by \cref{lem:cyclic-part-no-small-cyclic-l-pole}. Thus $|E_2|\leq |S_P|$.
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=white, minimum size=15pt},scale=1.3]
+			\node[minimum width=3cm, thick] (A) at (0,0) {};
+			
+			\draw[thick] ($(A.west) + (0.2,0.6)$) -- ++(-1.15,0);
+			\draw[thick] ($(A.west) + (0.05,0.2)$) -- ++(-1,0);
+			\draw[thick] ($(A.west) + (0.05,-0.2)$) -- ++(-1,0);
+			\draw[thick] ($(A.west) + (0.2,-0.6)$) -- ++(-1.15,0);
+			
+			\draw[thick] ($(A.east) + (-0.2,0.6)$) -- ++(1.15,0);
+			\draw[thick] ($(A.east) + (-0.05,0.2)$) -- ++(1,0);
+			\draw[thick] ($(A.east) + (-0.05,-0.2)$) -- ++(1,0);
+			\draw[thick] ($(A.east) + (-0.2,-0.6)$) -- ++(1.15,0);
+			
+			\draw[dashed, thick] (0,1.7) -- (0,-1.7);
+			\node[draw=none] at (0,2) {$S_P$}; 
+			\node[draw=none] at (-2.8,0) {$E_1$}; 
+			\node[draw=none] at (2.8,0) {$E_2$}; 
+			\node at (-0.55,0) {$C_1$}; 
+		\end{tikzpicture}
+		\caption{Cyclic part $P_v$}
+		\label{fig:P_v-cyclic-part}
+	\end{figure}
+	
+	By assumption $D_1$ contains a cycle, say $C_1$. Suppose that this cycle is non-traversal, thus $C_1\subseteq P_v$ for some $v\in V(G)$. It must hold that $v\in S_V$, since there is no unsplit cyclic part in $D_1$, meaning $P_v$ has been split by $S$. Let $V_1$ and $V_2$ be the sets of vertices from $P_v$ in $D_1$ and $D_2$ respectively. Let $E_1$ and $E_2$ be the sets of dangling edges in $P_v$, which have one edge end incident with a vertex in $V_1$ or $V_2$ respectively as visible in \cref{fig:P_v-cyclic-part}. It is evident that if $P_v$ is a cyclic $m$-part, $|E_1|+|E_2|=m$. If $|S_P|<|E_2|$, the cut $S_P$ in $P_v$ would yield a cyclic $n$-pole, with $n=|E_1|+|S_P|<|E_1|+|E_2|=m$ leading to a contradiction by \cref{lem:cyclic-part-no-small-cyclic-l-pole}. Thus $|E_2|\leq |S_P|$.
 	
 	Let us denote the sets of edges in $H$ which were created by the junction of $E_1$ or $E_2$ with some other dangling edge as $L_1$ and $L_2$ respectively. It is evident that $|L_i|=|E_i|$ for both $i\in\{1,2\}$. We can now create an edge cut $S'=(S-S_P)\cup L_2$, which is cycle separating in $H$ and it holds that $|S'|\leq |S|\leq k-1$. Since both components now contain a whole cyclic part, this contradicts the assumption that $G$ is $k$-connected, as it was proved before.
 	
@@ -868,9 +895,9 @@ To overcome this limitation, we present a new theorem that removes the restricti
 \begin{proof}
 	\todo{Toto bude potrebovať veľa roboty...}
 	
-	We can write the inequality equivalently as $v\geq \frac{k+4e}{2e}$.
+	We can write the conidition inequality equivalently as $v\geq \frac{k+4e}{2e}$.
 	
-	Suppose that $\zeta(G)<k$, thus it contains a cyclic $l$-pole $X$ for $l<k$ and $l$ is the minimal possible, thus the cut is independent. By only cutting $l$ edges from the former graph $H$ we do not obtain a disconnected graph since $\lambda(G)\geq k$, thus we need to cut some edges in the cyclic parts. Let $M$ be the cyclic part containing edges from the cut. These edges would disconnect $M$ since it is a minimal cut, if it would not disconnect $M$ we could leave these edges out and obtain a smaller cut, contradicting the assumption about $l$. Since the cut is independent we need to cut at least $\frac{k}{2}$ edges in $M$.
+	Suppose that $\zeta(G)<k$, thus it contains a cyclic $l$-pole $X$ for $l<k$ and $l$ is the minimal possible, thus the cut is independent. Let us denote the cut as $S$ and the other cyclic $l$-pole as $G-X$. By only cutting $l$ edges from the former graph $H$ we do not obtain a disconnected graph since $\lambda(G)\geq k$, thus we need to cut some edges in the cyclic parts. Let $M$ be the cyclic part containing edges from the cut. These edges would disconnect $M$ since it is a minimal cut, if it would not disconnect $M$ we could leave these edges out and obtain a smaller cut, contradicting the assumption about $l$. Since the cut is independent we need to cut at least $\frac{k}{2}$ edges in $M$.
 	
 	If we cut edges in another cyclic part we would get a cut at least $2\frac{k}{2}=k$ leading to a contradiction. Thus we need to cut only the former edges.
 	
@@ -878,14 +905,14 @@ To overcome this limitation, we present a new theorem that removes the restricti
 	
 	The maximum number of whole cyclic parts in $X$ must be $v-2$ though. If all $v-1$ whole cyclic parts were in $X$, then $G-X$ would be a cyclic $l$-pole in $M$ again leading to a contradiction.
 	
-	Let $n$ be the number of whole cyclic parts in $X$. To make the graph disconnected, we need to cut all edges from these cyclic parts to the other ones. Each is connected to another by at least $e$ edges, thus we need to cut at least $ne(v-n-1)$ edges. $(v-n-1)$ represents the other cyclic parts, and $ne$ since each neighbor needs to be cut from the others by at least $e$ edges. We prove that $ne(v-n-1)\geq\frac{k}{2}$ for each $n$ from $1$ to $v-2$.
+	Let $n$ be the number of whole cyclic parts in $X$. To make the graph disconnected, we need to cut all edges from these cyclic parts to the other ones. Each is connected to another by at least $e$ edges, thus we need to cut at least $ne(v-n-1)$ edges. The number $(v-n-1)$ represents the cyclic parts not in $X$, and $ne$ since each cyclic part in $X$ needs to be cut from the ones in $G-X$ by at least $e$ edges. We prove that $ne(v-n-1)\geq\frac{k}{2}$ for each $n$ from $1$ to $v-2$.
 	
 	By equivalent editing the inequality we get
 	\begin{align*}
 		ne(v-n-1)&\geq\frac{k}{2} \\
 		2ne(v-n-1)&\geq k \\
-		-2n^2+nev+ne&\geq k \\
-		-2n^2+(v+1)en-k&\geq 0.
+		-2n^2+2nev-2ne&\geq k \\
+		-2n^2+2ne(v-1)-k&\geq 0.
 	\end{align*}
 	This is a quadratic function in $n$, and since the coefficient of $n^2$ is negative, the parabola opens downward. Therefore, we only need to verify that the inequality holds at both endpoint values.
 	
@@ -899,50 +926,75 @@ To overcome this limitation, we present a new theorem that removes the restricti
 		k+4e-4e&\geq k \\
 		k&\geq k
 	\end{align*}
-	which is true thus the inequality holds. This means, that to separate $n$ whole cyclic parts in $X$ from the other we need at least $\frac{k}{2}$ edges for each possible $n$, thus the whole number of edges in the cut is at least $k$, leading to a contradiction.
+	which is true thus the inequality holds. This means that each independent cut must contain at least $\frac{k}{2}$ edges in some cyclic part and at least $\frac{k}{2}$ edges not in any cyclic part, which is in total at least $k$, leading to a contradiction that the size of the cut $S$ is less than $k$.
 \end{proof}
 
-\todo{obkec}
+This theorem holds even for large $v,e$ and small $k$, which might lead to an understanding that this is not really an interesting theorem. For example if $v=10,e=3$ and $k=6$, we have a graph $H$ with 10 vertices, each pair of them connected by at least three edges, fulfilling the conditions from this theorem and we prove that a cyclic part inflation of $H$ is cyclically 6-connected. However the minimal degree of $H$ is at least $(v-1)e$, since each vertex is connected to each other by at least $e$ edges, specifically in this case it is equal to 27. Thus the cyclic part inflation of $H$ results from a sequence of partial junction of such cyclic parts, that the smallest possible $k$ for which it can be a cyclic $k$-part is 27. And proving if a junction of multiple cyclic 27-parts is cyclically 6-connected might not seem that interesting.
 
-\todo{Táto lema je cool vďaka tomu, že ukazuje, že aj keď chcem mať obmedzenie na minimálny stupeň =  $k$ (aby to malo zmysel?), tak viem pre každé $k$ nájsť počet vrcholov a minimálny počet hrán medzi dvojicou vrcholov}
+Ideally we would need for the minimal degree of $H$ to be equal to $k$. That way the cyclic part inflation will be a junction of multiple cyclic parts, such that one of them will be a cyclic $k$-part. That way we can prove that the cyclic $k$-part used in the cyclic part inflation will stay a cyclic $k$-part even in the whole graph, or in other words the cyclic edge connectivity will be equal to $k$.
+
+Ideally for this we would need for $k,v,e$ to fulfill a second inequality where $k\geq (v-1)e$, or equivalently $\frac{k-e}{e}\geq v$. This way we know that the minimum possible degree for such $v$ and $e$ will be at most $k$, thus by adding some edges to the vertices with lower degree we could obtain a graph with minimum degree equal to $k$ still satisfying the inequality from \cref{th:cyclic-part-inflation-kve}.
+
+We prove that for each $k$ such graph with minimal degree equal to $k$ and fulfilling the conditions of \cref{th:cyclic-part-inflation-kve} by proving the following lemmas.
 
 \begin{lemma}
-	For each integer $k\geq 2$ there exists an integer $x$ such that
+	For each integer $k\geq 2$, there exist integers $e$ and $v$ satisfying
 	
-	$$\dfrac{k+x}{x}\geq \dfrac{k+4x}{2x}.$$
-	
-	\todo{a existuje prirodzené číslo medzi - počet vrcholov}
+	$$\dfrac{k+e}{e}\geq v\geq \dfrac{k+4e}{2e}.$$
 \end{lemma}
 
 \begin{proof}
-	Let $x=\lfloor\frac{k}{2}\rfloor$.
-	
+	Let $e=1$ and $v=k+1$. Substituting these values into the original inequality yields
+	$$k+1\geq k+1\geq \dfrac{k+4}{2}.$$
+	The left inequality is immediately satisfied by equality. For the right inequality, we proceed with the following equivalent transformations:
+	\begin{align*}
+		k+1&\geq \dfrac{k+4}{2} \\
+		2k+2&\geq k+4 \\
+		k+2&\geq 4 \\
+		k&\geq 2
+	\end{align*}
+	Since this final inequality aligns with our initial assumption that $k\geq 2$, we have demonstrated the existence of suitable values for $e$ and $v$ that satisfy the required inequalities.
+\end{proof}
+
+This demonstrates that for any given $k$, we can find values $v$ and $e$ such that there exists a graph $H$ with $v$ vertices where each pair of vertices is connected by at least $e$ edges, and the minimum degree $\delta(H)=k$. Furthermore, by \cref{th:cyclic-part-inflation-kve}, any cyclic part inflation of $H$ will be cyclically $k$-connected if we use cyclic parts whose minimal independent cut sizes are at least $\frac{k}{2}$.
+
+However as previously noted, the primary advantage of \cref{th:cyclic-part-inflation-kve} over \cref{th:cyclic-part-inflations} is its ability to allow multiple edges between pairs of vertices in the former graph. While our previous proof used $e=1$, we now extend this result by proving the following lemma that adds the condition for $e\geq 2$.
+
+\begin{lemma}
+	For each integer $k\geq 4, k\neq 5$, there exist integers $e\geq 2$ and $v$ satisfying
+	$$\dfrac{k+e}{e}\geq v\geq \dfrac{k+4e}{2e}.$$
+\end{lemma}
+
+\begin{proof}
+	We prove this result by considering even and odd values of $k$ separately.
 	\begin{itemize}
-		\item If $k$ is even, then $x=\frac{k}{2}$. By putting it into the equation we get
-		
+		\item For even $k$, let $e=2$ and $v=\frac{k+2}{2}$. This yields
+		$$\dfrac{k+2}{2}\geq \dfrac{k+2}{2}\geq \dfrac{k+8}{4}$$
+		The left inequality holds by equality. For the right inequality, we obtain by equivalent transformations:
 		\begin{align*}
-			\dfrac{k+\frac{k}{2}}{\frac{k}{2}}&\geq \dfrac{k+2k}{k} \\
-			\dfrac{2k+k}{k}&\geq \dfrac{3k}{k} \\
-			3k &\geq 3k
+			\dfrac{k+2}{2}&\geq \dfrac{k+8}{4} \\
+			2k+4&\geq k+8 \\
+			k+4&\geq 8 \\
+			k&\geq 4
 		\end{align*}
+		This inequality is satisfied for all even $k\geq 4$.
 		
-		thus it satisfies the inequality.
-		
-		\item If $k$ is odd then $x=\frac{k}{2}-1 = \frac{k-2}{2}$. By putting it into the equation we get
-		
+		\item For odd $k$, let $e=2$ and $v=\frac{k+1}{2}$. This gives us
+		$$\dfrac{k+2}{2}\geq \dfrac{k+1}{2}\geq \dfrac{k+8}{4}$$
+		The left inequality is clearly satisfied. For the right inequality:
 		\begin{align*}
-			\dfrac{k+\frac{k-2}{2}}{\frac{k-2}{2}}&\geq \dfrac{k+2(k-2)}{k-2} \\
-			\dfrac{2k+(k-2)}{k-2}&\geq \dfrac{k+2k-4}{k-2} \\
-			\dfrac{3k-2}{k-2}&\geq \dfrac{3k-4}{k-2} \\
-			3k-2&\geq 3k-4 \\
-			-2&\geq -4
+			\dfrac{k+1}{2}&\geq \dfrac{k+8}{4} \\
+			2k+2&\geq k+8 \\
+			k+2&\geq 8 \\
+			k&\geq 6
 		\end{align*}
-		
-		thus it also satisifes the inequality.
+		This holds for all odd $k\geq 7$, thus covering all odd values $k\geq 4$ except 5.
 	\end{itemize}
 \end{proof}
 
 \section{Examples}
+
+We now proceed to demonstrate practical applications of the theorems presented in this chapter through several illustrative examples. Let us begin with an example that showcases the application of \cref{th:cyclic-part-inflation-kve}.
 
 \begin{example}
 	\begin{figure}
@@ -958,31 +1010,31 @@ To overcome this limitation, we present a new theorem that removes the restricti
 			% Each pair has two edges, one bent left and one right
 			
 			% Edges between A and B
-			\draw[bend left=10] (A) to (B);
-			\draw[bend right=10] (A) to (B);
+			\draw[bend left=5] (A) to (B);
+			\draw[bend right=5] (A) to (B);
 			
 			% Edges between B and C
-			\draw[bend left=10] (B) to (C);
-			\draw[bend right=10] (B) to (C);
+			\draw[bend left=5] (B) to (C);
+			\draw[bend right=5] (B) to (C);
 			
 			% Edges between C and A
-			\draw[bend left=10] (C) to (A);
-			\draw[bend right=10] (C) to (A);
+			\draw[bend left=5] (C) to (A);
+			\draw[bend right=5] (C) to (A);
 			
 			% Edges between M and A
-			\draw[bend left=10] (M) to (A);
-			\draw[bend right=10] (M) to (A);
+			\draw[bend left=5] (M) to (A);
+			\draw[bend right=5] (M) to (A);
 			
 			% Edges between M and B
-			\draw[bend left=10] (M) to (B);
-			\draw[bend right=10] (M) to (B);
+			\draw[bend left=5] (M) to (B);
+			\draw[bend right=5] (M) to (B);
 			
 			% Edges between M and C
-			\draw[bend left=10] (M) to (C);
-			\draw[bend right=10] (M) to (C);
+			\draw[bend left=5] (M) to (C);
+			\draw[bend right=5] (M) to (C);
 		\end{tikzpicture}
-		\label{fig:4-6-poles-before}
 		\caption{Graph $H$ for creating cyclically 6-connected graphs}
+		\label{fig:4-6-poles-before}
 	\end{figure}
 
 	\begin{figure}
@@ -1021,8 +1073,8 @@ To overcome this limitation, we present a new theorem that removes the restricti
 			\draw[bend left=10] (M) to (C);
 			\draw[bend right=10] (M) to (C);
 		\end{tikzpicture}
-		\label{fig:4-6-poles-inflation}
 		\caption{Cyclically 6-edge-connected cyclic part inflation}
+		\label{fig:4-6-poles-inflation}
 	\end{figure}
 
 	\todo{možno tiež trocha fixnúť.}
@@ -1030,10 +1082,44 @@ To overcome this limitation, we present a new theorem that removes the restricti
 	Let $H$ be a graph from \cref{fig:4-6-poles-before} and let $C_1,C_2,C_3,C_4$ be cyclic 6-parts, not necessarily distinct, such that the size of minimal independent edge cut in each is of size at least three. Let $G$ be a cyclic part inflation of $H$, such that each cyclic part $C_i$ corresponds to the vertex $c_i$ in $H$ for each $i\in\{1,2,3,4\}$, as visible in \cref{fig:4-6-poles-inflation}.
 	
 	Since the number of vertices ($v$) is four, each pair of vertices is connected by $2$ edges ($e$), we can choose $k=6$ and the inequality 
-	
 	$$k\leq 2e(v-2)$$
-	
 	will hold, specifically $6\leq 4\cdot 2$. It is evident that $\lambda(H)=6$ and the condition of the sizes of the minimal independent edge cuts in each cyclic part being $\frac{k}{2}=3$ is fulfilled. This means that by \cref{th:cyclic-part-inflation-kve} the graph $G$ is cyclically 6-connected. By cutting out just one of the cyclic parts we obtain a cycle separating edge cut of size 6, thus $\zeta(G)=6$.
+	
+	This example emerged from a specific challenge encountered during the development of this thesis, specifically when investigating the necessary conditions for a graph $G$ to achieve a cyclic edge connectivity of $\zeta(G)=6$.
+\end{example}
+
+\begin{example}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[
+			vertex/.style={circle,draw,minimum size=20pt},
+			]
+			
+			% Place vertices in a circle with labels
+			\foreach \i [count=\n from 1] in {90,45,0,-45,-90,-135,180,135} {
+				\node[vertex] (v\n) at (\i:3cm) {\n};
+				\node[draw=none,fill=none] at (\i:3.8cm) {$v_{\n}$};
+			}
+			
+			% Draw edges using foreach loops
+			% Circular connections (to next vertex)
+			\foreach \i in {1,...,7} {
+				\draw (v\i) -- (v\the\numexpr\i+1\relax);
+			}
+			\draw (v8) -- (v1); % Complete the circle
+			
+			% Cross connections (+3 mod 8)
+			\foreach \i in {1,...,8} {
+				\pgfmathtruncatemacro{\nextnode}{Mod(\i+3,8)}
+				\ifnum\nextnode=0 \pgfmathtruncatemacro{\nextnode}{8} \fi
+				\draw (v\i) -- (v\nextnode);
+			}
+			
+		\end{tikzpicture}
+		\caption{TODO}
+		\label{ex:cyclic-part-inflations-ex-2-before}
+	\end{figure}
+	
 \end{example}
 
 
