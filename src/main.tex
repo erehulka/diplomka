@@ -149,6 +149,8 @@
 
 \chapter{Preliminaries}\label{ch:preliminaries}
 
+In this chapter we establish the fundamental definitions essential for understanding our thesis. We begin with basic graph theory concepts and specify the types of graphs considered in our work. We then introduce the theoretical framework for our building blocks through the concept of multipoles, along with the formal definitions for connecting these blocks. Following this, we present definitions of (vertex) connectivity and edge connectivity, leading to an introduction of cyclic edge connectivity -- a concept further developed in \cref{ch:cyclic-edge-connectivity}. In the end we discuss transitive graphs, which proves instrumental in proving the existence of multipoles with specific properties required for our theoretical results.
+
 \section{Basic notions}
 
 Definitions not provided in our work can be found in the book \quotes{Graph Theory} by Diestel \cite{Diestel}. All graphs considered in this work are undirected and finite. We do not allow trivial graphs, but sometimes for the sake of complete definition we address them. We permit multiple edges, as well as loops.
@@ -161,7 +163,7 @@ While we work only with cyclic connectivity, for the sake of providing the defin
 
 \section{Multipoles}\label{sec:multipoles}
 
-In our work, we allow a specific type of graph, which allows ends of its edges to not be incident with a vertex, resulting in a graph with dangling, or even so-called isolated edges. Such structures are called \textit{multipoles}. This term was first used by Fiol in 1991 \cite{Fiol1991}, however we will be following a definition by Nedela and Škoviera \cite{Nedela1996}.
+In our work, we allow a specific type of graph, which allows ends of its edges to not be incident with a vertex, resulting in a graph with dangling, or even so-called 7ptd edges. Such structures are called \textit{multipoles}. This term was first used by Fiol in 1991 \cite{Fiol1991}, however we will be following a definition by Nedela and Škoviera \cite{Nedela1996}.
 
 \begin{definition}[\cite{Nedela1996}]
 	A \textit{multipole} is a pair $M=(V,E)$ of distinct finite sets of vertices $V$ and edges $E$, where every edge $e\in E$ has two edge ends, which may or need not be incident with a vertex.
@@ -175,7 +177,11 @@ In our work, we allow a specific type of graph, which allows ends of its edges t
 	\end{enumerate}
 \end{definition}
 
-We say that a multipole $M$ is \textit{trivial} if $|V(M)|\leq 1$, otherwise it is \textit{nontrivial}.
+A multipole is considered connected if there exists a path between any pair of edge ends.
+
+For the purposes of this thesis, we simplify our treatment of certain edge types. Specifically, we address links and loops collectively as edges, since both connect vertices (whether distinct or not). Dangling edges and isolated edges, however, require separate consideration due to their distinct structural properties. It's worth noting that in connected multipoles, isolated edges can only exist in the trivial case of a multipole consisting solely of one isolated edge -- a case we generally exclude from our theoretical results.
+
+We say that a multipole $M$ is \textit{trivial} if $|V(M)|\leq 1$, otherwise it is \textit{nontrivial}. For example the mentioned multipole consisting of just one isolated edge is trivial.
 
 A \textit{semiedge} is an edge end not incident with any vertex. For a given multipole $M$, we define $S(M)$ to be the tuple containing all the semiedges in that multipole. A multipole is connected if there exists a path between each pair of semiedges. It can be observed that if a multipole contains an isolated edge it is not connected.
 
@@ -183,15 +189,208 @@ A multipole $M$ with $n$ semiedges and $S(M) = (a_1, \cdots, a_n)$ can also be d
 
 One of the features of multipoles is connecting them to form bigger multipoles or even graphs. They can be seen as small building blocks for constructing larger graphs or multipoles. 
 
-Now, let $e$ and $f$ be edges (not necessarily distinct) and $e',~f'$ two of their semiedges respectively, such that $e'\neq f'$. If $e\neq f$, the result of the \textit{junction} of $e'$ and $f'$ is a new edge, having the other edge ends of $e$ and $f$ and a deletion of $e$ and $f$. If $e=f$, the result of the \textit{junction} of $e'$ and $f'$ is just the deletion of the edge.
+Let $e$ and $f$ be edges (not necessarily distinct) with at least one semiedge and $e',~f'$ two of their semiedges respectively, such that $e'\neq f'$. If $e\neq f$, the result of the \textit{junction} of $e'$ and $f'$ is a new edge, having the other edge ends of $e$ and $f$ and a deletion of $e$ and $f$. If $e=f$, the result of the \textit{junction} of $e'$ and $f'$ is just the deletion of the edge.
 
-The junction of two $k$-poles $M(a_1,\dots,a_k)$ and $N(b_1,\dots,b_k)$ consists of $k$ individual junctions of semiedges $a_i$ and $b_{f(i)}$, for $i$ from $1$ to $k$ and a bijection $f:\{1,\dots,k\}\rightarrow\{1,\dots,k\}$. We denote the junction as $M*_fN$, if we use an arbitrary bijection we simply denote it as $M*N$.
+The junction of two $k$-poles $M(a_1,\dots,a_k)$ and $N(b_1,\dots,b_k)$ consists of $k$ individual junctions of semiedges $a_i$ and $b_{f(i)}$, for $i$ from $1$ to $k$ and a bijection $f:\{1,\dots,k\}\rightarrow\{1,\dots,k\}$. We denote the junction as $M*_fN$, if we use an arbitrary bijection we simply denote it as $M*N$. An example of a junction can be seen in \cref{fig:junction-of-two-multipoles}.
 
-Consider two multipoles $M(a_1,\cdots,a_n)$ and $N(b_1,\cdots,b_m)$ such that $V(M)\cap V(N)=\emptyset$. Their \textit{partial junction of size $k$} is a junction of some semiedges $(a_{i_1},\cdots, a_{i_k})$ and $(b_{j_1},\cdots, b_{j_k})$, where $k\leq n$ and $k\leq m$. The vertices of the resulting multipole will be $V(M)\cup V(N)$. In contrast to a normal junction, which results in a graph, the partial junction can still result in a multipole. However, we allow in partial junction the junction of all semiedges, thus a junction is a special case of partial junction where the result is a graph.
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[every node/.style={circle,fill=black,minimum size=7pt,inner sep=0pt}, scale=0.8]
+		% First graph
+		\graph[clockwise, radius=0.9cm, empty nodes] {subgraph I_n [n=5,name=A] };
+		\graph[clockwise, radius=0.45cm, empty nodes] {subgraph I_n [n=5,name=B] };
+		
+		% Inner pentagon edges (B) using cycle
+		\draw (B 1) -- (B 3) -- (B 5) -- (B 2) -- (B 4) -- cycle;
+		
+		% Connecting edges between pentagons
+		\foreach \i in {1,...,5} {
+			\draw (A \i) -- (B \i);
+		}
+		
+		% Outer pentagon edges (A)
+		\draw (A 1) -- (A 2) (A 3) -- (A 4) -- (A 5) -- (A 1);
+		
+		% Additional lines
+		\foreach \i in {2,3} {
+			\draw (A \i) -- ++(1,0);
+		}
+	\end{tikzpicture}
+	\hfill
+	\begin{tikzpicture}[every node/.style={circle,fill=black,minimum size=7pt,inner sep=0pt}, scale=0.8]
+		% Second graph (inverted)
+		\begin{scope}
+			\graph[clockwise, radius=0.9cm, empty nodes] {subgraph I_n [n=5,name=A] };
+			\graph[clockwise, radius=0.45cm, empty nodes] {subgraph I_n [n=5,name=B] };
+			
+			% Inner pentagon edges (B) using cycle
+			\draw (B 1) -- (B 3) -- (B 5) -- (B 2) -- (B 4) -- cycle;
+			
+			% Connecting edges between pentagons
+			\foreach \i in {1,...,5} {
+				\draw (A \i) -- (B \i);
+			}
+			
+			\draw (A 1) -- (A 2);
+			\draw (A 3) -- (A 4);
+			\draw (A 5) -- (A 1);
+			\draw (A 2) -- (A 3);
+			
+			\draw (A 4) -- ++(-1,0);
+			\draw (A 5) -- ++(-1,0);
+		\end{scope}
+	\end{tikzpicture}
+	\hfill
+	\raisebox{0.8cm}{$\Rightarrow$}
+	\hfill
+	\begin{tikzpicture}[every node/.style={circle,fill=black,minimum size=7pt,inner sep=0pt}, scale=0.8]
+		% Third graph (combined)
+		\graph[clockwise, radius=0.9cm, empty nodes] {subgraph I_n [n=5,name=E] };
+		\graph[clockwise, radius=0.45cm, empty nodes] {subgraph I_n [n=5,name=F] };
+		
+		\draw (F 1) -- (F 3);
+		\draw (F 3) -- (F 5);
+		\draw (F 5) -- (F 2);
+		\draw (F 2) -- (F 4);
+		\draw (F 4) -- (F 1);
+		
+		\foreach \i in {1,...,5} {
+			\draw (E \i) -- (F \i);
+		}
+		
+		\draw (E 1) -- (E 2);
+		\draw (E 3) -- (E 4);
+		\draw (E 4) -- (E 5);
+		\draw (E 5) -- (E 1);
+		
+		% Additional vertices for combined graph
+		\begin{scope}[shift={(4,0)}]
+			\graph[clockwise, radius=0.9cm, empty nodes] {subgraph I_n [n=5,name=G] };
+			\graph[clockwise, radius=0.45cm, empty nodes] {subgraph I_n [n=5,name=H] };
+			
+			\draw (H 1) -- (H 3);
+			\draw (H 3) -- (H 5);
+			\draw (H 5) -- (H 2);
+			\draw (H 2) -- (H 4);
+			\draw (H 4) -- (H 1);
+			
+			\foreach \i in {1,...,5} {
+				\draw (G \i) -- (H \i);
+			}
+			
+			\draw (G 1) -- (G 2);
+			\draw (G 2) -- (G 3);
+			\draw (G 4) -- (G 3);
+			\draw (G 5) -- (G 1);
+		\end{scope}
+		
+		% Connect the hanging edges
+		\draw (E 2) -- (G 5);
+		\draw (E 3) -- (G 4);
+	\end{tikzpicture}
+	\caption{Junction of two multipoles}
+	\label{fig:junction-of-two-multipoles}
+\end{figure}
 
-\todo{ilustrácie?}
+Consider two multipoles $M(a_1,\cdots,a_n)$ and $N(b_1,\cdots,b_m)$. Their \textit{partial junction of size $k$} is a junction of some semiedges $(a_{i_1},\cdots, a_{i_k})$ and $(b_{j_1},\cdots, b_{j_k})$, where $k\leq n$ and $k\leq m$. Note that the vertices of the resulting multipole will be $V(M)\cup V(N)$, for clarity we can make a condition for the multipoles to have distinct vertices. In contrast to a normal junction, which results in a graph, the partial junction can still result in a multipole. However, we allow in partial junction the junction of all semiedges, thus a junction is a special case of partial junction where the result is a graph. An example of a partial junction can be seen in \cref{fig:partial-junction-of-two-multipoles}, note that the result is still a multipole with some semiedges and not a graph as in the example before.
 
-We say that a multipole $M$ contains a multipole $N$, or simply $N$ is in $M$ when there exists a multipole $P$ and a partial junction $*$ such that $N=M*P$. \todo{vylúčiť keď je ten druhý len izolovaná hrana?}
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[every node/.style={circle,fill=black,minimum size=7pt,inner sep=0pt}, scale=0.8]
+		% First graph
+		\graph[clockwise, radius=0.9cm, empty nodes] {subgraph I_n [n=5,name=A] };
+		\graph[clockwise, radius=0.45cm, empty nodes] {subgraph I_n [n=5,name=B] };
+		
+		\draw (B 1) -- (B 3) -- (B 5) -- (B 2) -- (B 4) -- (B 1);
+		
+		\foreach \i in {1,...,5} {
+			\draw (A \i) -- (B \i);
+		}
+		
+		\draw (A 1) -- (A 2);
+		\draw (A 3) -- (A 4);
+		\draw (A 4) -- (A 5);
+		\draw (A 5) -- (A 1);
+		
+		\draw (A 2) -- ++(1,0);
+		\draw (A 3) -- ++(1,0);
+	\end{tikzpicture}
+	\hfill
+	\begin{tikzpicture}[every node/.style={circle,fill=black,minimum size=7pt,inner sep=0pt}, scale=0.8]
+		% Second graph (inverted)
+		\begin{scope}
+			\graph[clockwise, radius=0.9cm, empty nodes] {subgraph I_n [n=5,name=A] };
+			\graph[clockwise, radius=0.45cm, empty nodes] {subgraph I_n [n=5,name=B] };
+			
+			\draw (B 1) -- (B 3) -- (B 5) -- (B 2) -- (B 4) -- (B 1);
+			
+			\foreach \i in {1,...,5} {
+				\draw (A \i) -- (B \i);
+			}
+			
+			\draw (A 1) -- (A 2);
+			\draw (A 3) -- (A 4);
+			\draw (A 5) -- (A 1);
+			\draw (A 2) -- (A 3);
+			
+			\draw (A 4) -- ++(-1,0);
+			\draw (A 5) -- ++(-1,0);
+		\end{scope}
+	\end{tikzpicture}
+	\hfill
+	\raisebox{0.8cm}{$\Rightarrow$}
+	\hfill
+	\begin{tikzpicture}[every node/.style={circle,fill=black,minimum size=7pt,inner sep=0pt}, scale=0.8]
+		% Third graph (combined)
+		\graph[clockwise, radius=0.9cm, empty nodes] {subgraph I_n [n=5,name=E] };
+		\graph[clockwise, radius=0.45cm, empty nodes] {subgraph I_n [n=5,name=B] };
+		
+		\draw (B 1) -- (B 3) -- (B 5) -- (B 2) -- (B 4) -- (B 1);
+		
+		\draw (E 1) -- (B 1);
+		\draw (E 2) -- (B 2);
+		\draw (E 3) -- (B 3);
+		\draw (E 4) -- (B 4);
+		\draw (E 5) -- (B 5);
+		
+		\draw (E 1) -- (E 2);
+		\draw (E 3) -- (E 4);
+		\draw (E 4) -- (E 5);
+		\draw (E 5) -- (E 1);
+		
+		% Additional vertices for combined graph
+		\begin{scope}[shift={(4,0)}]
+			\graph[clockwise, radius=0.9cm, empty nodes] {subgraph I_n [n=5,name=G] };
+			\graph[clockwise, radius=0.45cm, empty nodes] {subgraph I_n [n=5,name=H] };
+			
+			\draw (H 1) -- (H 3);
+			\draw (H 3) -- (H 5);
+			\draw (H 5) -- (H 2);
+			\draw (H 2) -- (H 4);
+			\draw (H 4) -- (H 1);
+			
+			\draw (G 1) -- (H 1);
+			\draw (G 2) -- (H 2);
+			\draw (G 3) -- (H 3);
+			\draw (G 4) -- (H 4);
+			\draw (G 5) -- (H 5);
+			
+			\draw (G 1) -- (G 2);
+			\draw (G 2) -- (G 3);
+			\draw (G 4) -- (G 3);
+			\draw (G 5) -- (G 1);
+		\end{scope}
+		
+		% Connect the hanging edges
+		\draw (E 2) -- (G 5);
+		\draw (E 3) -- ++(1,0);
+		\draw (G 4) -- ++(-1,0);
+	\end{tikzpicture}
+	\caption{Partial junction of two multipoles}
+	\label{fig:partial-junction-of-two-multipoles}
+\end{figure}
+
+We say that a multipole $M$ contains a multipole $N$, or simply $N$ is in $M$ when there exists a multipole $P$ with at least one vertex and a partial junction $*$ such that $N=M*P$, or $M=N$.
 
 Same as in graphs, a multipole is cyclic if it contains a path which starts and ends in the same vertex, thus contains a cycle.
 
@@ -203,8 +402,6 @@ The distance between two semiedges $a$ and $b$ is equal to
 \end{itemize}
 
 Since we allow these dangling and isolated edges, we can introduce so-called \textit{edge severing}. By severing an edge $e=e_1e_2$, we mean the removal of $e$, along with adding two new edges: $e_1e_3$ and $e_4e_2$, where $e_3$ and $e_4$ are new edge ends. It is evident that by severing a link we obtain two new dangling edges, by severing a dangling edge we obtain a new dangling edge and an isolated edge, and by severing an isolated edge we obtain two new isolated edges. In our work this also applies to cuts. When we say that and edge has been \textit{cut}, it means it has been severed.
-
-Even though edges as we know them from graphs are denoted as links or loops in multipoles, we will keep calling them edges from now on. The reason is that we want to showcase the difference between edges which connect two (not necessarily distinct) vertices, and edges which have at least one end not incident with a vertex. Because of this when we will mention an edge in a multipole from now on, we mean a link or a loop in that multipole. We only differ from these edges by mentioning the separate semiedges, we do not need to differ between dangling and isolated edges.
 
 \section{Edge Cuts and Connectivity}\label{sec:edge-cuts}
 
@@ -226,7 +423,7 @@ In other words, it is the size of the smallest edge cut in the graph. It can be 
 
 \section{Vertex connectivity}
 
-In vertex connectivity we do not cut or remove edges, but remove vertices. By removing a vertex in a multipole $M$ we mean removing this vertex along with all of its incident edges \todo{NIE! Chceme pridať visiace hrany!}. A \textit{vertex cut} is in that case a subset of vertices of $G$, such that after their removal we obtain a disconnected graph.
+In contrast to edge connectivity, as the name suggests, vertex connectivity focuses on the removal of vertices rather than edges. When we remove a vertex from a multipole $M$, we not only delete the vertex itself but also modify the edges that were incident to it. Specifically, any edge end that was previously incident with the removed vertex becomes a semiedge. A \textit{vertex cut} is therefore defined as a subset of vertices whose removal results in a disconnected graph.
 
 A graph $G$ is called \textit{k-connected} for $k\in\mathbb{N}$ if $|G|>k$ and $G-X$ is connected for every subset $X\subseteq V(G)$ with $|X|<k$. In other words, there is no vertex cut in $G$ with less than $k$ semiedges. We can also specify that it is connected to vertex conectivity by denoting it as \textit{k-vertex-connected}, however in our work we use only the first name.
 
@@ -323,15 +520,23 @@ Thus there is a cubic vertex-transitive graph of arbitrary girth.
 
 \chapter{Cyclic Edge Connectivity}\label{ch:cyclic-edge-connectivity}
 
-From this chapter, all of the used graphs and multipoles will be cyclic, if not stated otherwise.
+From this point forward, unless explicitly stated otherwise, all graphs and multipoles discussed will be cyclic. While fundamental concepts of cyclic edge-connectivity were introduced in \cref{sec:cyclic-edge-connectivity}, this chapter extends these foundations and presents important theoretical developments for our thesis, with emphasis on cubic graphs.
+
+We begin by examining a result by Nedela and Škoviera regarding the upper bound of cyclic edge-connectivity in cubic graphs. 
 
 \begin{proposition}[{{\cite[Proposition 2]{atoms-of-cyclic}}}]\label{prop:cyclic-con-less-than-girth}
 	For every connected cubic graph $G$ it holds that $\zeta(G)\leq g(G)$.
 \end{proposition}
 
+Notably, this presents an interesting contrast with classical edge connectivity: while regular edge connectivity in cubic graphs is bounded above by three, the upper bound of cyclic edge-connectivity can achieve arbitrarily large values, even within the restricted class of cubic graphs.
+
+In this chapter, as mentioned, we extend the fundamental definitions from the chapter before and present important theorems and other concepts essential for our work. We begin by examining cyclic vertex-connectivity and its equivalence to cyclic edge-connectivity in cubic graphs. We then define an essential concept in our work: cyclic parts, followed by definitions of so-called adjuncts. The chapter continues with an exploration of inflations, and concludes with a discussion of existing algorithms for computing cyclic edge-connectivity in graphs, with particular focus on cubic graphs.
+
 \section{Cyclic Vertex Connectivity}
 
-\todo{} tu definuj najskôr vertex cut, následne čo je cyclic vertex connectivity, potom hentú vetu o ekvivalencii (na ňu sa potom môžeš odvolať) a uzavri to že vlastne je to rovnaké v kubických grafoch tak to je vlastne OK.
+A vertex set $X$ in a connected graph is called a \textit{cycle-separating} vertex cut if removing $X$ and any resulting isolated edges yields two components, each containing a cycle. We say that $G$ is cyclically $k$-vertex-connected if it contains no cycle-separating vertex cut with fewer than $k$ vertices. Analogous to cyclic edge-connectivity, the cyclic vertex-connectivity of a graph is defined as the largest integer $k$ for which $G$ is cyclically $k$-vertex-connected.
+
+While this property might appear to offer a distinct perspective for analyzing cubic graphs, the following theorem demonstrates that, in cubic graphs, cyclic vertex-connectivity and cyclic edge-connectivity are actually equivalent properties.
 
 \begin{theorem}[{{\cite{atoms-of-cyclic,mccuaig-edge-reductions}}}]
 	Let $G$ be a connected cubic graph not isomorphic to $K_{3,3},K_4$ or $\Theta_2$. Then the following conditions are equivalent:
@@ -341,6 +546,8 @@ From this chapter, all of the used graphs and multipoles will be cyclic, if not 
 		\item Each independent edge cut has at least $k$ edges.
 	\end{enumerate}
 \end{theorem}
+
+Consequently, any theorem concerning cyclic edge-connectivity in cubic graphs automatically yields corresponding results about cyclic vertex-connectivity and vice-versa.
 
 \section{Cyclic parts}\label{sec:cyclic-parts}
 
@@ -370,35 +577,148 @@ A cyclic part which is a single cycle $C_k$ is called \textit{trivial}, otherwis
 
 \todo{Theorem 7 - lower bound on size of cyclic parts and atoms}
 
-\section{Adjuncts}
+An interesting area for cyclic parts studied by Rajník \cite{Rajnik_phd} are so-called adjuncts. A $k$-pole $A_k$ is called a \textit{$k$-adjunct} if for each cyclic $k$-part $M$ the graph $M*_f A_k$ is cyclically $k$-connected for some bijection $f$. If $M*_f A_k$ is cyclically $k$-connected for every bijection $f$, then we call $A_k$ an universal $k$-adjunct.
 
-\todo{}
+We use this concept for proving an important theorem regarding cyclic parts, however, we do not study them in depth, just find an construction for creating unversal $k$-adjunct for arbitrary $k$. 
 
 \section{Inflations}\label{sec:inflations}
 
-Let $G$ be a graph and $V$ a subset of its vertices. By \textit{contracting} $V$ in $G$ we obtain a new graph $G'$, such that:
+The concept of inflations informally represents a graph transformation where each vertex is replaced by a cycle whose length corresponds to the degree of the vertex. Note that in this concept we consider arbitrary graphs in this section, meaning each vertex can have any degree, however the resulting inflation is always a cubic graph, regardless of the original vertex degrees.
+
+To formalize this concept, we approach the definition from a different perspective -- describing how to obtain the original graph from its inflation rather than the transformation process itself. This requires us to first establish the definition of vertex contraction.
+
+Let $G$ be a graph and $V$ a subset of its vertices. The \textit{contraction} of $V$ in $G$ yields a new graph $G'$ where:
 \begin{itemize}
-	\item For the vertices of $G'$ it holds that $V(G') = (V(G)-V)\cup \{v\}$ where $v$ is a new vertex.
-	\item Let $E$ be a set containing such edges from $G$, which are incident with one vertex in $V$ and one in $V(G)-V$. Formally, ${E=\{xy~|~xy\in E(G), x\in V, y\notin V\}}$. Let $E'$ be a set of edges, which are incident with two vertices from $V$, formally ${E'=\{xy ~|~ xy\in E(G), x\in V, y\in V\}}$. Finally let $E''$ be a set of new edges, such that $E''=\{vy~|~ xy\in E, x\in V\}$.
+	\item The vertex set is defined as $V(G') = (V(G)-V)\cup \{v\}$, where $v$ represents a new vertex.
+	\item For the edge set, we define:
+	\begin{itemize}
+		\item $E=\{xy~|xy\in E(G), x\in V, y\notin V\}$ (edges connecting $V$ to other vertices)
+		\item $E'=\{xy | xy\in E(G), x\in V, y\in V\}$ (edges within $V$)
+		\item $E''=\{vy|~ xy\in E, x\in V\}$ (new edges incident to $v$)
+	\end{itemize}
 	
-	For the edges of $G'$ it holds that ${E(G')=(E(G)-E')\cup E''}$.
+	The edge set of $G'$ is then ${E(G')=(E(G)-E')\cup E''}$
 \end{itemize}
+
+This can be understood as taking the set of vertices and merging them into one while keeping all of the edges, and removing loops which arose after merging.
+
+We can now formally define inflations:
 
 \begin{definition}[{{\cite[Definition 10]{HISTs}}}]
 	Let $G$ be a graph and let $H$ be a cubic graph. Then $H$ is called an inflation of $G$ if $H$ contains a 2-factor $F$ consisting of chordless cycles such that the graph obtained from $H$ by contracting each cycle of $F$ to a vertex is isomorphic to $G$. By $I(G)$ we denote the set of all inflations of $G$.
 \end{definition}
 
-Informally speaking, one can obtain an inflation of $G$ by expanding each of its vertices to a cycle with the length same as the degree of the respective vertex in $G$.
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=black, minimum size=7pt, inner sep=0pt}]
+			% Original K_5
+			% Place vertices in a pentagon
+			\foreach \i [count=\n from 1] in {90,162,234,306,18} {
+				\node (v\n) at (\i:1.8cm) {};
+			}
+			
+			% Draw all edges
+			\foreach \i in {1,...,4} {
+				\foreach \j in {\i,...,5} {
+					\ifnum\i=\j\else
+					\draw (v\i) -- (v\j);
+					\fi
+				}
+			}
+		\end{tikzpicture}
+		\caption{The graph $K_5$}
+		\label{subfig:k5}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=black, minimum size=7pt, inner sep=0pt}]
+			% Place 4-cycles instead of single vertices
+			\foreach \i [count=\n from 1] in {90,162,234,306,18} {
+				\foreach \j [count=\m from 1] in {45,135,225,315} {
+					\node (v\n\m) at ($(\i:1.8cm) + (\j:0.4cm)$) {};
+				}
+				% Connect the 4-cycle
+				\draw (v\n1) -- (v\n2) -- (v\n3) -- (v\n4) -- (v\n1);
+			}
+			
+			% Connect cycles - each vertex gets one external edge
+			\draw (v11) -- (v51);
+			\draw (v12) -- (v22);
+			\draw (v13) -- (v32);
+			\draw (v14) -- (v41);
+			
+			\draw (v21) -- (v52);
+			\draw (v23) -- (v33);
+			\draw (v24) -- (v42);
+			
+			\draw (v31) -- (v53);
+			\draw (v34) -- (v43);
+			
+			\draw (v44) -- (v54);
+		\end{tikzpicture}
+		\caption{First inflation of $K_5$}
+		\label{subfig:k5-inflated}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=black, minimum size=7pt, inner sep=0pt}]
+			% Place 4-cycles instead of single vertices
+			\foreach \i [count=\n from 1] in {90,162,234,306,18} {
+				\foreach \j [count=\m from 1] in {45,135,225,315} {
+					\node (v\n\m) at ($(\i:1.8cm) + (\j:0.4cm)$) {};
+				}
+				% Connect the 4-cycle
+				\draw (v\n1) -- (v\n2) -- (v\n3) -- (v\n4) -- (v\n1);
+			}
+			
+			% Connect cycles - each vertex gets one external edge
+			\draw (v11) -- (v51);
+			\draw (v12) -- (v22);
+			\draw (v13) -- (v31);
+			\draw (v14) -- (v42);
+			
+			\draw (v21) -- (v52);
+			\draw (v23) -- (v33);
+			\draw (v24) -- (v41);
+			
+			\draw (v32) -- (v53);
+			\draw (v34) -- (v43);
+			
+			\draw (v44) -- (v54);
+		\end{tikzpicture}
+		\caption{Second inflation of $K_5$}
+	\end{subfigure}
+	\caption{$K_5$ and two its distinct inflations}
+	\label{fig:multiple-inflations}
+\end{figure}
+
+It is important to note that a single graph can have multiple distinct inflations, as the connections between cycles can vary. This multiplicity is illustrated in \cref{fig:multiple-inflations}, which shows two different cyclic part inflations of the same graph.
+
+The following theorem is particularly relevant to our work as it establishes conditions for cyclic edge connectivity in inflations:
 
 \begin{theorem}[{{\cite[Theorem 11]{HISTs}}}]\label{th:inflations-cyclic-connectivity}
-	Let $k \geq 3$ and let $G$ be a $k$-connected graph with girth at least $k$. Then every $H \in I(G)$ is cyclically $k$-edge-connected.
+	Let $k \geq 3$ and let $G$ be an arbitrary $k$-connected graph with girth at least $k$. Then every $H \in I(G)$ is cyclically $k$-edge-connected.
 \end{theorem}
+
+Our research extends this understanding of cyclic edge connectivity in inflations by developing additional theorems and introducing a novel approach where vertices are replaced by arbitrary cyclic parts rather than just cycles. These developments are explored in detail in \cref{ch:cyclic-part-inflations}.
 
 \section{Algorithms}\label{sec:algorithms}
 
 In this chapter we provide known algorithms to determine cyclic edge connectivity of graphs.
 
+\todo{}
+
+An Efficient Algorithm for Cyclic Edge Connectivity of Planar Graphs \cite{Lu2009}
+
+An Algorithm for Cyclic Edge Connectivity of Cubic Graphs \cite{Dvorak2004}
+
+Also maybe \cite{Lou2005}
+
 \chapter{Junctions of cyclic multipoles}
+
+\todo{všetky vety kde predpokladáme, že je multipól netriviálny a má nejaký minimálny nezávislý rez - čo ak nemá nezávislý rez, teda vrátane toho jedného bodu s 3 polhranami?}
 
 \begin{definition}
 	Let $M$ be a multipole. We say that $M$ is \textit{potentially cyclically $k$-connected} if for every $l < k$, $M$ does not contain a cyclic $l$-pole.
@@ -505,7 +825,47 @@ We denote the $k$-pole, which is the $k$-cycle where each vertex is incident wit
 	
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.5\linewidth]{graphs/rajnik-cyclic-part-junction-illustration}
+		\begin{tikzpicture}[scale=2,every node/.style={fill=none}]
+			% Define coordinates
+			\coordinate (s0) at (0,0);
+			\coordinate (s1) at (-1,1);
+			\coordinate (s2) at (1,1);
+			\coordinate (s3) at (1,-1);
+			\coordinate (s4) at (-1,-1);
+			
+			% Draw thick gray lines
+			\draw[line width=5pt,gray!60] (s1) -- node[above left,black] {$c$} (s4);
+			\draw[line width=5pt,gray!60] (s1) -- node[shift={(-0.4,0.8)},black] {$b$} (s3);
+			\draw[line width=5pt,gray!60] (s1) -- node[above left,black] {$a$} (s2);
+			\draw[line width=5pt,gray!60] (s2) -- node[shift={(0.4,0.8)},black] {$d$} (s4);
+			\draw[line width=5pt,gray!60] (s2) -- node[below left,black] {$f$} (s3);
+			\draw[line width=5pt,gray!60] (s3) -- node[above right,black] {$e$} (s4);
+			
+			% Draw circles at vertices
+			\foreach \i in {1,2,3,4} {
+				\fill[gray!20] (s\i) circle (0.4);
+				\draw (s\i) circle (0.4);
+			}
+			
+			\draw[dashed] (0,1.7) -- (0,-1.7) node[below] {$S$};
+			\draw[dashed] (-1.7,0) -- (1.7,0) node[right] {$T$};
+			
+			% Draw rounded rectangles
+			\draw[rounded corners=4pt] (-1.7,1.5) rectangle (1.7,0.5);
+			\draw[rounded corners=4pt] (-1.7,-1.5) rectangle (1.7,-0.5);
+			\draw[rounded corners=4pt] (-1.5,1.7) rectangle (-0.5,-1.7);
+			\draw[rounded corners=4pt] (1.5,1.7) rectangle (0.5,-1.7);
+			
+			% Add labels
+			\node at (s1) {$A_1$};
+			\node at (s2) {$A_2$};
+			\node at (s3) {$A_3$};
+			\node at (s4) {$A_4$};
+			\node at (-1,-1.7) [below] {$M_1$};
+			\node at (1,-1.7) [below] {$M_2$};
+			\node at (-1.7,1) [left] {$X_1$};
+			\node at (-1.7,-1) [left] {$X_2$};
+		\end{tikzpicture}
 		\caption{\cite{Rajnik_phd} Intersecting cuts S and T in the graph G}
 		\label{fig:rajnik-cyclic-part-junction-illustration}
 	\end{figure}
@@ -567,7 +927,69 @@ If we would be able to construct a cyclic $k$-pole for each $k$, such that it co
 	
 	Finally, we prove that the result has $k$ semiedges. Note that no two non-adjacent vertices on the path $P$ can be connected by an edge, as this would create a cycle of length at most $k-2$, contradicting our assumption.
 	
-	On path of length $k-3$ there are $k-2$ vertices. If $k=3$, we just remove one vertex and it is evident that the result will have three semiedges \todo{ilustrácia}. If $k > 3$, there are two end vertices of the path and $k-4$ internal. Each internal vertex results in one semiedge in $G'$ after its removal, since two of its neighbors are removed as well and the third neighbor must be some vertex outside $P$. The end vertices result in two semiedges in $G'$ after their removal, since only one of their neighbor is removed. Thus the number of semiedges in $G'$ will be $2\cdot 2 + (k-4)=k$, proving that $G'$ will have k semiedges.
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=black, minimum size=7pt, inner sep=0pt}]
+			\draw[rounded corners] (0,-1) rectangle (2,0);
+			\node (A) at (1,0.7) {};
+			\draw (A) -- ++(0,-0.7);
+			\draw (A) -- ++(-0.5,-0.7);
+			\draw (A) -- ++(0.5,-0.7);
+			
+			\node[fill=none, draw=none] (rightarrow) at (3,-0.2) {$\Rightarrow$};
+			
+			\draw[rounded corners] (4,-1) rectangle (6,0);
+			\draw (5,0) -- ++(0,0.7);
+			\draw (4.5,0) -- ++(0,0.7);
+			\draw (5.5,0) -- ++(0,0.7);
+		\end{tikzpicture}
+		\caption{Creating a 3-pole by removing one vertex}
+		\label{fig:creating-3-pole-removing-1-vertex}
+	\end{figure}
+	
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=black, minimum size=7pt, inner sep=0pt}]
+			\node (A) at (0,0) {};
+			\node (B) at (1,0) {};
+			\node (C) at (2,0) {};
+			\node[fill=none, draw=none] (dots1) at (3,0) {$\cdots$};
+			\node (D) at (4,0) {};
+			
+			\draw[rounded corners] (-0.7,-1.5) rectangle (4.7,-0.4);
+			
+			\draw (A) -- (B);
+			\draw (B) -- (C);
+			\draw (C) -- ++(0.5,0);
+			\draw (D) -- ++(-0.5,0);
+			
+			\draw (A) -- ++(0.4,-0.4);
+			\draw (A) -- ++(-0.4,-0.4);
+			\draw (D) -- ++(0.4,-0.4);
+			\draw (D) -- ++(-0.4,-0.4);
+			\draw (B) -- ++(0,-0.4);
+			\draw (C) -- ++(0,-0.4);
+			
+			\node[fill=none, draw=none] (rightarrow) at (5.5,-0.8) {$\Rightarrow$};
+			
+			\draw[rounded corners] (6.3,-1.5) rectangle (11.7,-0.4);
+			
+			\draw (6.6,0) -- ++(0,-0.4);
+			\draw (7.3,0) -- ++(0,-0.4);
+			\draw (8,0) -- ++(0,-0.4);
+			\draw (8.7,0) -- ++(0,-0.4);
+			
+			\node[fill=none, draw=none] (dots1) at (9.8,-0.2) {$\cdots$};
+			
+			\draw (10.7,0) -- ++(0,-0.4);
+			\draw (11.4,0) -- ++(0,-0.4);
+			
+		\end{tikzpicture}
+		\caption{Removing vertices on a path}
+		\label{fig:removing-vertices-on-path-k-3}
+	\end{figure}
+	
+	On path of length $k-3$ there are $k-2$ vertices. If $k=3$, we just remove one vertex and it is evident that the result will have three semiedges as visible in \cref{fig:creating-3-pole-removing-1-vertex}. If $k > 3$, there are two end vertices of the path and $k-4$ internal. Each internal vertex results in one semiedge in $G'$ after its removal, since two of its neighbors are removed as well and the third neighbor must be some vertex outside $P$. The end vertices result in two semiedges in $G'$ after their removal, since only one of their neighbor is removed. This process is visible in \cref{fig:removing-vertices-on-path-k-3}. Thus the number of semiedges in $G'$ will be $2\cdot 2 + (k-4)=k$, proving that $G'$ will have k semiedges.
 \end{proof}
 
 We will denote the cyclic $k$-poles constructed this way as $W_k$.
@@ -587,30 +1009,17 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 	Since all cases lead to a contradiction it holds that $g(G)\geq k$. Thus we see that $G$ is a cyclic cubic graph with girth at least $k$, resulting from the junction $M*W_k$. Since both $M$ and $W_k$ do not contain a cyclic $l$-pole for $l<k$, both are different from a cycle of length $k$ and their junction $G$ has girth at least $k$, we can apply \cref{th:junction-of-kpoles-cyclic-edge-connectivity} and conclude that $\zeta(G)=k$. Because of this fact we have proved that $M$ is in fact a cyclic $k$-part.
 \end{proof}
 
-\todo{Zamyslenie nad algoritmom na zisťovanie/generovanie cyklických častí}
-
 \section{Junctions of multiple multipoles}
 
 \begin{lemma}\label{le:mi-implies-distance}	
-	Let $M$ be a connected nontrivial multipole with at least two semiedges. Let $m$ be the size of the minimal independent cut in $M$. Then the smallest distance between any pair of distinct semiedges in $M$ is at least $m-1$.
+	Let $M$ be a connected multipole and let $m$ be an arbitrary integer greater than zero. Then the smallest distance between any pair of distinct semiedges in $M$ is at least $m-1$ if it holds that $m\leq 3$ or $g(M)\geq m$ and the size of the minimal independent edge-cut in $M$ is at least $m$.
 \end{lemma}
 
 \begin{proof}
-	\todo{fixnúť dôkaz}
-	If the graph is acyclic, thus a tree, it holds that $m=1$ and it is evident that the distance is at least 0.
+	\todo{fixnúť dôkaz - mám to v poznámkach}
 	
-	Now suppose that the graph is cyclic and let there be a pair of semiedges, for which the distance between them is lower than $m-1$, let the distance be $d$. We see that no two non-adjacent vertices on this path can not be connected by an edge. If there was such pair, we could obtain a path between the pair of semiedges shorter than $d$.
+	If $m=1$ it trivially 
 	
-	Let us take the shortest path between these semiedges and cut all edges incident with vertices on this path, without the edges containing these semiedges and the edges forming the path. Since $G$ is cyclic this is an edge cut, separating the vertices on the path from the rest of the graph.
-	
-	\todo{čo ak neobsahuje independent cut? Čo ak tam je loop alebo digon? Treba poriadne dokončiť.}
-	
-	
-	
-	
-	
-	
-	 Let us take the shortest path between these semiedges and cut all edges incident with vertices on this path, without  the edges containing these semiedges. We cut at most $d+1$ edges, since some of them might be dangling and we do not cut those. Because $G$ is cyclic this separates $G$ into multiple components, with one of them containing the two semiedges, so it is a potentially cycle separating cut of size at most $d+1<m$, leading to a contradiction. \todo{sem chceme dať že to je independent... Ale to nevyplýva priamo}
 \end{proof}
 
 \begin{lemma}\label{lem:cyclic-multipoles-with-girth-and-distance}
@@ -648,12 +1057,105 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 	Since $m_X<j$, by cutting only edges which were created by the partial junction we do not obtain a disconnected graph, we would need to cut all $j$ edges. \todo{dokázať, že ak to nie je independent, tak v jednom je $m=1$ a teda to triviálne platí.} This means, that we the cut needs to contain some edges from $M_1$ or $M_2$, suppose $M_1$. However, since these edges would be an independent cut in $M_1$, it would mean that $m_X\geq m_1$, leading to a contradiction.
 \end{proof}
 
+\begin{theorem}\label{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges}
+	Let $M_1$ and $M_2$ be connected, nontrivial and potencially cyclically $k$-connected multipoles. Let $m_i$ be the size of the smallest independent cut in $M_i$. Let $M$ be a result of a partial junction $M_1*M_2$ of size $j$. Let us denote by $s_i$ the number of remaning semiedges after the partial junction in $M_i$, meaning $|S(M_i)|-j$. If $m_1+m_2\geq k$ and one of the following holds:
+	
+	\begin{enumerate}
+		\item $s_1+s_2\geq k, m_1+s_2\geq k$ and $s_1+m_2\geq k$,
+		\item $s_1+s_2=0$ thus $M$ is a graph \todo{toto asi naozaj dať preč a zjednodušiť, namiesto toho použiť tú vetu o cyclic parts...},
+	\end{enumerate}
+	
+	then $M$ is potentially cyclically $k$-connected.
+\end{theorem}
+
+\begin{proof}
+	\todo{uprav dôkazy podľa nákresu}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[scale=2,every node/.style={fill=none}]
+			% Define coordinates
+			\coordinate (s0) at (0,0);
+			\coordinate (s1) at (-1,1);
+			\coordinate (s2) at (1,1);
+			\coordinate (s3) at (1,-1);
+			\coordinate (s4) at (-1,-1);
+			
+			% Draw thick gray lines
+			\draw[line width=5pt,gray!60] (s1) -- node[above left,black] {$c$} (s4);
+			\draw[line width=5pt,gray!60] (s1) -- node[shift={(-0.4,0.8)},black] {$b$} (s3);
+			\draw[line width=5pt,gray!60] (s1) -- node[above left,black] {$a$} (s2);
+			\draw[line width=5pt,gray!60] (s2) -- node[shift={(0.4,0.8)},black] {$d$} (s4);
+			\draw[line width=5pt,gray!60] (s2) -- node[below left,black] {$f$} (s3);
+			\draw[line width=5pt,gray!60] (s3) -- node[above right,black] {$e$} (s4);
+			
+			%Draw x1,... lines
+			\draw (s1) -- ++(-0.7,0.7) node[above left] {$x_1$};
+			\draw (s2) -- ++(0.7,0.7) node[above right] {$x_2$};
+			\draw (s3) -- ++(0.7,-0.7) node[below right] {$x_3$};
+			\draw (s4) -- ++(-0.7,-0.7) node[below left] {$x_4$};
+			
+			% Draw circles at vertices
+			\foreach \i in {1,2,3,4} {
+				\fill[gray!20] (s\i) circle (0.4);
+				\draw (s\i) circle (0.4);
+			}
+			
+			\draw[dashed] (0,1.7) -- (0,-1.7) node[below] {$S$};
+			\draw[dashed] (-1.7,0) -- (1.7,0) node[right] {$T$};
+			
+			% Draw rounded rectangles
+			\draw[rounded corners=4pt] (-1.7,1.5) rectangle (1.7,0.5);
+			\draw[rounded corners=4pt] (-1.7,-1.5) rectangle (1.7,-0.5);
+			\draw[rounded corners=4pt] (-1.5,1.7) rectangle (-0.5,-1.7);
+			\draw[rounded corners=4pt] (1.5,1.7) rectangle (0.5,-1.7);
+			
+			% Add labels
+			\node at (s1) {$A_1$};
+			\node at (s2) {$A_2$};
+			\node at (s3) {$A_3$};
+			\node at (s4) {$A_4$};
+			\node at (-1,-1.7) [below] {$M_1$};
+			\node at (1,-1.7) [below] {$M_2$};
+			\node at (-1.7,1) [left] {$X_1$};
+			\node at (-1.7,-1) [left] {$X_2$};
+		\end{tikzpicture}
+		\caption{TODO}
+		\label{fig:illustration-for-multiple-multipoles-proof}
+	\end{figure}
+	
+	Suppose by contradiction that there is an $l$-pole $X$ in $M$, which has the smallest $l$ and from such is the largest. Let us denote the other component as $M-X$. Let $A_1,A_2,A_3,A_4$ denote the subgraphs of $G$ induced by $V(X_1)\cap V(M_1), V(X_1)\cap V(M_2), V(X_2)\cap V(M_2), V(X_2)\cap V(M_1)$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, $A_1$ and $A_3$, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$ and $A_4$, $A_2$ and $A_3$ respectively. Let $x_i$ be the number of dangling edges from $A_i$ as seen in \cref{fig:illustration-for-multiple-multipoles-proof}. By looking at the illustration we see that $b+c+d+f+x_1+x_2=l<k$
+	
+	We first prove that $A_1$ and $A_2$ are non-empty. Suppose that some $A_1$ is empty. Then $M_2$ would contain the whole cyclic $l$-pole $X$, contradicting the assumption about $M_2$.
+	
+	Next we prove that $A_3$ and $A_4$ cannot be empty at the same time. Suppose that both were empty, meaning $X=M$.
+	\begin{enumerate}
+		\item If it holds that $|S(M)|=0$, it would mean that $X$ is a 0-pole, however we need for $X$ to be a result from a cut, and we can not get a 0-pole this way.
+		\item Otherwise this would mean that $|S(M)|=l<k$, contradicting the fact that $s_1+s_2\geq k$.
+	\end{enumerate}
+	
+	%	Now let us look at the number of edges marked as $a$. If $a$ was 0, then there would be a cyclic pole with at most $l$ semiedges in $M_1$ or $M_2$, leading to a contradiction. If $a=1$, then there must be a cycle in $A_1$ or $A_2$. Suppose it is in $A_1$.
+	%	\begin{enumerate}
+		%		\item If $f=0$, then $A_3$ is empty (since $M_1$ and $M_2$ are connected) and $A_2=M_2$. Since $M_2$ is cyclically nontrivial, it has more than one semiedge meaning $x_2+d\geq 1$. This means, that $a\leq x_2+d$. Note that $e$ and $b$ must be 0 as well, since $A_3$ is empty. We know that $b+c+d+f+x_1+x_2<k$ and $a\leq x_2+d$, thus $a+b+c+f+x_1<k$. From this we see that $a+b+c+x_1<k$, meaning $A_1$ is a cyclic multipole with less than $k$ semiedges in $M_1$, leading to a contradiction.
+		%		\item If $f\geq 1$, it holds that $a\leq f$ since we suppose that $a=1$. From $b+c+d+f+x_1+x_2<k$ we thus get $a+b+c+d+x_1+x_2<k$, from which it holds that $a+b+c+x_1<k$, again leading to a contradiction.
+		%	\end{enumerate}
+	%	We thus get that $a$ is at least two. 
+	
+	The cut separating $X$ from $M-X$ is independent, since it is the minimal possible \todo{toto asi treba niekde dokázať, alebo spomenúť}. Now we shall explore $A_3$ and $A_4$. If both are non-empty, $c$ and $f$ are independent cuts, meaning $c\geq m_1$ and $f\geq m_2$. However $m_1+m_2\geq k$, thus $c+f\geq k$, contradicting the assumption that $b+c+d+f+x_1+x_2<k$.
+	
+	Now suppose one of $A_3$ and $A_4$ is empty, say $A_3$.
+	
+	\begin{enumerate}
+		\item If $|S(M)|=0$, then this would mean that $A_4$ is a cyclic $l$-pole in $M_1$, leading to a contradiction \todo{treba dokázať že je cyklický?}.
+		\item Otherwise $c$ is an independent cut since $a\geq 2$, thus $c\geq m_1$. Also we see that $x_3=0$ and thus $x_2=s_2$. Since $m_1+s_2\geq k$, it holds that $c+x_2\geq k$, contradicting the assumption that $b+c+d+f+x_1+x_2<k$.
+	\end{enumerate}
+\end{proof}
+
 \begin{theorem}\label{th:connecting-potencially-k-connected}
 	Let $M_1$ and $M_2$ be connected and potencially cyclically $k$-connected multipoles with the same number of semiedges, which do not contain an independent edge cut of size $a$, such that after the cut there is an acyclic component with $b$ former semiedges (not resulting from the cut) and $b>a$. Let $m_1$ and $m_2$ be the sizes of minimal independent cuts in $M_1$ and $M_2$ respectively. If $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potencially cyclically $k$-connected unless $M$ has less than $k$ semiedges.
 \end{theorem}
 
 \begin{proof}
-	Suppose by contradiction that there is an $l$-pole $X$ in $M$, which has the smallest $l$ and from such is the largest by number of vertices. Let us denote the other component as $M-X$. Let $A_1,A_2,A_3,A_4$ denote the subgraphs of $G$ induced by $V(X_1)\cap V(M_1), V(X_1)\cap V(M_2), V(X_2)\cap V(M_2), V(X_2)\cap V(M_1)$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, $A_1$ and $A_3$, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$ and $A_4$, $A_2$ and $A_3$ respectively. Let $x_i$ be the number of dangling edges from $A_i$ as seen in \todo{ilustrácia}. By looking at the illustration we see that $b+c+d+f+x_1+x_2=l<k$.
+	Suppose by contradiction that there is an $l$-pole $X$ in $M$, which has the smallest $l$ and from such is the largest by number of vertices. Let us denote the other component as $M-X$. Let $A_1,A_2,A_3,A_4$ denote the subgraphs of $G$ induced by $V(X_1)\cap V(M_1), V(X_1)\cap V(M_2), V(X_2)\cap V(M_2), V(X_2)\cap V(M_1)$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, $A_1$ and $A_3$, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$ and $A_4$, $A_2$ and $A_3$ respectively. Let $x_i$ be the number of dangling edges from $A_i$ as seen in \cref{fig:illustration-for-multiple-multipoles-proof}. By looking at the illustration we see that $b+c+d+f+x_1+x_2=l<k$.
 	
 	We first prove that $M-X$ contains a cycle. It must be non-empty, otherwise $M=X$ and $M$ would have less than $k$ semiedges, leading to a contradiction. Now, suppose that $M-X$ does not contain a cycle, thus is a forest. Let's look at any tree in this forest, $T$. The tree contains $a$ semiedges resulting from the cut and $b$ former semiedges. If $b\leq a$ it would lead to a contradiction that $X$ has the least semiedges and is the largest possible, by adding this tree to $X$ we would obtain a cyclic multipole with at most semiedges as $X$ and larger. Thus $b>a$. 
 	
@@ -664,8 +1166,6 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 	We shall prove that for each $i$ in $\{1,2,3,4\}$ it holds that $A_i$ is nonempty. If $A_1$ or $A_2$ were empty, then the whole $l$-pole $X$ would be in $M_2$ or $M_1$ respectively, leading to a contradiction. Suppose that $A_3$ is empty, meaning $M_2$ is contained in $X$. Since $A_3$ and $A_4$ can not be empty at the same time, $A_4$ is non-empty. We then prove that $M-X$ is a cyclic $j$-pole with $j\leq l < k$, and contained in $M_1$ leading to a contradiction. 
 	
 	We know that $M-X$ has a cycle, and number of its semiedges is in this case $c+d+x_4$, since $A_3$ is empty. Also we know that $x_1+x_4=x_2$ since $M_1$ and $M_2$ have the same number of semiedges. We then know that $c+d+x_1+x_2<k$, and $x_4\leq x_2$ since $x_1+x_4=x_2$. From this we get $c+d+x_1+x_4<k$, and thus $c+d+x_4<k$, contradicting the fact that $M_1$ is potencially cyclically $k$-connected.
-	
-%	Then we must prove that $a$ is at least 2. If it was 0, then there would be a cyclic pole with less than $l$ semiedges in $M_1$ or $M_2$. If it was 1, then there would be a cycle in $A_1$ or $A_2$. Suppose it is in $A_1$. We know that $c+b+d+f+x_1+x_2<k$. It also holds that $f\geq 1$ since $A_2$ and $A_3$ are non-empty, meaning $a\leq f$ and $c+b+d+a+x_1+x_2<k$. From this we see that $a+b+c+x_1<k$, meaning $A_1$ would be a cyclic $j$-pole with $j<k$ in $M_1$, leading to a contradiction. \todo{maybe separate this in some separate lemma, so we will not repeat the proof in multiple theorems}
 	
 	The cut separating $X$ from $M-X$ is independent. This can be easily proven, if it was not independent we could obtain a cyclic multipole with less than $l$ semiedges in $M$, leading to a contradiction about $X$. Because of this $c$ and $f$ are independent cuts in $M_1$ and $M_2$ and $c\geq m_1$ and $f\geq m_2$. Thus $c+f\geq k$, which leads to a contradiction with the fact that $c+b+d+f+x_1+x_2=l<k$.
 \end{proof}
@@ -681,82 +1181,146 @@ PROBLEMS:
 
 \todo{}We can also prove that there will be no problematic cut leaving the acyclic graph with more dangling edges than the cut size. Suppose that after the junction from the theorem above there will be a cut of size $a$, such that one of the components have $b$ former semiedges and $b>a$. The proof is basically in the theorem above, but we can formulate it in a separate lemma, and use it later during specific constructions. Also, we can use it then in the theorem proof, making the proof that $M-X$ contains a cycle easier (and the whole proof shorter ofc.)
 
-\begin{theorem}\label{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges}
-	Let $M_1$ and $M_2$ be connected, nontrivial and potencially cyclically $k$-connected multipoles. Let $m_i$ be the size of the smallest independent cut in $M_i$. Let $M$ be a result of a partial junction $M_1*M_2$ of size $j$. Let us denote by $s_i$ the number of remaning semiedges after the partial junction in $M_i$, meaning $|S(M_i)|-j$. If $m_1+m_2\geq k$ and one of the following holds:
-	
-	\begin{enumerate}
-		\item $s_1+s_2\geq k, m_1+s_2\geq k$ and $s_1+m_2\geq k$,
-		\item $s_1+s_2=0$ thus $M$ is a graph \todo{toto asi naozaj dať preč a zjednodušiť, namiesto toho použiť tú vetu o cyclic parts...},
-	\end{enumerate}
-
-	then $M$ is potentially cyclically $k$-connected.
-\end{theorem}
-
-\begin{proof}
-	Suppose by contradiction that there is an $l$-pole $X$ in $M$, which has the smallest $l$ and from such is the largest. Let us denote the other component as $M-X$. Let $A_1,A_2,A_3,A_4$ denote the subgraphs of $G$ induced by $V(X_1)\cap V(M_1), V(X_1)\cap V(M_2), V(X_2)\cap V(M_2), V(X_2)\cap V(M_1)$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, $A_1$ and $A_3$, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$ and $A_4$, $A_2$ and $A_3$ respectively. Let $x_i$ be the number of dangling edges from $A_i$ as seen in \todo{ilustrácia}. By looking at the illustration we see that $b+c+d+f+x_1+x_2=l<k$
-	
-	We first prove that $A_1$ and $A_2$ are non-empty. Suppose that some $A_1$ is empty. Then $M_2$ would contain the whole cyclic $l$-pole $X$, contradicting the assumption about $M_2$.
-	
-	Next we prove that $A_3$ and $A_4$ cannot be empty at the same time. Suppose that both were empty, meaning $X=M$.
-	\begin{enumerate}
-		\item If it holds that $|S(M)|=0$, it would mean that $X$ is a 0-pole, however we need for $X$ to be a result from a cut, and we can not get a 0-pole this way.
-		\item Otherwise this would mean that $|S(M)|=l<k$, contradicting the fact that $s_1+s_2\geq k$.
-	\end{enumerate}
-
-%	Now let us look at the number of edges marked as $a$. If $a$ was 0, then there would be a cyclic pole with at most $l$ semiedges in $M_1$ or $M_2$, leading to a contradiction. If $a=1$, then there must be a cycle in $A_1$ or $A_2$. Suppose it is in $A_1$.
-%	\begin{enumerate}
-%		\item If $f=0$, then $A_3$ is empty (since $M_1$ and $M_2$ are connected) and $A_2=M_2$. Since $M_2$ is cyclically nontrivial, it has more than one semiedge meaning $x_2+d\geq 1$. This means, that $a\leq x_2+d$. Note that $e$ and $b$ must be 0 as well, since $A_3$ is empty. We know that $b+c+d+f+x_1+x_2<k$ and $a\leq x_2+d$, thus $a+b+c+f+x_1<k$. From this we see that $a+b+c+x_1<k$, meaning $A_1$ is a cyclic multipole with less than $k$ semiedges in $M_1$, leading to a contradiction.
-%		\item If $f\geq 1$, it holds that $a\leq f$ since we suppose that $a=1$. From $b+c+d+f+x_1+x_2<k$ we thus get $a+b+c+d+x_1+x_2<k$, from which it holds that $a+b+c+x_1<k$, again leading to a contradiction.
-%	\end{enumerate}
-%	We thus get that $a$ is at least two. 
-	
-	The cut separating $X$ from $M-X$ is independent, since it is the minimal possible \todo{toto asi treba niekde dokázať, alebo spomenúť}. Now we shall explore $A_3$ and $A_4$. If both are non-empty, $c$ and $f$ are independent cuts, meaning $c\geq m_1$ and $f\geq m_2$. However $m_1+m_2\geq k$, thus $c+f\geq k$, contradicting the assumption that $b+c+d+f+x_1+x_2<k$.
-	
-	Now suppose one of $A_3$ and $A_4$ is empty, say $A_3$.
-	
-	\begin{enumerate}
-		\item If $|S(M)|=0$, then this would mean that $A_4$ is a cyclic $l$-pole in $M_1$, leading to a contradiction \todo{treba dokázať že je cyklický?}.
-		\item Otherwise $c$ is an independent cut since $a\geq 2$, thus $c\geq m_1$. Also we see that $x_3=0$ and thus $x_2=s_2$. Since $m_1+s_2\geq k$, it holds that $c+x_2\geq k$, contradicting the assumption that $b+c+d+f+x_1+x_2<k$.
-	\end{enumerate}
-\end{proof}
-
 \subsection{Examples}
 
 First construction is the junction of 3 potencially 5-connected cyclic 5-poles along with one point in the middle.
 
-\begin{example}
+\begin{example}\label{ex:junctions-multiple-first}
 	Suppose we want to connect three 5-poles, along with one point in the middle, and we want to decide whether the result is cyclically 5-connected. The illustration can be seen in \cref{fig:3-5-poles-connected}. We can put some requirements on the connected 5-poles, and by utilizing proved theorems we can prove that in these cases, the result will in fact be potentially cyclically 5-connected.
 	
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}
 			% Big nodes (triangle vertices)
-			\node[circle, draw, fill=white, minimum size=15pt] (A) at (0,2) {};
-			\node[circle, draw, fill=white, minimum size=15pt] (B) at (-1.5,0) {};
-			\node[circle, draw, fill=white, minimum size=15pt] (C) at (1.5,0) {};
+			\node[circle, draw, fill=white, minimum size=15pt] (A) at (0,0) {$M_1$};
+			\node[circle, draw, fill=white, minimum size=15pt] (B) at (4,0) {$M_2$};
+			\node[circle, draw, fill=white, minimum size=15pt] (C) at (2,3.464) {$M_3$};
 			
 			% Center node
-			\node[circle, draw, fill=black, minimum size=5pt, inner sep=0pt] (D) at (0,0.7) {};
+			\node[circle, draw, fill=black, minimum size=7pt, inner sep=0pt] (D) at (2,1.155) {};
 			
-			% Parallel edges between triangle vertices
-			\draw (A.-120) -- (B.50)  (A.-140) --(B.70);
-			\draw (A.-40) -- (C.120)  (A.-60) --(C.140);
-			\draw (B.-10) -- (C.190)  (B.10) --(C.170);
+			% Edges between A and B
+			\draw (A.10) -- (B.170);
+			\draw (A.-10) -- (B.-170);
+			
+			% Edges between B and C
+			\draw (B.110) -- (C.-40);
+			\draw (B.130) -- (C.-60);
+			
+			% Edges between C and A
+			\draw (C.240) -- (A.50);
+			\draw (C.220) -- (A.70);
 			
 			% Edges from center to triangle vertices
 			\draw (D) -- (A);
 			\draw (D) -- (B);
 			\draw (D) -- (C);
 		\end{tikzpicture}
-		\caption{TODO}
+		\caption{Problem for \cref{ex:junctions-multiple-first}}
 		\label{fig:3-5-poles-connected}
 	\end{figure}
 	
-	Let $M_1,M_2,M_3$ be potentially cyclically 5-connected 5-poles, with sizes of their minimal independent cuts $m_1,m_2,m_3$ respectively, such that $m_1\geq 2,m_2\geq 3$ and $m_3\geq 3$ as illustrated in \todo{figure}.
+	Let $M_1,M_2,M_3$ be potentially cyclically 5-connected 5-poles, with sizes of their minimal independent cuts $m_1,m_2,m_3$ respectively, such that $m_1\geq 2,m_2\geq 3$ and $m_3\geq 3$.
 	
-	In the first step, we perform a partial junction of size two on $M_1$ and $M_2$ as illustrated in \todo{figure}. By \cref{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges} the result is potentially cyclically 5-connected, let us denote it as $M_{12}$. About its minimal independent cut we know that $m_{12}\geq 2$ by utilizing \cref{lem:size-of-minimal-potentially-cycle-separating-after-junction}. It can be observed that the size of the cut is exactly two.
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			% Big nodes (triangle vertices)
+			\node[circle, draw, fill=white, minimum size=15pt] (A) at (0,0) {$M_1$};
+			\node[circle, draw, fill=white, minimum size=15pt] (B) at (4,0) {$M_2$};
+			
+			% Edges between A and B
+			\draw (A.10) -- ++(1,0);
+			\draw (A.-10) -- ++(1,0);
+			\draw (B.170) -- ++(-1,0);
+			\draw (B.-170) -- ++(-1,0);
+			
+			\draw (A.100) -- ++(0,1);
+			\draw (A.80) -- ++(0,1);
+			
+			\draw (B.100) -- ++(0,1);
+			\draw (B.80) -- ++(0,1);
+			
+			\draw (A.45) -- ++(0.6, 0.6);
+			\draw (B.135) -- ++(-0.6, 0.6);
+			
+			\node[draw=none,fill=none] (R) at (6,0.55) {$\Rightarrow$};
+			
+			\node[circle, draw, fill=white, minimum size=15pt] (A2) at (8,0) {$M_1$};
+			\node[circle, draw, fill=white, minimum size=15pt] (B2) at (12,0) {$M_2$};
+			
+			% Edges between A and B
+			\draw (A2.10) -- (B2.170);
+			\draw (A2.-10) -- (B2.-170);
+			
+			\draw (A2.100) -- ++(0,1);
+			\draw (A2.80) -- ++(0,1);
+			
+			\draw (B2.100) -- ++(0,1);
+			\draw (B2.80) -- ++(0,1);
+			
+			\draw (A2.45) -- ++(0.6, 0.6);
+			\draw (B2.135) -- ++(-0.6, 0.6);
+		\end{tikzpicture}
+		\caption{First step in \cref{ex:junctions-multiple-first} resulting in multipole $M_{12}$}
+		\label{fig:3-5-poles-connected-step-1}
+	\end{figure}
 	
-	Now we perform a partial junction with the singular point and $M_{12}$ resulting in $M'$ as shown on \todo{ilustrácia}. Since it is trivial, we can not utilize any of the theorems proved so far. Because of this, we have to prove that the result will be potentially cyclically 5-connected.
+	In the first step, we perform a partial junction of size two on $M_1$ and $M_2$ as illustrated in \cref{fig:3-5-poles-connected-step-1}. By \cref{th:connecting-potencially-cyclically-connected-with-number-of-resulting-semiedges} the result is potentially cyclically 5-connected, let us denote it as $M_{12}$. About its minimal independent cut we know that $m_{12}\geq 2$ by utilizing \cref{lem:size-of-minimal-potentially-cycle-separating-after-junction}. It can be observed that the size of the cut is exactly two.
+	
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}
+			% Big nodes (triangle vertices)
+			\node[circle, draw, fill=white, minimum size=15pt] (A) at (0,0) {$M_1$};
+			\node[circle, draw, fill=white, minimum size=15pt] (B) at (4,0) {$M_2$};
+			
+			% Center node
+			\node[circle, draw, fill=black, minimum size=7pt, inner sep=0pt] (D) at (2,2.155) {};
+			
+			\draw (D) -- ++(0,1);
+			\draw (D) -- ++(-0.6,-0.6);
+			\draw (D) -- ++(0.6,-0.6);
+			
+			\draw (A.10) -- (B.170);
+			\draw (A.-10) -- (B.-170);
+			
+			\draw (A.100) -- ++(0,1);
+			\draw (A.80) -- ++(0,1);
+			
+			\draw (B.100) -- ++(0,1);
+			\draw (B.80) -- ++(0,1);
+			
+			\draw (A.45) -- ++(0.6, 0.6);
+			\draw (B.135) -- ++(-0.6, 0.6);
+			
+			\node[draw=none,fill=none] (R) at (6,0.55) {$\Rightarrow$};
+			
+			\node[circle, draw, fill=white, minimum size=15pt] (A) at (8,0) {$M_1$};
+			\node[circle, draw, fill=white, minimum size=15pt] (B) at (12,0) {$M_2$};
+			
+			% Center node
+			\node[circle, draw, fill=black, minimum size=7pt, inner sep=0pt] (D) at (10,1.155) {};
+			
+			% Edges between A and B
+			\draw (A.10) -- (B.170);
+			\draw (A.-10) -- (B.-170);
+			
+			\draw (A.100) -- ++(0,1);
+			\draw (A.80) -- ++(0,1);
+			
+			\draw (B.100) -- ++(0,1);
+			\draw (B.80) -- ++(0,1);
+			
+			\draw (D) -- (A);
+			\draw (D) -- (B);
+			\draw (D) -- ++(0,1);
+		\end{tikzpicture}
+		\caption{Second step in \cref{ex:junctions-multiple-first} resulting in multipole $M'$}
+		\label{fig:3-5-poles-connected-step-2}
+	\end{figure}
+	
+	Now we perform a partial junction with the singular point and $M_{12}$ resulting in $M'$ as shown in \cref{fig:3-5-poles-connected-step-2}. Since it is trivial, we can not utilize any of the theorems proved so far. Because of this, we have to prove that the result will be potentially cyclically 5-connected.
 	
 	Suppose it is not, let $X$ be a cyclic $l$-pole in $M'$ for $l<5$, with the least semiedges and the largest from those. We know that $X$ must contain the added point, otherwise it would be present in $M'$ and would contradict the fact that it is potentially cyclically 5-connected. Also it must contain both neighbors of the newly added point, otherwise we could obtain a cyclic multipole with less than $l$ semiedges, as it is visible in \todo{figure}. Let $e_1,e_2$ be the two edges which were created by the partial junction of $M_1$ and $M_2$, as visible in \todo{figure}.  It must hold that $M-X$ is non-empty, otherwise $X=M$ and it would contradict the fact that $X$ has less than 5 semiedges.
 	\begin{enumerate}
@@ -783,9 +1347,11 @@ We say that we need at least one with minimal independent cut 3 and others with 
 
 \section{Creating potentially cyclically $k$-connected multipoles}
 
-\todo{}
+\todo{Metódy ako vytvoriť potenciálne cyklicky $k$-súvislý multipól. Napr. odstránením vrcholov na ceste, odstránením vrcholov mimo cesty a pod.}
 
-\chapter{Cyclic part Inflations}
+\todo{Pre každú metódu nájsť výhodu, napr. vzdialenosť medzi polhranami, alebo minimálny nezávislý rez výsledku}
+
+\chapter{Cyclic part Inflations}\label{ch:cyclic-part-inflations}
 
 The concept of inflations was previously established in \cref{sec:inflations}, where we presented the necessary definitions and the main theorem. This construction is particularly interesting as it enables the transformation of a graph through an "inflation" process, yielding a larger graph whose cyclic edge connectivity can be determined from specific properties of the original graph.
 
@@ -893,8 +1459,6 @@ To overcome this limitation, we present a new theorem that removes the restricti
 \end{theorem}
 
 \begin{proof}
-	\todo{Toto bude potrebovať veľa roboty...}
-	
 	We can write the conidition inequality equivalently as $v\geq \frac{k+4e}{2e}$.
 	
 	Suppose that $\zeta(G)<k$, thus it contains a cyclic $l$-pole $X$ for $l<k$ and $l$ is the minimal possible, thus the cut is independent. Let us denote the cut as $S$ and the other cyclic $l$-pole as $G-X$. By only cutting $l$ edges from the former graph $H$ we do not obtain a disconnected graph since $\lambda(G)\geq k$, thus we need to cut some edges in the cyclic parts. Let $M$ be the cyclic part containing edges from the cut. These edges would disconnect $M$ since it is a minimal cut, if it would not disconnect $M$ we could leave these edges out and obtain a smaller cut, contradicting the assumption about $l$. Since the cut is independent we need to cut at least $\frac{k}{2}$ edges in $M$.
@@ -999,7 +1563,7 @@ We now proceed to demonstrate practical applications of the theorems presented i
 \begin{example}
 	\begin{figure}
 		\centering
-		\begin{tikzpicture}[every node/.style={circle, draw, fill=black, minimum size=5pt, inner sep=0pt}]
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=black, minimum size=10pt, inner sep=0pt}]
 			% Define vertices
 			\node[label=left:$c_1$] (A) at (0,0) {};
 			\node[label=right:$c_2$] (B) at (4,0) {};
@@ -1046,38 +1610,36 @@ We now proceed to demonstrate practical applications of the theorems presented i
 			\node (C) at (2,3.464) {$C_3$};
 			\node (M) at (2,1.155) {$C_4$};
 			
-			% Draw curved edges between vertices
-			% Each pair has two edges, one bent left and one right
+			% Draw parallel straight edges between vertices
 			
 			% Edges between A and B
-			\draw[bend left=10] (A) to (B);
-			\draw[bend right=10] (A) to (B);
+			\draw (A.10) -- (B.170);
+			\draw (A.-10) -- (B.-170);
 			
 			% Edges between B and C
-			\draw[bend left=10] (B) to (C);
-			\draw[bend right=10] (B) to (C);
+			\draw (B.120) -- (C.-40);
+			\draw (B.140) -- (C.-60);
 			
 			% Edges between C and A
-			\draw[bend left=10] (C) to (A);
-			\draw[bend right=10] (C) to (A);
+			\draw (C.240) -- (A.40);
+			\draw (C.220) -- (A.60);
 			
 			% Edges between M and A
-			\draw[bend left=10] (M) to (A);
-			\draw[bend right=10] (M) to (A);
+			\draw (M.220) -- (A.15);
+			\draw (M.200) -- (A.35);
 			
 			% Edges between M and B
-			\draw[bend left=10] (M) to (B);
-			\draw[bend right=10] (M) to (B);
+			\draw (M.-40) -- (B.165);
+			\draw (M.-20) -- (B.145);
 			
 			% Edges between M and C
-			\draw[bend left=10] (M) to (C);
-			\draw[bend right=10] (M) to (C);
+			\draw (M.100) -- (C.-100);
+			\draw (M.80) -- (C.-80);
+			
 		\end{tikzpicture}
 		\caption{Cyclically 6-edge-connected cyclic part inflation}
 		\label{fig:4-6-poles-inflation}
 	\end{figure}
-
-	\todo{možno tiež trocha fixnúť.}
 
 	Let $H$ be a graph from \cref{fig:4-6-poles-before} and let $C_1,C_2,C_3,C_4$ be cyclic 6-parts, not necessarily distinct, such that the size of minimal independent edge cut in each is of size at least three. Let $G$ be a cyclic part inflation of $H$, such that each cyclic part $C_i$ corresponds to the vertex $c_i$ in $H$ for each $i\in\{1,2,3,4\}$, as visible in \cref{fig:4-6-poles-inflation}.
 	
@@ -1088,11 +1650,13 @@ We now proceed to demonstrate practical applications of the theorems presented i
 	This example emerged from a specific challenge encountered during the development of this thesis, specifically when investigating the necessary conditions for a graph $G$ to achieve a cyclic edge connectivity of $\zeta(G)=6$.
 \end{example}
 
-\begin{example}
+Now we present an example showcasing the use of \cref{th:cyclic-part-inflations}.
+
+\begin{example}\label{ex:cyclic-part-inflations-first-theorem}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}[
-			vertex/.style={circle,draw,minimum size=20pt},
+			vertex/.style={circle, draw, fill=black, minimum size=10pt, inner sep=0pt},
 			]
 			
 			% Place vertices in a circle with labels
@@ -1116,16 +1680,20 @@ We now proceed to demonstrate practical applications of the theorems presented i
 			}
 			
 		\end{tikzpicture}
-		\caption{TODO}
-		\label{ex:cyclic-part-inflations-ex-2-before}
+		\caption{Graph $H$ in \cref{ex:cyclic-part-inflations-first-theorem}}
+		\label{fig:cyclic-part-inflations-ex-2-before}
 	\end{figure}
+
+	Let $H$ be the graph visible in \cref{fig:cyclic-part-inflations-ex-2-before}. It can be seen that $\delta(H)=4$, $\kappa(H)=4$ and $g(H)=4$. This means that each cyclic part inflation $G$ of $H$ is cyclically 4-connected and since $\delta(H)=4$ it holds that $\zeta(G)=4$.
 	
 \end{example}
 
 
 \chapter{Problems for further research}
 
-\todo{}
+\begin{problem}
+	Consider a potentially cyclically $k$-connected multipole $M$ and a multipole $K_1$ consisting of a single vertex with three dangling edges. What conditions are necessary for their partial junction $M* K_1$ to be potentially cyclically $k$-connected?
+\end{problem}
 
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
