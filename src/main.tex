@@ -147,6 +147,18 @@
 \addcontentsline{toc}{chapter}{Introduction}
 \markboth{Introduction}{Introduction}
 
+In the study of cubic, that is 3-regular graphs, the traditional edge-connectivity faces a natural limitation: it cannot exceed three, the minimum degree of such graphs. This constraint significantly restricts the exploration of properties of cubic graphs with different values of edge-connectivity.
+
+Cyclic edge-connectivity, on the other hand, offers a wider range of values by imposing additional condition on edge-cuts. Specifically, the cyclic edge-connectivity of a graph $G$ is defined as the size of the smallest cycle-separating edge-cut -- an edge-cut whose removal yields two components, each containing a cycle. Unlike traditional edge-connectivity, this property has no fixed upper bound in cubic graphs, enabling the study of graphs with high cyclic edge-connectivity.
+
+Research has shown that high cyclic \mbox{edge-connectivity} correlates with various structural properties of cubic graphs \cite{Doslic2003, McCuaig1992, Andersen1988}. Moreover, it has been proven that the smallest possible counterexample for several open problems must have high cyclic edge-connectivity \cite{Macajova2020, Kochol2004}.
+
+Our work focuses on cubic graphs constructed from smaller building blocks. Through several theoretical results, we establish conditions for these blocks that enable us to determine the cyclic \mbox{edge-connectivity} of the resulting graphs.
+
+Such constructions of graphs with specific cyclic edge-connectivity remain relatively unexplored. The second author has explored how these building blocks with specific properties can be extended to form graphs with desired cyclic edge-connectivity \cite{Rajnik_phd}. However, this research focused primarily on the existence of such graphs rather than determining the cyclic edge-connectivity of graphs built from more than two building blocks.
+
+\todo{}
+
 \chapter{Preliminaries}\label{ch:preliminaries}
 
 In this chapter we establish the fundamental definitions essential for understanding our thesis. We begin with basic graph theory concepts and specify the types of graphs considered in our work. We then introduce the theoretical framework for our building blocks through the concept of multipoles, along with the formal definitions for connecting these blocks. Following this, we present definitions of (vertex) connectivity and edge connectivity, leading to an introduction of cyclic edge connectivity -- a concept further developed in \cref{ch:cyclic-edge-connectivity}. In the end we discuss transitive graphs, which proves instrumental in proving the existence of multipoles with specific properties required for our theoretical results.
@@ -159,7 +171,7 @@ A \textit{girth} of a graph $G$, denoted by $g(G)$ is the minimum length of a cy
 
 The distance between two vertices $x$ and $y$ in a graph $G$, denoted by $d_G(x,y)$, is defined as the length of the shortest path between $x$ and $y$ in $G$. If no such path exists, we set $d_G(x,y)=\infty$. If the specific graph $G$ is evident from the context, we shall only use $d(x,y)$.
 
-While we work only with cyclic connectivity, for the sake of providing the definition completely in our work, we shall start with definining how we will compute connectivity, but more importantly, how we will work with edge cuts.
+While we work only with cyclic connectivity, for the sake of providing the definition completely in our work, we shall start with definining how we will compute connectivity, but more importantly, how we will work with edge-cuts.
 
 \section{Multipoles}\label{sec:multipoles}
 
@@ -183,13 +195,13 @@ For the purposes of this thesis, we simplify our treatment of certain edge types
 
 We say that a multipole $M$ is \textit{trivial} if $|V(M)|\leq 1$, otherwise it is \textit{nontrivial}. For example the mentioned multipole consisting of just one isolated edge is trivial.
 
-A \textit{semiedge} is an edge end not incident with any vertex. For a given multipole $M$, we define $S(M)$ to be the tuple containing all the semiedges in that multipole. A multipole is connected if there exists a path between each pair of semiedges. It can be observed that if a multipole contains an isolated edge it is not connected.
+A \textit{semiedge} is an edge end not incident with any vertex. For a given multipole $M$, we define $S(M)$ to be the tuple containing all the semiedges in that multipole.
 
 A multipole $M$ with $n$ semiedges and $S(M) = (a_1, \cdots, a_n)$ can also be denoted as $M(a_1,\cdots,a_n)$. Similarly to graphs, the \textit{order} of a multipole $M$, denoted by $|M|$, is the number of its vertices. Also the \textit{degree} of a vertex $v$ of a multipole, denoted by $\deg(v)$, is the number of edge ends incident with $v$. A multipole with $k$ semiedges is usually called a \textit{k-pole}. It can be seen, that a graph can be defined as a 0-pole.
 
 One of the features of multipoles is connecting them to form bigger multipoles or even graphs. They can be seen as small building blocks for constructing larger graphs or multipoles. 
 
-Let $e$ and $f$ be edges (not necessarily distinct) with at least one semiedge and $e',~f'$ two of their semiedges respectively, such that $e'\neq f'$. If $e\neq f$, the result of the \textit{junction} of $e'$ and $f'$ is a new edge, having the other edge ends of $e$ and $f$ and a deletion of $e$ and $f$. If $e=f$, the result of the \textit{junction} of $e'$ and $f'$ is just the deletion of the edge.
+Let $e$ and $f$ be edges (not necessarily distinct) with at least one semiedge and $e',~f'$ two of their semiedges respectively, such that $e'\neq f'$. If $e\neq f$, the result of the \textit{junction} of $e'$ and $f'$ is a new edge between the other edge ends of $e$ and $f$, and a deletion of $e$ and $f$. If $e=f$, the result of the \textit{junction} of $e'$ and $f'$ is just the deletion of the edge.
 
 The junction of two $k$-poles $M(a_1,\dots,a_k)$ and $N(b_1,\dots,b_k)$ consists of $k$ individual junctions of semiedges $a_i$ and $b_{f(i)}$, for $i$ from $1$ to $k$ and a bijection $f:\{1,\dots,k\}\rightarrow\{1,\dots,k\}$. We denote the junction as $M*_fN$, if we use an arbitrary bijection we simply denote it as $M*N$. An example of a junction can be seen in \cref{fig:junction-of-two-multipoles}.
 
@@ -403,23 +415,23 @@ The distance between two semiedges $a$ and $b$ is equal to
 
 Since we allow these dangling and isolated edges, we can introduce so-called \textit{edge severing}. By severing an edge $e=e_1e_2$, we mean the removal of $e$, along with adding two new edges: $e_1e_3$ and $e_4e_2$, where $e_3$ and $e_4$ are new edge ends. It is evident that by severing a link we obtain two new dangling edges, by severing a dangling edge we obtain a new dangling edge and an isolated edge, and by severing an isolated edge we obtain two new isolated edges. In our work this also applies to cuts. When we say that and edge has been \textit{cut}, it means it has been severed.
 
-\section{Edge Cuts and Connectivity}\label{sec:edge-cuts}
+\section{Edge-cuts and Connectivity}\label{sec:edge-cuts}
 
-As the name suggests, an \textit{edge cut} decomposes a graph into multiple connected components. It is a set of edges of a graph $G$, such that if we sever every edge in the set, the resulting graph will not be connected. There is also a second way to denote an edge cut, which is helpful when trying to determine how will the vertices be split after severing the edges. Note that by $E(V_1,V_2)$ we denote the set of edges, which have one end in $V_1$ and the other in $V_2$.
+As the name suggests, an \textit{edge-cut} decomposes a graph into multiple connected components. It is a set of edges of a graph $G$, such that if we sever every edge in the set, the resulting graph will not be connected. There is also a second way to denote an edge-cut, which is helpful when trying to determine how will the vertices be split after severing the edges. Note that by $E(V_1,V_2)$ we denote the set of edges, which have one end in $V_1$ and the other in $V_2$.
 
 Let $G$ be a graph and ${V_1,V_2}$ a partition of $V(G)$, such that both sets are non-empty. By $E(V_1,V_2)$ we denote the set of edges, which have one end in $V_1$ and the other in $V_2$.
 
-Note, that $E(V_1,V_2)$ is indeed an edge cut, when we sever all of these edges, there will not be any edge between a vertex in $V_1$ and $V_2$, splitting the graph into two components. The sets $V_1$ and $V_2$ are called the sides of the cut.
+Note, that $E(V_1,V_2)$ is indeed an edge-cut, when we sever all of these edges, there will not be any edge between a vertex in $V_1$ and $V_2$, splitting the graph into two components. The sets $V_1$ and $V_2$ are called the sides of the cut.
 
-A graph which results from a graph $G$ by severing edges from a set $S$ is denoted as $G-S$. Note that this does not require $S$ to be an edge cut, the result can still be connected.
+A graph which results from a graph $G$ by severing edges from a set $S$ is denoted as $G-S$. Note that this does not require $S$ to be an edge-cut, the result can still be connected.
 
-A graph $G$ is \textit{k-edge-connected} (for $k\in\mathbb{N}$), if $|G|>k$ and $G-S$ is connected for every set $S\subseteq E(G)$ such that $|S|<k$. In other words, there is no edge cut with less than $k$ edges.
+A graph $G$ is \textit{k-edge-connected} (for $k\in\mathbb{N}$), if $|G|>k$ and $G-S$ is connected for every set $S\subseteq E(G)$ such that $|S|<k$. In other words, there is no edge-cut with less than $k$ edges.
 
 \begin{definition}
 	Let $G$ be a graph. The \textit{edge conectivity} of $G$, denoted by $\lambda(G)$ is the greatest $k\in\mathbb{N}$ such that $G$ is $k$-edge-connected.
 \end{definition}
 
-In other words, it is the size of the smallest edge cut in the graph. It can be easily proven, that for each non-trivial graph $G$ it holds that $\lambda(G)\leq\delta(G)$. The proof comes from the fact, that all edges incident with a vertex are indeed edge cuts, separating the vertex from the rest of the graph, meaning there is an edge cut of size $\delta(G)$ in each graph. Also it holds that if $G$ is disconnected, $\lambda(G)=0$.
+In other words, it is the size of the smallest edge-cut in the graph. It can be easily proven, that for each non-trivial graph $G$ it holds that $\lambda(G)\leq\delta(G)$. The proof comes from the fact, that all edges incident with a vertex are indeed edge-cuts, separating the vertex from the rest of the graph, meaning there is an edge-cut of size $\delta(G)$ in each graph. Also it holds that if $G$ is disconnected, $\lambda(G)=0$.
 
 \section{Vertex connectivity}
 
@@ -433,9 +445,9 @@ Note that we can use the same argument for the upper bound of $\kappa(G)$ being 
 
 \section{Cyclic Edge Connectivity}\label{sec:cyclic-edge-connectivity}
 
-The fact that  can be a huge limitation, since for example when trying to explore cubic graphs, the upper bound of the edge connectivity is three. Because of this, a new metrics regarding edge cuts were introduced, requiring both of the components resulting after severing edges from an edge cut to contain cycles. The notation is similar as before, just with a keyword \textit{cyclic} before it. To maintain a reasonable level of formalism, we shall define these properties more precise.
+The fact that  can be a huge limitation, since for example when trying to explore cubic graphs, the upper bound of the edge connectivity is three. Because of this, a new metrics regarding edge-cuts were introduced, requiring both of the components resulting after severing edges from an edge-cut to contain cycles. The notation is similar as before, just with a keyword \textit{cyclic} before it. To maintain a reasonable level of formalism, we shall define these properties more precise.
 
-An edge cut $E(V_1,V_2)$ in a graph $G$ is called \textit{cycle separating}, if both induced subgraphs $G[V_1]$ and $G[V_2]$ contain a cycle. In contrast to edge cuts, there are non-trivial graphs which do not contain a cycle separating edge cut \cite{atoms-of-cyclic, Lou2008, lovasz1965graphs}, for example trees. In cubic graphs however, there are only three of such graphs: $K_{3,3}, K_4, \Theta_2$ \cite{atoms-of-cyclic} visible in \cref{fig:graphs-k33-k4-theta2}.
+An edge-cut $E(V_1,V_2)$ in a graph $G$ is called \textit{cycle separating}, if both induced subgraphs $G[V_1]$ and $G[V_2]$ contain a cycle. In contrast to edge-cuts, there are non-trivial graphs which do not contain a cycle separating edge-cut \cite{atoms-of-cyclic, Lou2008, lovasz1965graphs}, for example trees. In cubic graphs however, there are only three of such graphs: $K_{3,3}, K_4, \Theta_2$ \cite{atoms-of-cyclic} visible in \cref{fig:graphs-k33-k4-theta2}.
 
 \begin{figure}
 	\centering
@@ -490,33 +502,39 @@ An edge cut $E(V_1,V_2)$ in a graph $G$ is called \textit{cycle separating}, if 
 	\label{fig:graphs-k33-k4-theta2}
 \end{figure}
 
-Similarly to edge connectivity, we say that graph $G$ is \textit{cyclically k-edge-connected}, if there is no cycle separating edge cut with less than $k$ edges.
+Similarly to edge connectivity, we say that graph $G$ is \textit{cyclically k-edge-connected}, if there is no cycle separating edge-cut with less than $k$ edges.
 
-Let $\beta(G)=|E|-|V|+1$ be the cycle rank of $G$. Deleting any set of $k\geq \beta(G)$ yields either a disconnected graph or a graph without cycles, thus if $G$ contains a cycle separating edge cut, it must contain one with no more than $\beta(G)-1$ edges \cite{atoms-of-cyclic}.
+Let $\beta(G)=|E|-|V|+1$ be the cycle rank of $G$. Deleting any set of $k\geq \beta(G)$ yields either a disconnected graph or a graph without cycles, thus if $G$ contains a cycle separating edge-cut, it must contain one with no more than $\beta(G)-1$ edges \cite{atoms-of-cyclic}.
 
 \begin{definition}[\cite{atoms-of-cyclic}]
 	Let $G$ be a graph. The \textit{cyclic edge conectivity} of $G$, denoted by $\zeta(G)$ is the largest integer $k \leq \beta(G)$ such that $G$ is cyclically $k$-edge-connected.
 \end{definition}
 
-This means, that if a graph $G$ does not contain a cycle separating edge cut, its cyclic edge connectivity is equal to $\beta(G)$. Note that for acyclic graphs this number is 0, for the three mentioned cubic graphs the values are $\zeta(K_{3,3})=4, \zeta(K_4)=3, \zeta(\Theta_2)=2$.
+This means, that if a graph $G$ does not contain a cycle separating edge-cut, its cyclic edge connectivity is equal to $\beta(G)$. Note that for acyclic graphs this number is 0, for the three mentioned cubic graphs the values are $\zeta(K_{3,3})=4, \zeta(K_4)=3, \zeta(\Theta_2)=2$.
 
 More properties of cyclic edge connectivity are regarded in \cref{ch:cyclic-edge-connectivity}.
 
-\section{Transitive graphs}\label{sec:transitive-graphs}
+\subsection{Transitive graphs}
 
-In proving the results of our work, we have used so-called \textit{Cayley graphs}, for which there are some proved theorems and can be helpful with their properties for our results. To properly define them, we need to dive a bit into an algebraic graph theory, and prove what it means for a graph to be transitive. All of these definitions were taken from a book by Godsil and Royle \cite{algebraic-graph-theory}.
+In proving the results of our work, we have used so-called \textit{transitive graphs}, for which there are some proved theorems and can be helpful with their properties for our results. To properly define them, we need to dive a bit into an algebraic graph theory, and prove what it means for a graph to be transitive. All of these definitions were taken from a book by Godsil and Royle \cite{algebraic-graph-theory}.
 
 An automorphism on a graph $G$ is an isomorphism from $G$ to itself, in other words a permutation of the vertices of $G$ that maps edges to edges and nonedges to nonedges. Trivial case of an automorphism is an identity permutation. It holds that the set of all automorphisms of $G$ forms a group.
 
-A graph $G$ is called vertex-transitive if for any two vertices $x,y\in V(G)$ there is an automorphism of $G$ mapping $x$ to $y$. Similarly, it is called edge-transitive if for any two edges $e,f$ there is an automorphism of $G$ that maps $e$ to $f$. It must be noted that these properties are not equivalent. If a graph is edge-transitive, it does not have to be vertex-transitive. Take for example complete bipartite graph $K_{m,n}$ where $m\neq n$. They are edge transitive, however they can not be vertex transitive, since no automorphism can map a vertex of degree $m$ to a vertex of degree $n$ where $m\neq n$.
+A graph $G$ is called \emph{vertex-transitive} if for any two vertices $x,\,y\in V(G)$ there is an automorphism of $G$ mapping $x$ to $y$. Similarly, it is called \emph{edge-transitive} if for any two edges $e,\,f$ there is an automorphism of $G$ that maps $e$ to $f$.
 
-A vertex-transitive connected graph $G$ is called Cayley if it has a group $\Gamma$ of automorphisms such that for all $u, v \in V(G)$ there exists exactly one automorphism $\phi\in\Gamma$ such that $\phi(u)=v$. In other words, $\Gamma$ acts regularly on $V(G)$. The fact that there is a family of vertex-transitive graphs is very helpful for proving subsequent theorems, since cyclic-edge connectivity is interesting to explore on vertex-transitive graphs. For now we shall mention the following theorem about the existence of $k$-regular vertex-transitive graph with arbitrary girth and $k$, which we will use to construct cubic vertex-transitive graphs.
+An important property of transitive graphs is that their cyclic edge-connectivity coincides with their girth. This result proves particularly useful in our work, specifically in establishing the existence of multipoles with desired properties.
 
-\begin{theorem}[\cite{small-vertex-transitive}]\label{th:cayley-girth-regular}
-	For every pair of parameters $k \geq 2, g \geq 3$, there exists a finite $k$-regular Cayley graph $C(\Gamma, X)$ of girth $g$.
+\begin{theorem}[{{\cite[Theorem 17]{atoms-of-cyclic}}}]\label{th:cyclic-connectivity-of-transitive}
+	Let $G$ be a cubic \mbox{vertex-transitive} or \mbox{edge-transitive} graph of girth $g$. Then $\zeta(G) = g$.
 \end{theorem}
 
-Thus there is a cubic vertex-transitive graph of arbitrary girth.
+For now we shall mention the following theorem about the existence of $k$-regular vertex-transitive graph with arbitrary girth and $k$, which we will use to construct cubic vertex-transitive graphs.
+
+\begin{theorem}[\cite{Nedela2001}]\label{th:vertex-transitive-girth-regular}
+	For every pair of integers $k \geq 3$ and $g \geq 3$ there exists a $k$-regular vertex-transitive graph of girth $g$.
+\end{theorem}
+
+Thus there is a cubic vertex-transitive graph of arbitrary girth, implying arbitrarily large cyclic \mbox{edge-connectivity}.
 
 \chapter{Cyclic Edge Connectivity}\label{ch:cyclic-edge-connectivity}
 
@@ -543,7 +561,7 @@ While this property might appear to offer a distinct perspective for analyzing c
 	\begin{enumerate}
 		\item $G$ is cyclically $k$-edge-connected,
 		\item $G$ is cyclically $k$-vertex-connected,
-		\item Each independent edge cut has at least $k$ edges.
+		\item Each independent edge-cut has at least $k$ edges.
 	\end{enumerate}
 \end{theorem}
 
@@ -552,7 +570,7 @@ Consequently, any theorem concerning cyclic edge-connectivity in cubic graphs au
 \section{Cyclic parts}\label{sec:cyclic-parts}
 
 \begin{definition}
-	Let $G$ be a graph and let $X$ be a minimum cycle separating edge cut in $G$. Then the components which arise after cutting $X$ in $G$ are called \textit{cyclic parts} of $G$. More specifically, if $|B|=k$, then we can refer to them as cyclic $k$-parts.
+	Let $G$ be a graph and let $X$ be a minimum cycle separating edge-cut in $G$. Then the components which arise after cutting $X$ in $G$ are called \textit{cyclic parts} of $G$. More specifically, if $|X|=k$, then we can refer to them as cyclic $k$-parts.
 \end{definition}
 
 By this definition, if there is a problem of deciding if a multipole $M$ is a cyclic part, it is a problem if there exists a graph $G$ with a minimum cycle separating cut $X$ such that one of the components of $G-X$ is isomorphic to $M$. These cyclic parts can be used as potential building blocks of building graphs with desired cyclic connectivity, as proved in the following theorem.
@@ -570,12 +588,6 @@ A cyclic part which is a single cycle $C_k$ is called \textit{trivial}, otherwis
 \begin{proposition}[{{\cite[Proposition 5]{atoms-of-cyclic}}}]
 	Let $G$ be a connected graph of girth $g$. Then $\zeta(G)<g$ if and only if it has a nontrivial proper atom.
 \end{proposition}
-
-\begin{theorem}[{{\cite[Theorem 17]{atoms-of-cyclic}}}]\label{th:cyclic-connectivity-of-transitive}
-	Let $G$ be a cubic vertex-transitive or edge-transitive graph of girth $g$. Then $G$ has no nontrivial proper atom. In particular, $\zeta(G) = g$.
-\end{theorem}
-
-\todo{Theorem 7 - lower bound on size of cyclic parts and atoms}
 
 An interesting area for cyclic parts studied by Rajník \cite{Rajnik_phd} are so-called adjuncts. A $k$-pole $A_k$ is called a \textit{$k$-adjunct} if for each cyclic $k$-part $M$ the graph $M*_f A_k$ is cyclically $k$-connected for some bijection $f$. If $M*_f A_k$ is cyclically $k$-connected for every bijection $f$, then we call $A_k$ an universal $k$-adjunct.
 
@@ -704,44 +716,68 @@ The following theorem is particularly relevant to our work as it establishes con
 
 Our research extends this understanding of cyclic edge connectivity in inflations by developing additional theorems and introducing a novel approach where vertices are replaced by arbitrary cyclic parts rather than just cycles. These developments are explored in detail in \cref{ch:cyclic-part-inflations}.
 
-\section{Algorithms}\label{sec:algorithms}
-
-In this chapter we provide known algorithms to determine cyclic edge connectivity of graphs.
-
-\todo{}
-
-An Efficient Algorithm for Cyclic Edge Connectivity of Planar Graphs \cite{Lu2009}
-
-An Algorithm for Cyclic Edge Connectivity of Cubic Graphs \cite{Dvorak2004}
-
-Also maybe \cite{Lou2005}
-
 \chapter{Junctions of cyclic multipoles}
 
 \begin{definition}
-	Let $M$ be a multipole. We say that $M$ is \textit{potentially cyclically $k$-connected} if it has at least $k$ semiedges when not a graph, and there exists no independent edge-cut whose removal yields a cyclic component with less than $k$ semiedges. \todo{aj keď je acyklický či?}
+	Let $M$ be a multipole. We say that $M$ is \textit{potentially cyclically $k$-connected} if it has at least $k$ semiedges when cyclic and not a graph, and there exists no independent edge-cut whose removal yields a cyclic component with less than $k$ semiedges.
 \end{definition}
 
+Since a graph can be viewed as a special case of a multipole, we can examine the relationship between their property of being cyclically $k$-connected and potentially cyclically $k$-connected. As the following lemma demonstrates, these properties are, in fact, equivalent.
+
 \begin{lemma}\label{lem:graphs-potential-and-normal-cyclic-connected-eq}
-	A graph $G$ is cyclically $k$-connected for integer $k$ if and only if it is potentially cyclically $k$-connected.
+	A graph $G$ is cyclically $k$-connected for integer $k$ if and only if it is potentially cyclically \mbox{$k$-connected}.
 \end{lemma}
 
 \begin{proof}
-	Suppose $G$ is cyclically $k$-connected but not potentially cyclically $k$-connected. Then there exists an independent edge-cut yielding a cyclic component with $l<k$ semiedges. Since the edge-cut is independent, the second component must also be cyclic with $l$ semiedges, contradicting the fact that $G$ is cyclically $k$-connected.
+	We prove both implications indirectly. First suppose $G$ is not potentially cyclically $k$-connected. This means there exists an independent edge-cut yielding a cyclic component with $l<k$ semiedges. Since the edge-cut is independent, it is \mbox{cycle-separating} and of size less than $k$, meaning $G$ is not cyclically $k$-connected.
 	
-	Conversely, if $G$ is potentially cyclically $k$-connected but not cyclically $k$-connected, then there exists an independent cycle-separating edge-cut of size $l<k$, separating $G$ into cyclic $l$-poles $M_1$ and $M_2$. However this directly contradicts that it is potentially cyclically $k$-connected.
+	Conversely, suppose $G$ is not cyclically \mbox{$k$-connected}. This means there exists an independent edge-cut of size $l<k$, separating $G$ into two cyclic $l$-poles $M_1$ and $M_2$, meaning $G$ is not potentially cyclically $k$-connected.
 \end{proof}
+
+The next lemma demonstrates that in a cyclic multipole, the cut separating another cyclic multipole with minimal number of semiedges must be independent.
+
+\begin{lemma}\label{lem:smallest-cut-in-mpoles-is-independent}
+	Let $M$ be a cyclic $k$-pole containing a cyclic multipole with fewer than $k$ semiedges. Let $X$ be such a multipole with minimal number $l$ of semiedges. Then the edge-cut yielding $X$ is independent.
+\end{lemma}
+
+\begin{proof}
+	Suppose the edge-cut is not independent, meaning there exists a vertex $v$ with two edges $e_1,e_2$ in the cut. If $e_3$ is as well in the cut, we remove all three from the cut. Otherwise, modify this edge-cut by removing $e_1,e_2$ and adding the third edge $e_3$ incident with $v$ (unless $e_3$ is dangling, then just remove $e_1,e_2$).
+	
+	These modifications ensure the multipole stays cyclic. Since any vertex incident with two or more edges in the cut cannot be part of a cycle after their severing, modifying the cut, resulting either in adding the vertex into $X$ or removing it from $X$, preserves the cyclic property.
+	
+	Therefore, this modification either yields a cyclic multipole with fewer than $l$ semiedges, contradicting the minimality of $l$, or creates an empty cut, implying $M$ itself has fewer than $k$ semiedges, again leading to a contradiction.
+\end{proof}
+
+We now prove an equivalence lemma for multipoles with at least one semiedge, where we show that the property of being potentially cyclically \mbox{$k$-connected} is equivalent to them not containing a cyclic multipole with a small number of semiedges.
+
+\begin{lemma}
+	A multipole $M$ with at least one semiedge is potentially cyclically $k$-connected if and only if  there exists no cyclic multipole in $M$ with less than $k$ semiedges.
+\end{lemma}
+
+\begin{proof}
+	Suppose, by contradiction, that $M$ is potentially cyclically $k$-connected and contains a cyclic \mbox{$l$-pole} $X$, where $l<k$ and $l$ is minimal. By \cref{lem:smallest-cut-in-mpoles-is-independent} this edge-cut is independent, leading to a contradiction.
+	
+	For the converse implication, suppose that $M$ has no cyclic $l$-pole for any $l<k$, however it is not potentially cyclically $k$-connected. This can mean two things:
+	\begin{itemize}
+		\item $M$ is cyclic and it has less than $k$ semiedges. However this would mean that $M$ contains cyclic multipole with less than $k$ semiedges -- itself, leading to a contradiction.
+		\item There is an independent edge-cut in $M$ which yields a cyclic multipole with less than $k$ semiedges, say $X$. However this would mean that $M$ contains $X$ which is cyclic and has less than $k$ semiedges, leading to a contradiction.
+	\end{itemize}
+	
+	Again, both cases lead to a contradiction, meaning the whole proof is complete.
+\end{proof}
+
+This lemma is widely used in our proofs, where we come to contradictions with the fact that a multipole is potentially cyclically $k$-connected, by coming to a case that it contains a cyclic $l$-pole for some $l<k$. Given its frequent application, we will use this result implicitly without explicit reference.
 
 \section{Cyclic parts}\label{sec:cyclic-part-results}
 
-We denote the $k$-pole, which is the $k$-cycle where each vertex is incident with one dangling edge as $C_k$.
+Let $C_k$ denote the $k$-pole consisting of the $k$-cycle where each vertex is additionally incident with one dangling edge.
 
 \begin{lemma}\label{lem:each-cycle-cyclic-part}
 	For each integer $k\geq 1$ the $k$-pole $C_k$ is a cyclic $k$-part. 
 \end{lemma}
 
 \begin{proof}
-	First we tackle the small cases of $C_1,C_2$, and $C_3$. As seen in \cref{fig:C1C2C3_junctions} by performing an arbitrary junction $C_i*C_i$ we obtain a graph with $\zeta(C_i*C_i)=i$ for each $i\in \{1,2,3\}$.
+	First we tackle the small cases of $C_1,C_2,C_3$ and $C_4$. As seen in \cref{fig:C1C2C3_junctions} and \cref{fig:C4_junction} by performing a junction $C_i*C_i$ we obtain a graph for which it can be verified that $\zeta(C_i*C_i)=i$ for each $i\in \{1,2,3,4\}$.
 	
 	\begin{figure}
 		\centering
@@ -792,12 +828,33 @@ We denote the $k$-pole, which is the $k$-cycle where each vertex is incident wit
 		\caption{Junctions (marked by the dashed lines) $C_1*C_1, C_2*C_2$ and $C_3*C_3$}
 		\label{fig:C1C2C3_junctions}
 	\end{figure}
+
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[scale=0.7, baseline]
+			\begin{scope}[rotate=45, transform shape]
+				\graph[clockwise, radius=2cm, empty nodes] {subgraph C_n [n=4,name=A] };
+			\end{scope}
+			\begin{scope}[xshift=6cm, rotate=45, transform shape]
+				\graph[clockwise, radius=2cm, empty nodes] {subgraph C_n [n=4,name=B] };
+			\end{scope}
+			\draw (A 2) -- (B 1);
+			\draw (A 3) -- (B 4);
+			\draw (A 4) to[bend right] (B 3);
+			\draw (A 1) to[bend left] (B 2);
+			\draw [dashed] (3,3.5) -- (3,-3.5);
+		\end{tikzpicture}
+		\caption{Junction (marked by the dashed line) $C_4*C_4$}
+		\label{fig:C4_junction}
+	\end{figure}
 	
-	Now suppose that $k\geq 4$. For given $k$ we can construct a cubic Cayley graph with girth $k$ according to \cref{th:cayley-girth-regular}. Let us denote this graph as $G_k$. Then $\zeta(G_k)=k$ by utilizing \cref{th:cyclic-connectivity-of-transitive}. Since the girth of $G_k$ is $k$, it contains a cycle of length $k$ and thus $G_k=C_k*P$ for some other $k$-pole $P$.
+	Now suppose that $k>4$. For a given $k$, we can construct a cubic vertex-transitive graph with girth $k$ according to \cref{th:vertex-transitive-girth-regular}. Let us denote this graph as $G_k$. Then $\zeta(G_k)=k$ by \cref{th:cyclic-connectivity-of-transitive}. Since the girth of $G_k$ is $k$, it contains a cycle of length $k$ and thus $G_k=C_k*P$ for some other $k$-pole $P$.
 	
-	We prove that the $\delta(P)=2$, this leads to proving $P$ contains a cycle. Suppose $\delta(P)<2$, this would mean that there is a vertex in $P$ incident with more than one dangling edge. Say these two dangling edges are $e',f'$. Then in $G_k$ these are junctioned with some dangling edges in $C_k$, let $X$ be the shortest path between these dangling edges in $C_k$. We see that $|X|<\frac{k}{2}$ since $C_k$ is a cycle. Let $e,f$ be the links in $G_k$ resulting from the junction of $C_k$ and $P$ such that $e$ resulted from a junction of two dangling edges containing $e'$ and $f$ from a junction containing $f'$. Then there is a cycle $eXf$ in $G_k$ of length smaller than $\frac{k}{2}+2$. The girth of $G_k$ is $k$ thus $k<\frac{k}{2}+2$, leading to the fact that $k<4$, which leads to a contradiction. 
+	Let $P'$ be a modification of $P$, such that all edges other than links are removed, thus the result is a graph. We prove that $\delta(P')=2$, meaning $P'$ is cyclic, and this implies that $P$ is cyclic as well, since by adding more edges to a cyclic multipole it remains cyclic.
 	
-	Thus $\delta(P)=2$, meaning $P$ contains a cycle, the edge cut $E(V(C_k), V(P))$ in $G_k$ is cycle-separating and since $|E(V(C_k), V(P))|=k$ (both are $k$-poles) $C_k$ is a cyclic $k$-part.
+	Suppose $\delta(P')<2$, this would mean that there is a vertex in $P$ incident with more than one dangling edge. Let us denote two of these dangling edges by $e',\,f'$ (note that there can be three dangling edges, it is however sufficient to explore two of them). In the process of junction $C_k*P$, separate junctions are performed between the semiedges on $e'$ and $f'$ and some semiedges in $C_k$, say $s_1$ and $s_2$. Let $X$ be the shortest path between $s_1$ and $s_2$ in $C_k$. We see that $|X|\leq\frac{k}{2}$ since $C_k$ is a $k$-cycle. Let $e,\,f$ be the links in $G_k$ resulting from the junction of $C_k$ and $P$ such that $e$ resulted from a junction of the semiedge in $e'$ and $s_1$, and $f$ from a junction of the semiedge in $f'$ and $s_2$. Then there is a cycle $eXf$ in $G_k$ of length at most $\frac{k}{2}+2$. The girth of $G_k$ is $k$ thus $k\leq\frac{k}{2}+2$, leading to the fact that $k\leq4$, which leads to a contradiction. 
+	
+	Thus $P$ contains a cycle, the edge-cut $E(V(C_k), V(P))$ in $G_k$ is cycle-separating and since $|E(V(C_k), V(P))|=k$ (both are $k$-poles) and $\zeta(G_k)=k$, $C_k$ is a cyclic $k$-part.
 \end{proof}
 
 We now present a helpful lemma which formally establishes that a cyclic $k$-part cannot contain a cyclic $l$-pole where $l<k$. The intuition behind this result is straightforward: since a cyclic $k$-part originates from a graph with cyclic edge-connectivity $k$, the graph cannot contain a cyclic multipole with fewer than $k$ semiedges, as this would contradict the cyclic edge-connectivity of the graph.
@@ -810,32 +867,32 @@ We now present a helpful lemma which formally establishes that a cyclic $k$-part
 	Suppose by contradiction, that $P$ contains a cyclic $l$-pole $Q$ where $l<k$. Since $P$ is a cyclic $k$-part, there exists a graph $G$ with $\zeta(G)=k$ formed by the junction of $P$ and some cyclic $k$-part $P'$. However since the cyclic $l$-pole $Q$ is in $G$, it implies the existence of an independent cycle-separating edge-cut of size at most $l<k$ in $G$. This contradicts the fact that $\zeta(G)=k$.
 \end{proof}
 
-We now present a lemma that determines the precise number of vertices in a connected acyclic multipole. The proof uses an intuition of viewing such multipoles as trees, where instead of the leaf vertices there are semiedges.
+We now present a lemma that determines the upper bound on the number of vertices in an acyclic multipole. The proof uses an intuition of viewing such multipoles as forests, where instead of the leaf vertices there are semiedges.
 
 \begin{lemma}\label{lem:number-of-vertices-in-acyclic-k-pole}
-	Let $M$ be a connected acyclic $k$-pole for some integer $k$. Then $|M|= k-2$. 
+	Let $M$ be an acyclic $k$-pole for some integer $k$. Then $|M|\leq k-2$. 
 \end{lemma}
 
 \begin{proof}
-	Consider $M$ as a tree where semiedges are in place of leaf vertices. The total edge count is thus $k+|M|-1$. Counting edges by vertex degrees (where each vertex contributes three edges) and including dangling edges gives us $k+3|M|$. Since this method counts each edge twice, we have:
-	$$k+3|M|=2k+2|M|-2.$$
-	Solving this equation yields $|M|=k-2$.
+	Consider $M$ as a forest where semiedges are in place of leaf vertices. The total edge count $e$ is thus at~most $k+|M|-1$. Counting edges by vertex degrees (where each vertex contributes three edges) and including dangling edges gives us $k+3|M|$. Since this method counts each edge twice, we have:
+	$$k+3|M|=2e\leq 2k+2|M|-2.$$
+	This inequality yields $|M|\leq k-2$.
 \end{proof}
 
 A more formal proof would proceed by performing $k$ partial junctions, each connecting a semiedge to a multipole consisting of a single vertex with one dangling edge, and then determining the number of internal vertices in the resulting tree structure.
 
-The following theorem, one of our main results, establishes necessary conditions for achieving desired cyclic edge-connectivity in graphs formed by a junction of two multipoles. While this theorem is a modification of a theorem proved by Rajník \cite{Rajnik_phd} and it follows a similar proof structure, it required several modifications to address additional edge cases arising from our consideration of a broader class of multipoles. In the original proof, cyclic $k$-parts were used where our version employs cyclic potentially cyclically $k$-connected $k$-poles.
+The following theorem, one of our main results, establishes necessary conditions for achieving desired cyclic edge-connectivity in graphs formed by a junction of two multipoles. While this theorem is a modification of a theorem proved by the second author \cite{Rajnik_phd} and it follows a similar proof structure, it required several modifications to address additional edge cases arising from our consideration of a broader class of multipoles. In the original proof, cyclic $k$-parts were used where our version employs cyclic potentially cyclically $k$-connected $k$-poles.
 
 \begin{theorem}\label{th:junction-of-kpoles-cyclic-edge-connectivity}
-	Let $M_1$ and $M_2$ be cyclic potentially cyclically $k$-connected $k$-poles. Let both $M_1$ and $M_2$ be different from the cycle of length $k$ or $k\leq 5$. Let $G$ be the junction of $M_1$ and $M_2$. Then $\zeta(G)=k$ unless the girth of $G$ is smaller than $k$.
+	Let $M_1$ and $M_2$ be cyclic potentially cyclically $k$-connected $k$-poles. Let both $M_1$ and $M_2$ be different from the cycle of length $k$ or $k\leq 5$. \mbox{Let $G$ be the junction} of $M_1$ and $M_2$. Then $\zeta(G)=k$ unless the girth of $G$ is smaller than $k$.
 \end{theorem}
 
 \begin{proof}
-	Let us denote the $k$-cut obtained after the junction $M_1*M_2$ by $S$. Suppose by contradiction that $G$ has girth at least $k$ and contains a cycle separating edge cut $T$ of minimal size, such that $|T|=l<k$ and it separates $G$ into two components $X_1$ and $X_2$. Note that in this case $\zeta(G)=l$. Let $A_1,A_2,A_3,A_4$ denote the subgraphs of $G$ induced by $V(X_1)\cap V(M_1), V(X_1)\cap V(M_2), V(X_2)\cap V(M_2), V(X_2)\cap V(M_1)$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, $A_1$ and $A_3$, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$ and $A_4$, $A_2$ and $A_3$ respectively as seen in \cref{fig:rajnik-cyclic-part-junction-illustration}.
+	Let us denote the $k$-cut obtained after the junction $M_1*M_2$ by $S$. Suppose by contradiction that $G$ has girth at least $k$ and contains a \mbox{cycle-separating} \mbox{edge-cut} $T$ of minimal size, such that $|T|=l<k$ and it separates $G$ into two components $X_1$ and $X_2$. Note that in this case ${\zeta(G)=l}$. Let $A_1,\,A_2,\,A_3,\,A_4$ denote the subgraphs of $G$ induced by ${V(X_1)\cap V(M_1)}$, ${V(X_1)\cap V(M_2)}$, ${V(X_2)\cap V(M_2)}$ and ${V(X_2)\cap V(M_1)}$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, \mbox{$A_1$ and $A_3$}, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$ and $A_4$, $A_2$ and $A_3$ respectively as seen in \cref{fig:rajnik-cyclic-part-junction-illustration}.
 	
 	\begin{figure}
 		\centering
-		\begin{tikzpicture}[scale=2,every node/.style={fill=none}]
+		\begin{tikzpicture}[scale=1.8,every node/.style={fill=none}]
 			% Define coordinates
 			\coordinate (s0) at (0,0);
 			\coordinate (s1) at (-1,1);
@@ -845,9 +902,9 @@ The following theorem, one of our main results, establishes necessary conditions
 			
 			% Draw thick gray lines
 			\draw[line width=5pt,gray!60] (s1) -- node[above left,black] {$c$} (s4);
-			\draw[line width=5pt,gray!60] (s1) -- node[shift={(-0.4,0.8)},black] {$b$} (s3);
+			\draw[line width=5pt,gray!60] (s1) -- node[shift={(-0.35,0.7)},black] {$b$} (s3);
 			\draw[line width=5pt,gray!60] (s1) -- node[above left,black] {$a$} (s2);
-			\draw[line width=5pt,gray!60] (s2) -- node[shift={(0.4,0.8)},black] {$d$} (s4);
+			\draw[line width=5pt,gray!60] (s2) -- node[shift={(0.35,0.7)},black] {$d$} (s4);
 			\draw[line width=5pt,gray!60] (s2) -- node[below left,black] {$f$} (s3);
 			\draw[line width=5pt,gray!60] (s3) -- node[above right,black] {$e$} (s4);
 			
@@ -880,85 +937,83 @@ The following theorem, one of our main results, establishes necessary conditions
 		\label{fig:rajnik-cyclic-part-junction-illustration}
 	\end{figure}
 	
-	Next let $r_i=|\delta(A_i)|$ for each $i\in\{1,2,3,4\}$. We can see that each of such $r_i$ is determined by the values of $a,b,c,d,e$ and $f$, for instance $r_1=a+b+c$. We prove by contradiction that each of $A_1, A_2,A_3$ and $A_4$ is non-empty. Suppose that some $A_i$ for $i\in\{1,2,3,4\}$ is empty. Then $M_1$ or $M_2$ would contain the whole cyclic $l$-pole $X_1$ or $X_2$, contradicting the assumption about $M_1$ and $M_2$.
+	Next let $r_i=|\delta(A_i)|$ for each $i\in\{1,2,3,4\}$. We~see that each of such $r_i$ is determined by the values of $a,b,c,d,e$ and $f$, for instance $r_1=a+b+c$. We~prove by contradiction that each of $A_1, \,A_2,\,A_3$ and $A_4$ is non-empty. Suppose that some $A_i$ for $i\in\{1,2,3,4\}$ is empty. Then $M_1$ or $M_2$ would contain the whole cyclic $l$-pole $X_1$ or $X_2$, contradicting the assumption about $M_1$ and $M_2$.
 	
 	From the sizes of $S$ and $T$ we know that
-	\begin{align}
-		a+b+d+e &= k, \label{abde_eq_k}\\
-		l=c+b+d+f &< k. \label{cbdf_smaller_k}
-	\end{align}
+	\begin{align*}
+		a+b+d+e &= k,\\
+		l=c+b+d+f &< k.
+	\end{align*}
 	
-	We now show that for each $i\in\{1,2,3,4\}$ at least one of the inequalities $r_i\geq k$ or $r_{i+1}\geq k$ is true, taking the indices modulo 4. Suppose to the contrary that there exists such $i\in\{1,2,3,4\}$ for which $r_j\leq k-1$ for both $j\in\{i, i+1\}$. Let us look at the properties of one of such $A_j$. We know that it contains less than $k$ semiedges, say $m$. We prove that is must be acyclic by contradiction. Let $A_j$ be in $M_1$, the proof for $M_2$ is analogous. Suppose that it would contain a cycle. Then $A_j$ would be a cyclic $m$-pole with $m<k$, contained in $M_1$, contradicting the assumption about $M_1$. Thus $A_j$ must be acyclic, and we get that $|A_j|=r_j-2\leq k-3$ by \cref{lem:number-of-vertices-in-acyclic-k-pole} for both $j\in \{i, i+1\}$. By denoting $M$ as $G[A_i\cup A_{i+1}]$ we have $|M|\leq 2k-6$ ($A_i$ and $A_{i+1}$ are vertex disjoint). Note that $M$ is by its definition one of the multipoles $X_1, X_2, M_1,$ or $M_2$. This means that $M$ is cyclic and $|M|\geq k$ due to the girth of $G$ which must be at least $k$. From $k\leq |M|\leq 2k-6$ we have $k\geq 6$ so by the assumption of the theorem $M_1$ and $M_2$ are different from the $k$-cycle. Also both of $X_1$ and $X_2$ are different from $k$-cycles since they have less than $k$ semiedges. Therefore $M$ is not a $k$-cycle and it is a cyclic multipole with at most $k$ semiedges and girth at least $k$, so by \cref{lem:rajnik5.1}, $|M| \geq 2k - 4$, contradicting the fact that $|M|\leq 2k-6$.
+	We now show that for each $i\in\{1,2,3,4\}$ at least one of the inequalities $r_i\geq k$ or $r_{i+1}\geq k$ is true, taking the indices modulo 4. Suppose to the contrary that there exists such $i\in\{1,2,3,4\}$ for which $r_j\leq k-1$ for both $j\in\{i, i+1\}$. Let us look at the properties of one of such $A_j$. We know that it contains less than $k$ semiedges, say $m$. It must be acyclic, otherwise $A_j$ would be a cyclic multipole with less than $k$ semiedges in $M_1$ or $M_2$. Thus we get that $|A_j|\leq r_j-2\leq k-3$ by \cref{lem:number-of-vertices-in-acyclic-k-pole} for both $j\in \{i, i+1\}$. By denoting $M$ as $G[A_i\cup A_{i+1}]$ we have $|M|\leq 2k-6$ ($A_i$ and $A_{i+1}$ are vertex disjoint). Note that $M$ is by its definition one of the multipoles $X_1, X_2, M_1,$ or $M_2$. This means that $M$ is cyclic and $|M|\geq k$ due to the girth of $G$ which must be at least $k$. From $k\leq |M|\leq 2k-6$ we have $k\geq 6$ so by the assumption of the theorem $M_1$ and $M_2$ are different from $k$-cycles. Also, both $X_1$ and $X_2$ are different from $k$-cycles since they have less than $k$ semiedges. Therefore $M$ is not a $k$-cycle and it is a cyclic multipole with at most $k$ semiedges and girth at least $k$, so by \cref{lem:rajnik5.1}, $|M| \geq 2k - 4$, contradicting the fact that $|M|\leq 2k-6$.
 	
 	Thus for each $i\in\{1,2,3,4\}$ we have $r_i\geq k$ or $r_{i+1}\geq k$, from which it follows that
-	\begin{align}
-		r_1 =a+b+c\geq a+b+d+e=k \text{ and } r_3 =b+e+f \geq a+b+d+e=k\label{r1r3}
-	\end{align}
+	\begin{align*}
+		r_1 =a+b+c&\geq a+b+d+e=k \\
+		&\text{ and }\\
+		r_3 =b+e+f &\geq a+b+d+e=k
+	\end{align*}
 	
 	or
-	\begin{align}
-		r_2 =a+d+f \geq a+b+d+e=k \text{ and } r4 =c+d+e\geq a+b+d+e=k\label{r2r4}
-	\end{align}
-	
-	is true. After summing, Inequalities \cref{r1r3} imply that $c+f\geq a+2d+e\geq a+e$ and Inequalities \cref{r2r4} imply that $c+f\geq a+2b+e\geq a+e$. In both cases we have obtained $c+f\geq a+e$. However by Inequality \cref{cbdf_smaller_k} we have 
+	\begin{align*}
+		r_2 =a+d+f &\geq a+b+d+e=k \\
+		&\text{ and }\\
+		r_4 =c+d+e&\geq a+b+d+e=k
+	\end{align*}
+	is true. After summing, the first inequalities imply that $c+f\geq a+2d+e\geq a+e$ and the second imply that $c+f\geq a+2b+e\geq a+e$. In both cases we have obtained $c+f\geq a+e$. However we have 
 	$$l=b+c+d+f<a+b+d+e=k$$
-	
 	so $c+f<a+e$, leading to a contradiction.
 	
-	We see that there is no cycle separating edge cut in $G$ with less than $k$ edges. Also there is the cycle-separating $k$-edge-cut $S$, thus it must be minimal and $\zeta(G)=k$.
+	We see that there is no cycle-separating edge-cut in $G$ with less than $k$ edges. Also there is the \mbox{cycle-separating} $k$-edge-cut $S$, thus it must be minimal and $\zeta(G)=k$.
 	
-	If the girth of $G$ would be less than $k$, then $\zeta(G)<k$ as well, because of \cref{prop:cyclic-con-less-than-girth}.
+	If the girth of $G$ would be less than $k$, then ${\zeta(G)<k}$ as well, because of \cref{prop:cyclic-con-less-than-girth}.
 \end{proof}
+
+\begin{lemma}\label{lem:cyclic-multipoles-with-girth-and-distance}
+	Let $M_1$ and $M_2$ be multipoles with girth at least $k$. Let $d_i$ be the minimal distance between a pair of distinct semiedges in $M_i$. Let $M$ be a partial junction $M_1*M_2$. If $d_1+d_2\geq k-2$ then $g(M)\geq k$.
+\end{lemma}
+
+\begin{proof}
+	Let $C$ be a cycle in $M$. We prove that its length must be at least $k$. If $C$ lies entirely within either $M_1$ or $M_2$, its length must be at least $k$ since both multipoles have girth at least $k$.
+	
+	If $C$ spans both $M_1$ and $M_2$, it must contain edges from both multipoles, as well as at least two edges connecting them. Note that these edges between the pair of multipoles are created by the partial junction.
+	
+	Let $e_1,\dots,e_j$ denote the edges in $M$ that were created by the partial junction between $M_1$ and $M_2$. Then $C$ must contain:
+	\begin{enumerate}[label=(\roman*)]
+		\item two distinct edges $e_{i_1},e_{i_2}$ connecting $M_1$ and $M_2$,
+		\item a path $P$ in $M_1$ between a pair of distinct edges connecting $M_1$ and $M_2$,
+		\item a path $Q$ in $M_2$ between a pair of distinct edges connecting $M_1$ and $M_2$.
+	\end{enumerate}
+	Note that the sets of edges in the three cases are pairwise disjoint. Also, each edge between $M_1$ and $M_2$ was a dangling edge in both former multipoles $M_1$ and $M_2$. Now by the definition of $d_1$ and $d_2$ we obtain:
+	
+	\begin{enumerate}[label=(\roman*)]
+		\item Path $P$ has length at least $d_1$,
+		\item Path $Q$ has length at least $d_2$,
+		\item The edges $e_1$ and $e_2$ contribute length 2.
+	\end{enumerate}
+	
+	Therefore, the total length of this path is at least $2+d_1+d_2 \geq 2+(k-2) = k$, implying $C$ has length at least $k$.
+\end{proof}
+
+It can be noted, that the corollary of this theorem is that the cyclic $k$-poles are in this case cyclic $k$-parts, since the cyclic edge-connectivity of the graph resulting from the junction is $k$.
 
 \todo{sem corollary, že ak máme súčet minimálnych rezov aspoň k, tak zabezpečíme obvod - pôvodné ale musia byť potenciálne cyklicky k-súvislé.}
 
-A corollary of this theorem is that in this case the cyclic $k$-poles $M_1$ and $M_2$ are cyclic $k$-parts.
+If we would be able to construct a cyclic $k$-pole for each $k$, such that it contains a cycle, has girth at least $k$ and does not create short cycles when connected to another cyclic $k$-pole, we could make it easier to decide if given cyclic $k$-pole is a cyclic $k$-part. If it does not contain a cyclic $l$-pole such that $l<k$, the \cref{th:junction-of-kpoles-cyclic-edge-connectivity} can be applied and thus it would be a cyclic $k$-part. However we first need to find such cyclic $k$-poles for each $k$.
 
-If we would be able to construct a cyclic $k$-pole for each $k$, such that it contains a cycle, has girth at least $k$ and does not create short cycles when connected to another cyclic $k$-pole, we could make it easier to decide if given cyclic $k$-pole is a cyclic $k$-part. If it does not contain a cyclic $l$-pole such that $l<k$, the \cref{th:junction-of-kpoles-cyclic-edge-connectivity} can be applied and thus it would be a cyclic $k$-part. However we first need to find such cyclic $k$-poles for each $k$. \todo{spomeň asi nejak adjuncts}
+Rajník \cite{Rajnik_phd} introduced these structures as \textit{adjuncts}, or more specifically, \textit{universal adjuncts}. A $k$-pole $U_k$ is defined as a universal $k$-adjunct if, for any cyclic $k$-part $M$ and any junction between them, $M*U_k$ is cyclically $k$-connected.
+
+While the mentioned work focuses on finding minimal universal adjuncts, our objective is different: we aim to either construct universal $k$-adjuncts for arbitrary $k$ or simply prove their existence for each positive integer $k$. The following lemma establishes the existence through properties of Cayley graphs.
 
 \begin{lemma}\label{lem:cyclic-k-pole-no-short-cycles-exists}
 	For each $k\geq 1$, there exists a cyclic $k$-pole with the following properties:
-	\begin{enumerate}
-		\item The girth is at least $k$,
-		\item It contains no cyclic $l$-pole for any $l<k$,
-		\item The distance between any pair of semiedges is at least $k-2$.
+	\begin{enumerate}[label=(\roman*)]
+		\item it is potentially cyclically $k$-connected,
+		\item the distance between any pair of semiedges is at least $k-2$.
 	\end{enumerate}
 \end{lemma}
 
 \begin{proof}
-	For $k$ equal to 1 and 2 we see that $C_k$ fulfills the requirements, we shall only explore $k\geq 3$. For given $k$ we construct a cubic Cayley graph with girth $2k$ according to \cref{th:cayley-girth-regular}. Let us denote this graph as $G$. Then $\zeta(G)=2k$ by utilizing \cref{th:cyclic-connectivity-of-transitive}. Next let $P$ be a path of length $k-3$ in $G$. Since $k\geq 3$ and $|V(G)|$ is evidently at least $2k$, there will always be such path. Remove all of the vertices on this path along with all isolated edges which were created and denote the result as $G'$. Since by removing some vertices and edges from a graph it is not possible to lower a girth, or introduce a new smaller cyclic $l$-pole, we must prove only the third condition about the distance between the semiedges. To be precise, we need to prove that
-	\begin{enumerate}
-		\item $G'$ is a cyclic $k$-pole,
-		\item the distance between any pair of semiedges in $G'$ is at least $k-2$.
-	\end{enumerate}
-	The latter is easier to prove. Suppose that there are two semiedges $s_1$ and $s_2$, such that $d(s_1,s_2)=l<k-2$. Let us denote the shortest path between them as $Q$. Before removing the vertices in $G$, these edge ends were incident with vertices $v_1$ and $v_2$ respectively, not necessarily different. Since $v_1$ and $v_2$ lie on $P$, it holds that $d(v_1,v_2)\leq k-3$, let us denote the shortest path as $P'$. Now let $e_1$ and $e_2$ be the edges containing the edge ends which became semiedges $s_1$ and $s_2$ respectively. Then $e_1Qe_2P'$ is a closed path of length at most $2+(k-2)+(k-3)=2k-3$, contradicting the fact that $G$ has girth $2k$. \todo{ilustrovať} 
-	
-	Now we shall prove that $G'$ is a cyclic $k$-pole, meaning it contains a cycle and has $k$ semiedges. 
-	
-	We first prove that $\delta(G')=2$, proving it contains a cycle. Suppose that there is a vertex $v$ in $G'$ with degree less than two. We see that there is no pair of vertices in $G$ for which are connected by multiple edges, then the girth would be at most two, which would contradict the fact that $k\geq 3$ and the girth of $G$ is $2k$. Thus at least two distinct neighbors of $v$ were removed from $G$ during the creation of $G'$. Let these neighbors be $w_1$ and $w_2$. Since they lie on a path $P$ of length $k-3$, the distance between them is at most $k-3$. Let us denote the shortest path between them as $P'$. Let $e_1$ and $e_2$ be edges connecting $v$ to $w_1$ and $w_2$ in $G$ respectively. Then $e_1P'e_2$ is a cycle of length at most $k-1$ in $G$, contradicting the fact that $k\geq 3$ and the girth of $G$ is at least $2k$.
-	
-	Finally, we prove that the result has $k$ semiedges. Note that no two non-adjacent vertices on the path $P$ can be connected by an edge, as this would create a cycle of length at most $k-2$, contradicting our assumption.
-	
-	\begin{figure}
-		\centering
-		\begin{tikzpicture}[every node/.style={circle, draw, fill=black, minimum size=7pt, inner sep=0pt}]
-			\draw[rounded corners] (0,-1) rectangle (2,0);
-			\node (A) at (1,0.7) {};
-			\draw (A) -- ++(0,-0.7);
-			\draw (A) -- ++(-0.5,-0.7);
-			\draw (A) -- ++(0.5,-0.7);
-			
-			\node[fill=none, draw=none] (rightarrow) at (3,-0.2) {$\Rightarrow$};
-			
-			\draw[rounded corners] (4,-1) rectangle (6,0);
-			\draw (5,0) -- ++(0,0.7);
-			\draw (4.5,0) -- ++(0,0.7);
-			\draw (5.5,0) -- ++(0,0.7);
-		\end{tikzpicture}
-		\caption{Creating a 3-pole by removing one vertex}
-		\label{fig:creating-3-pole-removing-1-vertex}
-	\end{figure}
-	
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}[every node/.style={circle, draw, fill=black, minimum size=7pt, inner sep=0pt}]
@@ -967,6 +1022,8 @@ If we would be able to construct a cyclic $k$-pole for each $k$, such that it co
 			\node (C) at (2,0) {};
 			\node[fill=none, draw=none] (dots1) at (3,0) {$\cdots$};
 			\node (D) at (4,0) {};
+			
+			\node[fill=none, draw=none] at (2,0.4) {$P$};
 			
 			\draw[rounded corners] (-0.7,-1.5) rectangle (4.7,-0.4);
 			
@@ -982,9 +1039,12 @@ If we would be able to construct a cyclic $k$-pole for each $k$, such that it co
 			\draw (B) -- ++(0,-0.4);
 			\draw (C) -- ++(0,-0.4);
 			
+			\draw[dashed] (-1, -0.2) -- (5, -0.2);
+			
 			\node[fill=none, draw=none] (rightarrow) at (5.5,-0.8) {$\Rightarrow$};
 			
 			\draw[rounded corners] (6.3,-1.5) rectangle (11.7,-0.4);
+			\node[fill=none, draw=none] at (9,-0.95) {$G'$};
 			
 			\draw (6.6,0) -- ++(0,-0.4);
 			\draw (7.3,0) -- ++(0,-0.4);
@@ -997,86 +1057,89 @@ If we would be able to construct a cyclic $k$-pole for each $k$, such that it co
 			\draw (11.4,0) -- ++(0,-0.4);
 			
 		\end{tikzpicture}
-		\caption{Removing vertices on a path}
+		\caption{Obtaining the multipole $G'$ by removing $P$}
 		\label{fig:removing-vertices-on-path-k-3}
 	\end{figure}
 	
-	On path of length $k-3$ there are $k-2$ vertices. If $k=3$, we just remove one vertex and it is evident that the result will have three semiedges as visible in \cref{fig:creating-3-pole-removing-1-vertex}. If $k > 3$, there are two end vertices of the path and $k-4$ internal. Each internal vertex results in one semiedge in $G'$ after its removal, since two of its neighbors are removed as well and the third neighbor must be some vertex outside $P$. The end vertices result in two semiedges in $G'$ after their removal, since only one of their neighbor is removed. This process is visible in \cref{fig:removing-vertices-on-path-k-3}. Thus the number of semiedges in $G'$ will be $2\cdot 2 + (k-4)=k$, proving that $G'$ will have k semiedges.
+	For $k$ equal to 1 and 2 we see that $C_k$ fulfils the requirements, we shall only explore $k\geq 3$. 
+	
+	For a given $k$, we construct a cubic vertex-transitive graph with girth $2k$ according to \cref{th:vertex-transitive-girth-regular}. Let us denote this graph as $G$. Then $\zeta(G)=2k$ by \cref{th:cyclic-connectivity-of-transitive}. Next, let $P$ be a path of length $k-3$ in $G$. Since $k\geq 3$ and $|V(G)|$ is evidently at least $2k$ because of its girth, there will always be such path. Sever the edges in the edge-cut ${E(V(P), V(G)-V(P))}$ and denote the component not containing the path $P$ as $G'$. This process is depicted in \cref{fig:removing-vertices-on-path-k-3}.
+	
+	We prove that the distance between any pair of semiedges in $G'$ is at least $k-2$ by contradiction. Suppose that there are two semiedges $s_1$ and $s_2$, such that ${d(s_1,s_2)\leq k-3}$. Let us denote the shortest path between them as $Q$. Before severing the edges, these edge ends were formerly incident with vertices $v_1$ and $v_2$ in $P$ respectively, not necessarily distinct. Since $v_1$ and $v_2$ are on $P$, it holds that $d(v_1,v_2)\leq k-3$, let us denote the shortest path as $P'$. Now let $e_1$ and $e_2$ be the edges containing the edge ends which, after the severing of the edges, became semiedges $s_1$ and $s_2$ respectively. Then $e_1Qe_2P'$ is a closed path of length at most $2+(k-3)+(k-3)=2k-4$, contradicting the fact that $G$ has girth $2k$.
+	
+	Now we shall prove that $G'$ is a cyclic $k$-pole, meaning it contains a cycle and has $k$ semiedges. Let $H'$ be a modification of $G'$, such that all edges other than links are removed, thus the result is a graph. We prove that $\delta(H')=2$, meaning $H'$ is cyclic, and this implies that $G'$ is cyclic as well, since by adding edges and vertices to a cyclic multipole it remains cyclic.
+	
+	Suppose there is a vertex $v$ in $H'$ with degree less than two. In $G'$ this vertex was incident with two dangling edges, thus at least two distinct edges ${e_1=vv_1}$ and ${e_2=vv_2}$ were severed during the creation of $G'$, such that $v_1$ and $v_2$ are in $P$. Since $v_1$ and $v_2$ are on a path $P$ of length $k-3$, the distance between them is at most $k-3$. Let us denote the shortest path between them as $P'$. Then $e_1P'e_2$ is a cycle of length at most $k-1$ in $G$, contradicting the fact that the girth of $G$ is at least $2k$.
+	
+	We prove $G'$ has exactly $k$ semiedges by proving the size of the edge-cut $E(V(P), V(G'))$ has size $k$. Note that no two non-adjacent vertices on the path $P$ are connected by an edge, as this would create a cycle of length at most $k-2$, contradicting our assumption.
+	
+	On path of length $k-3$ there are $k-2$ vertices. If $k=3$, we just cut three edges incident with one vertex (a path of length 0) and the result has three semiedges. If $k > 3$, there are two end vertices of the path and $k-4$ internal. Each internal vertex contributes by one edge to the edge-cut, the end vertices by two. This means that the size of the edge-cut is $2\cdot 2 + (k-4)=k$, proving that $G'$ will have exactly $k$~semiedges.
+	
+	Finally, we prove that $G'$ is potentially cyclically $k$-connected, thus contains no cyclic multipole with fewer than $k$ semiedges. Assume, for contradiction, that it contains a cyclic $l$-pole $M$ where $l<k$. We see that $M$ is in $G$ as well, thus $G=M*N$ for some other $l$-pole $N$. Suppose $N$ is acyclic. By \cref{lem:number-of-vertices-in-acyclic-k-pole}, we know that $|N|\leq l-2$. However $N$ contains all vertices of path $P$, since no vertex from the path $P$ is in $G'$, thus not in $M$. This means, that $|N|\geq k$, which yields $k\leq l-2$ contradicting our assumption that $l<k$.
+	
+	Therefore, $N$ must be cyclic, meaning the edge-cut in $G$ separating $M$ and $N$ is cycle-separating and of size $l<k$. This contradicts $\zeta(G)=2k$, proving that $G'$ cannot contain any cyclic multipole with fewer than $k$ semiedges.
 \end{proof}
 
-We will denote the cyclic $k$-poles constructed this way as $W_k$.
+Let us denote the cyclic $k$-poles constructed in this way as $W_k$.
+
+The following theorem builds upon our previous results concerning cyclic parts. We demonstrate that the problem of determining whether or not a cyclic multipole is a cyclic part does not have to rely on finding an original graph from which the cyclic part could be obtained, but rather only examine the properties of the multipole itself.
 
 \begin{theorem}\label{th:alternative-definition-of-cyclic-part}
-	Let $M$ be a cyclic potentially cyclically $k$-connected $k$-pole. Then $M$ is a cyclic $k$-part.
+	A cyclic $k$-pole $M$ is a cyclic $k$-part if and only if it is potentially cyclically $k$-connected.
 \end{theorem}
 
 \begin{proof}
-	Since each $k$-cycle $C_k$ is a cyclic part as proven in \cref{lem:each-cycle-cyclic-part} we can assume that $M$ is different from a cycle. Let $W_k$ be a cyclic $k$-pole satisfying \cref{lem:cyclic-k-pole-no-short-cycles-exists} and let $G$ be a junction $M*W_k$. We prove that $G$ has girth at least $k$. Suppose by contradiction that $g(G)<k$. Let us denote the shortest cycle in $G$ as $C$, $|C|=l\leq k-1$. There are multiple possibilities of where the cycle is located, we shall explore all of them.
-	\begin{enumerate}
-		\item $C$ is contained in $M$. Since $|C|=l$ and $M$ is cubic, $M$ contains the $l$-pole $C_l$ as well, contradicting the assumption.
-		\item $C$ is contained in $W_k$. This leads to a contradiction, since we have constructed $W_k$ in a way that it has girth at least $k$.
-		\item $C$ is not contained in neither, instead it was created after the junction $M*W_k$. Let the cycle be $ePfQ$, where $e$ and $f$ are edges resulting from the junction $M*W_k$, $P$ are edges inside $W_k$ and $Q$ is the rest of the edges of the cycle. However since the distance of any two semiedges in $W_k$ is at least $k-2$, it holds that $|P|\geq k-2$ and thus $|ePf|\geq k$, contradicting the fact that the cycle is shorter than $k$.
-	\end{enumerate}
-
-	Since all cases lead to a contradiction it holds that $g(G)\geq k$. Thus we see that $G$ is a cyclic cubic graph with girth at least $k$, resulting from the junction $M*W_k$. Since both $M$ and $W_k$ do not contain a cyclic $l$-pole for $l<k$, both are different from a cycle of length $k$ and their junction $G$ has girth at least $k$, we can apply \cref{th:junction-of-kpoles-cyclic-edge-connectivity} and conclude that $\zeta(G)=k$. Because of this fact we have proved that $M$ is in fact a cyclic $k$-part.
+	If $M$ is a cyclic $k$-part then $G=M*N$ for some graph $G$ with $\zeta(G)=k$ and some other cyclic $k$-part $N$. Suppose $M$ is not potentially cyclically \mbox{$k$-connected}, thus contains a cyclic $l$-pole $X$ for $l<k$. However, then $G=X*N'$, $N'$ contains $N$ thus is cyclic as well and the edge-cut induced by the junction is cycle-separating of size at most $l$, contradicting the cyclic edge-connectivity of $G$.
+	
+	For the converse implication, we can assume that $M$ is different from a $k$-cycle, since each $k$-cycle $C_k$ is a cyclic part as proven in \cref{lem:each-cycle-cyclic-part}. Let $W_k$ be a cyclic $k$-pole satisfying \cref{lem:cyclic-k-pole-no-short-cycles-exists} and let $G$ be a junction $M*W_k$.
+	
+	Since $M$ is potentially cyclically $k$-connected, its girth must be at least $k$. Same holds for $W_k$. Also the minimal distance between a pair of semiedges in $W_k$ is $k-2$, thus by \cref{lem:cyclic-multipoles-with-girth-and-distance} it holds that $g(G)\geq k$.
+	
+	For $k\geq 4$, the multipole $W_k$ cannot be a $k$-cycle. If it were, it would contain a pair of semiedges with distance 1 between them, contradicting the requirement that the distance between any pair of semiedges must be at least $k-2$.
+	
+	Thus we see that $G$ is a cyclic cubic graph with girth at least $k$, resulting from the junction ${M*W_k}$. Since both $M$ and $W_k$ are potentially cyclically \mbox{$k$-connected}, both are different from a cycle of length $k$ or $k<4$ and their junction $G$ has girth at least $k$, we can apply \cref{th:junction-of-kpoles-cyclic-edge-connectivity} and conclude that $\zeta(G)=k$. Because of this fact, we have proved that $M$ is in fact a cyclic $k$-part.
 \end{proof}
 
 \section{Junctions of multiple multipoles}
 
-\begin{lemma}\label{le:mi-implies-distance}	
-	Let $M$ be a connected multipole and let $m$ be an arbitrary integer greater than zero. Then the smallest distance between any pair of distinct semiedges in $M$ is at least $m-1$ if it holds that $m\leq 3$ or $g(M)\geq m$ and the size of the minimal independent edge-cut in $M$ is at least $m$.
-\end{lemma}
+In this section we explore junctions of possibly more than two multipoles, and what properties of the multipoles must hold for the result to have desired cyclic connectivity.
 
-\begin{proof}
-	\todo{fixnúť dôkaz - mám to v poznámkach}
-	
-	If $m=1$ it trivially 
-	
-\end{proof}
+As our work frequently involves discussing smallest independent edge-cuts in multipoles, we introduce the following notation.
 
-\begin{lemma}\label{lem:cyclic-multipoles-with-girth-and-distance}
-	Let $M_1$ and $M_2$ be multipoles with girth at least $k$. Let $d_i$ be the minimal distance between any pair of semiedges in $M_i$. Let $M$ be a partial junction $M_1*M_2$. If $d_1+d_2\geq k-2$ then $g(M)\geq k$.
-\end{lemma}
+\begin{definition}
+	For a multipole $M$, let $i(M)$ denote the size of its smallest independent edge-cut, or $\infty$ if $M$~contains no such cut.
+\end{definition}
 
-\begin{proof}
-	Suppose that the girth of $M$ is less than $k$. Since both $M_1$ and $M_2$ have girth at least $k$, any shortest cycle must use edges from both multipoles, necessarily crossing between them at least twice.
-	
-	Let $e_1,\dots,e_j$ denote the edges in $M$ that were created by the partial junction between $M_1$ and $M_2$. Consider a shortest cycle $C$ in $M$. This cycle must:
-	
-	\begin{enumerate}
-		\item Enter $M_1$ through some edge $e_1$ and leave through another edge $e_2$, following a path $P$ in $M_1$,
-		\item After entering $M_2$ through $e_2$, leave through an edge $e_3$ (which may or may not be $e_1$), following a path $Q$ in $M_2$.
-	\end{enumerate}
-
-	Thus, a part of cycle $C$ contains the path $e_1Pe_2Q$. Observe that the path $P$ represents a path between a pair of semiedges in former $M_1$, similarly $Q$ in $M_2$. Thus by definition of $d_1$ and $d_2$:
-	
-	\begin{enumerate}
-		\item Path $P$ has length at least $d_1$,
-		\item Path $Q$ has length at least $d_2$,
-		\item The edges $e_1$ and $e_2$ contribute length 2.
-	\end{enumerate}
-
-	Therefore, the total length of this path is at least $2+d_1+d_2 \geq 2+(k-2) = k$, contradicting our assumption that $M$ contains a cycle shorter than $k$.
-\end{proof}
+Now we prove a helpful lemma, establishing the size of the smallest independent edge-cut of a partial junction of two multipoles.
 
 \begin{lemma}\label{lem:size-of-minimal-potentially-cycle-separating-after-junction}
-	Let $M_1$ and $M_2$ be multipoles, such that $m_1$ and $m_2$ are the sizes of minimal independent cuts in $M_1$ and $M_2$ respectively, or $\infty$ if no such cut exists in given multipole. Let $M$ be the result of a partial junction $M_1*M_2$ of size $j$. Then the size of the minimal independent cut in $M$ is at least $\min\{m_1,m_2,j\}$.
+	Let $M_1$ and $M_2$ be multipoles and let $M$ be the result of a partial junction $M_1*M_2$ of size $j$. Then $i(M)\geq \min\{i(M_1),i(M_2),j\}$.
 \end{lemma}
 
 \begin{proof}
-	Suppose that the minimal independent cut in $M$ has size $m_X$ and it holds that $m_X<\min\{m_1,m_2,j\}$.
+	Suppose that $\min\{i(M_1),i(M_2),j\}>0$, otherwise it would evidently be true, since each edge-cut has size at least 0.
 	
-	Since $m_X<j$, by cutting only edges which were created by the partial junction we do not obtain a disconnected graph. This means, that the cut needs to contain some edges from $M_1$ or $M_2$, suppose $M_1$. However, since these edges would be an independent cut in $M_1$, it would mean that $m_X\geq m_1$, leading to a contradiction.
+	Now suppose that the minimal independent edge-cut in $M$ has size $m_X$ and it holds that ${m_X<\min\{i(M_1),i(M_2),j\}}$.
+	
+	Since $m_X<j$, severing only the edges created by the partial junction cannot disconnect the graph, as it would not cut all such edges (because $m_X<j$) and both $M_1$ and $M_2$ are connected (since ${\min\{i(M_1),i(M_2),j\}>0}$). Therefore, the cut needs to contain some edges from $M_1$ or $M_2$, suppose $M_1$. However, since these edges would be an independent edge-cut in $M_1$, it would mean that $m_X\geq i(M_1)$, leading to a contradiction.
 \end{proof}
 
+We now present a theorem which establishes the conditions under which a partial junction of two potentially cyclically $k$-connected multipoles remains potentially cyclically $k$-connected. \todo{viac textu sem určite, toto treba lepšie uviesť}
+
 \begin{theorem}\label{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges}
-	Let $M_1$ and $M_2$ be connected potentially cyclically $k$-connected multipoles. Let $m_i$ be the size of the smallest independent cut in $M_i$, or $\infty$ if no such cut exists. Let $M$ be a result of a partial junction $M_1*M_2$ of size $j$. Let us denote by $s_i$ the number of remaning semiedges after the partial junction in $M_i$, meaning $|S(M_i)|-j$. If $m_1+m_2\geq k, s_1+s_2\geq k, m_1+s_2\geq k$ and $s_1+m_2\geq k$, then $M$ is potentially cyclically $k$-connected.
+	Let $M_1$ and $M_2$ be potentially cyclically $k$-connected multipoles. Let $M$ be a result of a partial junction $M_1*M_2$ of size $j$. Let us denote by $s_i$ the number of remaining semiedges after the partial junction in $M_i$, meaning ${s_i=|S(M_i)|-j}$. If all of the following conditions hold:
+	\begin{enumerate}[label=(\roman*)]
+		\item $i(M_1)+i(M_2)\geq k$,
+		\item $s_1+s_2\geq k$,
+		\item $i(M_1)+s_2\geq k$ and $s_1+i(M_2)\geq k$,
+	\end{enumerate}
+	then $M$ is potentially cyclically $k$-connected and $i(M)\geq \min\{i(M_1), i(M_2), j\}$.
 \end{theorem}
 
 \begin{proof}
 	\begin{figure}
 		\centering
-		\begin{tikzpicture}[scale=2,every node/.style={fill=none}]
+		\begin{tikzpicture}[scale=1.8,every node/.style={fill=none}]
 			% Define coordinates
 			\coordinate (s0) at (0,0);
 			\coordinate (s1) at (-1,1);
@@ -1086,9 +1149,9 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 			
 			% Draw thick gray lines
 			\draw[line width=5pt,gray!60] (s1) -- node[above left,black] {$c$} (s4);
-			\draw[line width=5pt,gray!60] (s1) -- node[shift={(-0.4,0.8)},black] {$b$} (s3);
+			\draw[line width=5pt,gray!60] (s1) -- node[shift={(-0.35,0.7)},black] {$b$} (s3);
 			\draw[line width=5pt,gray!60] (s1) -- node[above left,black] {$a$} (s2);
-			\draw[line width=5pt,gray!60] (s2) -- node[shift={(0.4,0.8)},black] {$d$} (s4);
+			\draw[line width=5pt,gray!60] (s2) -- node[shift={(0.35,0.7)},black] {$d$} (s4);
 			\draw[line width=5pt,gray!60] (s2) -- node[below left,black] {$f$} (s3);
 			\draw[line width=5pt,gray!60] (s3) -- node[above right,black] {$e$} (s4);
 			
@@ -1123,43 +1186,43 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 			\node at (-1.7,1) [left] {$X_1$};
 			\node at (-1.7,-1) [left] {$X_2$};
 		\end{tikzpicture}
-		\caption{TODO}
+		\caption{Intersecting cuts S and T in the multipole $M$}
 		\label{fig:illustration-for-multiple-multipoles-proof}
 	\end{figure}
-
-	Let us denote the $j$-cut obtained after the partial junction junction $M_1*M_2$ by $S$. Suppose by contradiction that $M$ contains a cyclic $l$-pole $X_1$ such that $l<k$ and $l$ is the smallest possible. Let $T$ be the minimal edge-cut in $M$ yielding $X_1$, if such cut exists, and let the second component be $X_2$. Let $A_1,A_2,A_3,A_4$ denote the subgraphs of $G$ induced by $V(X_1)\cap V(M_1), V(X_1)\cap V(M_2), V(X_2)\cap V(M_2), V(X_2)\cap V(M_1)$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, $A_1$ and $A_3$, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$ and $A_4$, $A_2$ and $A_3$ respectively. Let $x_i$ be the number of dangling edges from $A_i$ as seen in \cref{fig:illustration-for-multiple-multipoles-proof}. By looking at the illustration we see that $b+c+d+f+x_1+x_2=l<k$.
+	
+	Let us denote the $j$-cut obtained after the partial junction junction $M_1*M_2$ by $S$. Suppose by contradiction that $M$ contains a cyclic $l$-pole $X_1$ such that $l<k$ and $l$ is the smallest possible. Let $T$ be the minimal edge-cut in $M$ yielding $X_1$ and denote the second component by $X_2$. Let $A_1,\,A_2,\,A_3,\,A_4$ denote the subgraphs of $G$ induced by ${V(X_1)\cap V(M_1)}, {V(X_1)\cap V(M_2)}, {V(X_2)\cap V(M_2)}$ and ${V(X_2)\cap V(M_1)}$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, $A_1$ and $A_3$, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$~and~$A_4$, $A_2$~and~$A_3$ respectively. Let $x_i$ be the number of dangling edges from $A_i$ as seen in \cref{fig:illustration-for-multiple-multipoles-proof}. We see that ${b+c+d+f+x_1+x_2=l<k}$.
 	
 	We first prove that $A_1$ and $A_2$ are non-empty. Suppose that one is empty, say $A_1$. Then $M_2$ would contain the whole cyclic $l$-pole $X_1$, contradicting the assumption about $M_2$.
 	
-	Next we prove that $A_3$ and $A_4$ cannot be empty at the same time, meaning $X_2$ cannot be empty. Suppose that both were empty, meaning $X_1=M$. This would mean that $|S(M)|=|S(X_1)|=l<k$, contradicting the fact that $s_1+s_2\geq k$.
+	Next, we prove that $A_3$ and $A_4$ cannot be empty at the same time, meaning $X_2$ cannot be empty. Suppose that both were empty, meaning $X_1=M$. This would mean that $|S(M)|=|S(X_1)|=l<k$, contradicting the fact that $s_1+s_2\geq k$.
 	
-	The cut $T$ separating $X_1$ from $X_2$ is independent. Now we shall explore $A_3$ and $A_4$. If both are non-empty, $c$ and $f$ represent independent cuts in $M_1$ and $M_2$ respectively, meaning $c\geq m_1$ and $f\geq m_2$. However $m_1+m_2\geq k$, thus $c+f\geq k$, contradicting the assumption that $b+c+d+f+x_1+x_2<k$.
+	The cut $T$ separating $X_1$ from $X_2$ is independent by \cref{lem:smallest-cut-in-mpoles-is-independent}. Now we shall explore $A_3$ and $A_4$. If both are non-empty, $c$ and $f$ represent independent edge-cuts in $M_1$ and $M_2$ respectively, meaning ${c\geq i(M_1)}$ and ${f\geq i(M_2)}$. However ${i(M_1)+i(M_2)\geq k}$, thus $c+f\geq k$, contradicting the assumption that ${b+c+d+f+x_1+x_2<k}$.
 	
-	Now suppose one of $A_3$ and $A_4$ is empty, say $A_3$. In this case $c$ represents an independent edge-cut in $M_1$, thus $c\geq m_1$. Also we see that in this case $x_3=0$ and thus $x_2=s_2$. Since $m_1+s_2\geq k$, it holds that $c+x_2\geq k$, contradicting the assumption that $b+c+d+f+x_1+x_2<k$.
-
-	Since everything leads to a contradiction, $M$ is potentially cyclically $k$-connected.
+	Now suppose one of $A_3$ and $A_4$ is empty, say $A_3$. In this case $c$ represents an independent edge-cut in $M_1$, thus $c\geq i(M_1)$. Also, we see that in this case $x_3=0$ and thus $x_2=s_2$. Since $i(M_1)+s_2\geq k$, it holds that $c+x_2\geq k$, contradicting the assumption that ${b+c+d+f+x_1+x_2<k}$.
+	
+	As all possible cases lead to contradictions, we conclude that $M$ is potentially cyclically \mbox{$k$-connected}.
+	
+	The fact that ${i(M)\geq \min\{i(M_1), i(M_2), j\}}$ follows from \cref{lem:size-of-minimal-potentially-cycle-separating-after-junction}.
 \end{proof}
 
+The size of a smallest independent edge-cut in a multipole proves to be an important property for establishing that the result is potentially cyclically $k$-connected. As we demonstrate in the following theorem, this property remains significant when considering junctions, thus resulting in graphs.
+
 \begin{theorem}\label{th:cyclic-edge-connectivity-of-potentially-with-independent-cuts}
-	Let $M_1$ and $M_2$ be connected potentially cyclically $k$-connected multipoles. Let $m_i$ be the size of the smallest independent cut in $M_i$, or $\infty$ if no such cut exists in $M_i$. Let $G$ be a junction $M_1*M_2$. If $m_1+m_2\geq k$ then $G$ is cyclically $k$-connected.
+	Let $M_1$ and $M_2$ be potentially cyclically $k$-connected multipoles. Let $G$ be a junction $M_1*M_2$. If $i(M_1)+i(M_2)\geq k$ then $G$ is cyclically $k$-connected.
 \end{theorem}
 
 \begin{proof}
-	Let us denote the cut obtained after the junction $M_1*M_2$ by $S$. Suppose by contradiction that $G$ contains a cycle separating edge cut $T$ of minimal size, such that $|T|=l<k$ and it separates $G$ into two components $X_1$ and $X_2$. Note that in this case $\zeta(G)=l$. Let $A_1,A_2,A_3,A_4$ denote the subgraphs of $G$ induced by $V(X_1)\cap V(M_1), V(X_1)\cap V(M_2), V(X_2)\cap V(M_2), V(X_2)\cap V(M_1)$ respectively. Let $a,b,c,d,e$ and $f$ denote the number of edges connecting $A_1$ and $A_2$, $A_1$ and $A_3$, $A_1$ and $A_4$, $A_2$ and $A_4$, $A_3$ and $A_4$, $A_2$ and $A_3$ respectively as seen in \cref{fig:rajnik-cyclic-part-junction-illustration}.
+	Suppose by contradiction that $G$ contains an independent cycle-separating edge-cut $T$ of minimal size, such that $|T|=l<k$ and it separates $G$ into two cyclic $l$-poles $X_1$ and $X_2$. We maintain the notation used in the previous theorem, an illustration is depicted in \cref{fig:rajnik-cyclic-part-junction-illustration}.
 	
-	We first prove that $A_1$ and $A_2$ are non-empty. Suppose that one is empty, say $A_1$. Then $M_2$ would contain the whole cyclic $l$-pole $X_1$, contradicting the assumption about $M_2$.
+	We first prove that all $A_1,\,\dots,\,A_4$ are non-empty. Suppose that one is empty, say $A_1$. Then $M_2$ would contain the whole cyclic $l$-pole $X_1$, contradicting the assumption about $M_2$.
 	
-	Next we see that $A_3$ and $A_4$ cannot be empty at the same time, otherwise $X_2$ would be empty, contradicting that $T$ is an edge-cut.
-	
-	The cut $T$ separating $X_1$ from $X_2$ is independent. Now we shall explore $A_3$ and $A_4$. If both are non-empty, $c$ and $f$ represent independent cuts in $M_1$ and $M_2$ respectively. If at least one of $M_1$ and $M_2$ does not contain an independent edge-cut, this directly leads to a contradiction. Otherwise this means that $c\geq m_1$ and $f\geq m_2$. However $m_1+m_2\geq k$, thus $c+f\geq k$, contradicting the assumption that $b+c+d+f+x_1+x_2<k$.
-	
-	Now suppose one of $A_3$ and $A_4$ is empty, say $A_3$. Then $A_4$ is cyclic, since each minimal independent edge-cut in cubic graphs yields two cyclic components. However this would mean that $A_4$ is a cyclic $l$-pole in $M_1$, leading to a contradiction.
-	
-	Since everything leads to a contradiction, $G$ is cyclically $k$-connected.
+	Since $T$ is independent and all $A_1,\,\dots,\,A_4$ are non-empty $c$ and $f$ represent independent edge-cuts in $M_1$ and $M_2$ respectively. This means that ${c\geq i(M_1)}$ and ${f\geq i(M_2)}$. However, from the assumption of the theorem it holds that ${i(M_1)+i(M_2)\geq k}$, thus ${c+f\geq k}$, contradicting the assumption that ${b+c+d+f<k}$.
 \end{proof}
 
+\todo{túto vetu asi chceme dať dopreč? Je to celkom nepekné, akože viem si to obhájiť že to je cool, ale tak to použitie je skôr take silené.}
+
 \begin{theorem}\label{th:connecting-potentially-k-connected}
-	Let $M_1$ and $M_2$ be connected and potentially cyclically $k$-connected multipoles with the same number of semiedges, which do not contain an independent edge cut of size $a$, such that after the cut there is an acyclic component with $b$ former semiedges (not resulting from the cut) and $b>a$. Let $m_1$ and $m_2$ be the sizes of minimal independent cuts in $M_1$ and $M_2$ respectively, or $\infty$ if no such cut exists. If $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potentially cyclically $k$-connected unless $M$ has less than $k$ semiedges.
+	Let $M_1$ and $M_2$ be potentially cyclically $k$-connected multipoles with the same number of semiedges, which do not contain an independent edge-cut of size $a$, such that after the cut there is an acyclic component with $b$ former semiedges (not resulting from the cut) and $b>a$. For each $M_i$, let $m_i$ denote the size of its smallest independent cut, or $\infty$ if no such cut exists. If $m_1+m_2\geq k$ then the partial junction $M=M_1*M_2$ is potentially cyclically $k$-connected unless $M$ has less than $k$ semiedges.
 \end{theorem}
 
 \begin{proof}
@@ -1171,9 +1234,9 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 	
 	Then if we cut out only the vertices from $M_1$ from $T$, we would obtain an acyclic component formerly part of $M_1$. The new semiedges resulting from the cut are former semiedges from $M_1$, since they became edges after the junction with $M_2$, thus they are type ''b'' vertices. Let the number of these semiedges be $b'_1$. Now we have an acyclic component from $M_1$ with $b'_1+b_1$ former semiedges, and cut out by $a_1$ edges, such that $b'_1+b_1>a_1$ (since $b_1>a_1$) contradicting the assumption by $M_1$ \todo{Formulate this better, or add some illustration}. This proves that $M_2$ must contain a cycle.
 	
-	We shall prove that for each $i$ in $\{1,2,3,4\}$ it holds that $A_i$ is nonempty. If $A_1$ or $A_2$ were empty, then the whole $l$-pole $X_1$ would be in $M_2$ or $M_1$ respectively, leading to a contradiction. Suppose that $A_3$ is empty, meaning $M_2$ is contained in $X_1$. Since $A_3$ and $A_4$ can not be empty at the same time, $A_4$ is non-empty. We then prove that $M_2$ is a cyclic $j$-pole with $j\leq l < k$, and contained in $M_1$ leading to a contradiction. 
+	We shall prove that for each $i$ in $\{1,2,3,4\}$ it holds that $A_i$ is nonempty. If $A_1$ or $A_2$ were empty, then the whole $l$-pole $X_1$ would be in $M_2$ or $M_1$ respectively, leading to a contradiction. Suppose that $A_3$ is empty, meaning $M_2$ is contained in $X_1$. Since $A_3$ and $A_4$ can not be empty at the same time, $A_4$ is non-empty. We then prove that $X_2$ is a cyclic $j$-pole with $j\leq l < k$, and contained in $M_1$ leading to a contradiction. 
 	
-	We know that $M_2$ has a cycle, and number of its semiedges is in this case $c+d+x_4$, since $A_3$ is empty. Also we know that $x_1+x_4=x_2$ since $M_1$ and $M_2$ have the same number of semiedges. We then know that $c+d+x_1+x_2<k$, and $x_4\leq x_2$ since $x_1+x_4=x_2$. From this we get $c+d+x_1+x_4<k$, and thus $c+d+x_4<k$, contradicting the fact that $M_1$ is potentially cyclically $k$-connected.
+	We know that $X_2$ has a cycle, and number of its semiedges is in this case $c+d+x_4$, since $A_3$ is empty. Also we know that $x_1+x_4=x_2$ since $M_1$ and $M_2$ have the same number of semiedges. We then know that $c+d+x_1+x_2<k$, and $x_4\leq x_2$ since $x_1+x_4=x_2$. From this we get $c+d+x_1+x_4<k$, and thus $c+d+x_4<k$, contradicting the fact that $M_1$ is potentially cyclically $k$-connected.
 	
 	The cut separating $X_1$ from $M_2$ is independent. This can be easily proven, if it was not independent we could obtain a cyclic multipole with less than $l$ semiedges in $M$, leading to a contradiction about $X_1$. Because of this $c$ and $f$ are independent cuts in $M_1$ and $M_2$, meaning $c\geq m_1$ and $f\geq m_2$. Thus $c+f\geq k$, which leads to a contradiction with the fact that $c+b+d+f+x_1+x_2=l<k$.
 \end{proof}
@@ -1181,15 +1244,57 @@ We will denote the cyclic $k$-poles constructed this way as $W_k$.
 PROBLEMS:
 
 \begin{itemize}
-	\item Veľa obmedzení, asi sa dá ešte zľahčiť požiadavka na $m_1,m_2$, aby ten druhý komponent bol ''problémový'', napr. nech obsahuje cyklus alebo aspoň 2 polhrany.
-	\item Rovnako obmedzenie na rovnaký počet polhrán $M_1,M_2$.
-	\item Obmedzenie na absenciu toho rezu ktorý nechá acyklický komponent.
-	\item $S(M)$ môže byť aj 0, vtedy to je graf a platí to, len to asi treba niekde uviesť.
+	\item Rovnako obmedzenie na rovnaký počet polhrán $M_1,M_2$!!!!!
+	\item Obmedzenie na absenciu toho rezu ktorý nechá acyklický komponent!!!!!!
 \end{itemize}
 
 \todo{}We can also prove that there will be no problematic cut leaving the acyclic graph with more dangling edges than the cut size. Suppose that after the junction from the theorem above there will be a cut of size $a$, such that one of the components have $b$ former semiedges and $b>a$. The proof is basically in the theorem above, but we can formulate it in a separate lemma, and use it later during specific constructions. Also, we can use it then in the theorem proof, making the proof that $M_2$ contains a cycle easier (and the whole proof shorter ofc.)
 
+\begin{lemma}
+	Let $M$ be a potentially cyclically $k$-connected multipole and $V$ the multipole consisting of one vertex with three dangling edges. Then a partial junction $N=M*V$ of size one is potentially cyclically $k$-connected.
+\end{lemma}
+
+\begin{proof}
+	Let us denote the singular vertex in $V$ simply as $v$.
+	
+	Suppose that $N$ is not potentially cyclically $k$-connected. It is evident that it has more than $k$ semiedges, since $M$ has at least $k$ semiedges and the junction of size one with $V$ yields a multipole with one more semiedge, thus at least $k+1$.
+	
+	This means that for $N$ to not be potentially cyclically $k$-connected it must contain a cyclic $l$-pole $X$ for $l<k$. $X$ must contain $v$, otherwise $X$ would be in $M$ contradicting the fact that $M$ is potentially cyclically $k$-connected.
+	
+	Note that there are two dangling edges from $v$. If there would be three, it would mean that in $X$ there would not be a path between this vertex and any other vertex in $X$, meaning if we did not sever the edge conncting the vertex to a vertex in $X$ \todo{blah blah blah, toto treba lepšie spísať.}
+	
+	By modifying $X$ in such a way that we remove $v$ along with two of isolated edges which arise after the removal, we obtain a $(l-1)-pole$ which is in $M$. Note that the cycle in $X$ cannot go through $v$, since it is incident only with one link, meaning the cycle is going only through vertices in $M$, meaning $M$ contains a cyclic $(l-1)-pole$, leading to a contradiction.
+	
+	\todo{sprav asi aj ilustráciu že čo toto znamená}
+\end{proof}
+
+\begin{theorem}\label{th:subdivisions-potentially-cyclically-connected}
+	Let $M$ be a potentially cyclically $k$-connected multipole. Let $M'$ be a multipole resulting from $M$ by performing a set of edge subdivisions, such that a dangling edge is added to each new edge created by the subdivision. If $|S(M')|\geq k$, then $M'$ is potentially cyclically $k$-connected.
+\end{theorem}
+
+\begin{proof}
+	Suppose by contradiction that $M'$ is not potentially cyclically $k$-connected, thus contains a cyclic $l$-pole $X$ for some $l<k$. Let us denote $V(X)$ by $V_X$ and $V(M'-X)$ by $V_{M'-X}$. Since $M'$ has at least $k$ semiedges, there must be some edge-cut yielding $X$, we can denote it by $E(V_X,V_{M'-X})$.
+	
+	Let the cut be S.
+	
+	We create an edge-cut in M.
+	
+	For each edge in S, add to M either the edge if it is present in M, otherwise it is some $sv$ where the original edge was $wv$ and it was subdivided then add $wv$.
+	
+	We prove it is an edge-cut separating $V(X)\cap V(M)$ and $V(M'-X)\cap V(M)$. First we need to prove they are non-empty, thus each $V(X)$ and $V(M'-X)$ contains some vertex from $M$. $V(X)$ is easy because it is cyclic and we cannot create a cycle on vertices from subdivisions without adding some former vertices. For $V(M'-X)$ if it contained only vertices from the subdivisions, then $X$ would have at least $x_1+2x_2$ semiedges where $x_1+x_2\geq k$ so at least $k$ semiedges contradicting it is an $l$-pole. To prove it is an edge-cut suppose there is a path between $v\in V(X)\cap V(M)$ and $w\in V(M'-X)\cap V(M)$ not going through a cut edge. In $M'$ these vertices are separated by the original cut. If the edge is non-subdivided, there is an edge in the new cut, if it is there is also edge in the new cut, leading to contradiction. (we can explain it somehow).
+	
+	Now we prove that the component $V(X)\cap V(M)$ has less than $k$ semiedges. It can be seen that it has the same semiedges as $X$ however without those from the vertices from subdivisions, thus at most $l$.
+	
+	We now prove it is cyclic. This can also be shown by showing the cycle in $X$ as a path on vertices and showing equivalent path in $M$.
+	
+	This leads to a contradiction.
+	
+	\todo{} Ukáž že ten rez bude mať ekvivalent v pôvodnom grafe, mám to niekde v poznámkach.
+\end{proof}
+
 \subsection{Examples}
+
+\todo{sem dať hlavne hentú konštrukciu 6-pólu z článku tuším od Kochola}
 
 First construction is the junction of 3 potentially 5-connected cyclic 5-poles along with one point in the middle.
 
@@ -1228,7 +1333,7 @@ First construction is the junction of 3 potentially 5-connected cyclic 5-poles a
 		\label{fig:3-5-poles-connected}
 	\end{figure}
 	
-	Let $M_1,M_2,M_3$ be potentially cyclically 5-connected 5-poles, with sizes of their minimal independent cuts $m_1,m_2,m_3$ respectively, such that $m_1\geq 2,m_2\geq 3$ and $m_3\geq 3$.
+	Let $M_1,M_2,M_3$ be potentially cyclically 5-connected 5-poles, with sizes of their minimal independent cuts $m_1,m_2,m_3$ respectively, such that $m_1\geq 2,m_2\geq 3$ and $m_3\geq 3$, or not containing independent cuts.
 	
 	\begin{figure}
 		\centering
@@ -1274,7 +1379,7 @@ First construction is the junction of 3 potentially 5-connected cyclic 5-poles a
 		\label{fig:3-5-poles-connected-step-1}
 	\end{figure}
 	
-	In the first step, we perform a partial junction of size two on $M_1$ and $M_2$ as illustrated in \cref{fig:3-5-poles-connected-step-1}. By \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges} the result is potentially cyclically 5-connected, let us denote it as $M_{12}$. About its minimal independent cut we know that $m_{12}\geq 2$ by utilizing \cref{lem:size-of-minimal-potentially-cycle-separating-after-junction}. It can be observed that the size of the cut is exactly two.
+	In the first step, we perform a partial junction of size two on $M_1$ and $M_2$ as illustrated in \cref{fig:3-5-poles-connected-step-1}. Let $e_1,e_2$ be the new edges created by the junction. By \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges} the result is potentially cyclically 5-connected, let us denote it as $M_{12}$. About its minimal independent cut we know that $m_{12}\geq 2$ by utilizing \cref{lem:size-of-minimal-potentially-cycle-separating-after-junction}.
 	
 	\begin{figure}
 		\centering
@@ -1328,15 +1433,7 @@ First construction is the junction of 3 potentially 5-connected cyclic 5-poles a
 		\label{fig:3-5-poles-connected-step-2}
 	\end{figure}
 	
-	Now we perform a partial junction with the singular point and $M_{12}$ resulting in $M'$ as shown in \cref{fig:3-5-poles-connected-step-2}. Since it is trivial, we can not utilize any of the theorems proved so far. Because of this, we have to prove that the result will be potentially cyclically 5-connected.
-	
-	Suppose it is not, let $X$ be a cyclic $l$-pole in $M'$ for $l<5$, with the least semiedges and the largest from those. We know that $X$ must contain the added point, otherwise it would be present in $M'$ and would contradict the fact that it is potentially cyclically 5-connected. Also it must contain both neighbors of the newly added point, otherwise we could obtain a cyclic multipole with less than $l$ semiedges, as it is visible in \todo{figure}. Let $e_1,e_2$ be the two edges which were created by the partial junction of $M_1$ and $M_2$, as visible in \todo{figure}.  It must hold that $M-X$ is non-empty, otherwise $X=M$ and it would contradict the fact that $X$ has less than 5 semiedges.
-	\begin{enumerate}
-		\item First suppose that at least one edge from $e_1,e_2$ is in $X$. If $X$ contains the whole $M_2$, then $X$ has at least $2+1+m_1$ semiedges, that is because $M_2$ has two semiedges, the added point has one, and since we need to perform a cut in $M_1$ which leaves two former semiedges, the size must be at least $m_1$. Since $m_1\geq 2$, it holds that $X$ has at least 5 semiedges, leading to a contradiction. Thus it means that $X$ does not contain whole $M_2$. Similarly if $X$ would contain the whole $M_1$, we would get that $X$ has at least $2+1+m_2$ semiedges, that is at least 6, leading to a contradiction. Thus it does not contain whole $M_1$ and neither $M_2$, meaning it cuts out two former semiedges from both, thus $X$ has at least $m_1+m_2+1$ semiedges, which is at least 6, leading to a contradiction.
-		\item Now suppose that $X$ does not contain $e_1$ and neither $e_2$. This means that the cycle in $X$ must be whole in $M_1$ or $M_2$, suppose it is in $M_1$. Now, modify $X$ in a way, that we will keep only the vertices originally from $M_1$ as showcased in \todo{figure}, resulting in $X'$. There will be a new semiedge, resulting from cutting the edge connecting $M_1$ to the new vertex, however we will remove the semiedge from the added point, as well as all semiedges from the vertices in $M_2$, which means that $X'$ has at most semiedges as $X$. This leads to a contradiction, since $X'$ would be a cyclic multipole with less than $k$ semiedges in $M_1$.
-	\end{enumerate}
-
-	We have proved that after adding the point the resulting multipole $M'$ is potentially cyclically 5-connected. The size of the minimal independent cut in $M'$ will still be at least two, since we have not created a bridge.
+	Now we perform a partial junction with the singular point and $M_{12}$ resulting in $M'$ as shown in \cref{fig:3-5-poles-connected-step-2}. By \cref{lem:adding-point-to-partial-junction-of-two} the result is potentially cyclically 5-connected and the size of the minimal independent cut in $M'$ will still be at least two.
 	
 	At last, we perform a junction of $M'$ and $M_3$ forming $G$. By \cref{th:cyclic-edge-connectivity-of-potentially-with-independent-cuts} it holds that $G$ is cyclically 5-connected.
 \end{example}
@@ -1350,12 +1447,6 @@ We say that we need at least one with minimal independent cut 3 and others with 
 	\item We connect more and more, using the mentioned theorem and lemma.
 	\item In the end we finish the circle. \todo{problem - the size $s_2$ of the connected multipole will be just 1 in this case. Thus we can't really use this theorem... We shall look into how to fix it.}
 \end{enumerate}
-
-\section{Creating potentially cyclically $k$-connected multipoles}
-
-\todo{Metódy ako vytvoriť potenciálne cyklicky $k$-súvislý multipól. Napr. odstránením vrcholov na ceste, odstránením vrcholov mimo cesty a pod.}
-
-\todo{Pre každú metódu nájsť výhodu, napr. vzdialenosť medzi polhranami, alebo minimálny nezávislý rez výsledku}
 
 \chapter{Cyclic part Inflations}\label{ch:cyclic-part-inflations}
 
@@ -1383,7 +1474,7 @@ For inflations it has been proved, that in specific cases if the original graph 
 \end{lemma}
 
 \begin{proof}
-	Let $S$ be the smallest edge-cut in $G$ separating it into components $M_1$ and $M_2$, and $G'$ be a cyclic part inflation from $I_P(G)$. In $G'$ this edge cut is cycle separating, since there is at least one cycle in each component which arose after the cyclic part inflation, and is of size $k$, thus the smallest cycle separating cut in $G'$ must be of size at most $k$.
+	Let $S$ be the smallest edge-cut in $G$ separating it into components $M_1$ and $M_2$, and $G'$ be a cyclic part inflation from $I_P(G)$. In $G'$ this edge-cut is cycle separating, since there is at least one cycle in each component which arose after the cyclic part inflation, and is of size $k$, thus the smallest cycle separating cut in $G'$ must be of size at most $k$.
 \end{proof}
 
 We now prove our modified version of \cref{th:inflations-cyclic-connectivity}. Although the proof follows a similar structure to the original theorem, we have made several adjustments to accommodate arbitrary cyclic parts. It is worth noting that traditional inflations can be viewed as a special case of cyclic part inflations, since \cref{lem:each-cycle-cyclic-part} shows that all $k$-cycles are cyclic parts. This means our new theorem naturally extends to cover both traditional inflations as well as cyclic part inflations.
@@ -1395,7 +1486,7 @@ We now prove our modified version of \cref{th:inflations-cyclic-connectivity}. A
 \begin{proof}
 	Let $H\in I_P(G)$. For each vertex $v\in V(G)$, denote the unique cyclic part in $H$ corresponding to it by $P_v$. We say that a cycle $C$ in $H$ is \textit{traversal} if there are two distinct vertices $v_1,v_2$ in $G$ with $V(P_v)\cap V(C)\neq \emptyset$ for both $v\in\{v_1,v_2\}$, so it goes through two unique cyclic parts in $H$. Otherwise we say that $C$ is \textit{non-traversal}, meaning $C\subseteq P_v$ for some $v\in V(G)$.
 	
-	Suppose by contradiction, that $H$ is not cyclically $k$-edge-connected. Then $H$ has an edge cut $S$ with $|S|\leq k-1$ such that $H-S$ has precisely two components $D_1$ and $D_2$ and both contain a cycle.
+	Suppose by contradiction, that $H$ is not cyclically $k$-edge-connected. Then $H$ has an edge-cut $S$ with $|S|\leq k-1$ such that $H-S$ has precisely two components $D_1$ and $D_2$ and both contain a cycle.
 	
 	Let $D_i^G$ be the subgraph of $G$ induced by the vertex set $$\{x\in V(G)~|~ V(P_x)\cap V(D_i)\neq \emptyset\}$$
 	so vertices from $G$, whose corresponding cyclic parts in $H$ have at least one vertex overlapping with the component $D_i$. Let us define sets $S_V$ and $S_E$ as
@@ -1449,7 +1540,7 @@ We now prove our modified version of \cref{th:inflations-cyclic-connectivity}. A
 	
 	By assumption $D_1$ contains a cycle, say $C_1$. Suppose that this cycle is non-traversal, thus $C_1\subseteq P_v$ for some $v\in V(G)$. It must hold that $v\in S_V$, since there is no unsplit cyclic part in $D_1$, meaning $P_v$ has been split by $S$. Let $V_1$ and $V_2$ be the sets of vertices from $P_v$ in $D_1$ and $D_2$ respectively. Let $E_1$ and $E_2$ be the sets of dangling edges in $P_v$, which have one edge end incident with a vertex in $V_1$ or $V_2$ respectively as visible in \cref{fig:P_v-cyclic-part}. It is evident that if $P_v$ is a cyclic $m$-part, $|E_1|+|E_2|=m$. If $|S_P|<|E_2|$, the cut $S_P$ in $P_v$ would yield a cyclic $n$-pole, with $n=|E_1|+|S_P|<|E_1|+|E_2|=m$ leading to a contradiction by \cref{lem:cyclic-part-no-small-cyclic-l-pole}. Thus $|E_2|\leq |S_P|$.
 	
-	Let us denote the sets of edges in $H$ which were created by the junction of $E_1$ or $E_2$ with some other dangling edge as $L_1$ and $L_2$ respectively. It is evident that $|L_i|=|E_i|$ for both $i\in\{1,2\}$. We can now create an edge cut $S'=(S-S_P)\cup L_2$, which is cycle separating in $H$ and it holds that $|S'|\leq |S|\leq k-1$. Since both components now contain a whole cyclic part, this contradicts the assumption that $G$ is $k$-connected, as it was proved before.
+	Let us denote the sets of edges in $H$ which were created by the junction of $E_1$ or $E_2$ with some other dangling edge as $L_1$ and $L_2$ respectively. It is evident that $|L_i|=|E_i|$ for both $i\in\{1,2\}$. We can now create an edge-cut $S'=(S-S_P)\cup L_2$, which is cycle separating in $H$ and it holds that $|S'|\leq |S|\leq k-1$. Since both components now contain a whole cyclic part, this contradicts the assumption that $G$ is $k$-connected, as it was proved before.
 	
 	This means, that $C_1$ must be traversal. Thus $C_1$ corresponds to a closed trail in $D_1^G$, say $C_1^G$. Since the girth of $G$ is at least $k$ and every closed trail contains a cycle, we have $|V(C_1^G)|\geq k$. It holds that $V(C_1^G)\subseteq V(D_1^G)$ and because each cyclic part in $D_1$ has been cut we have $\subseteq V(D_1^G)\subseteq S_V$. From $|S_V|+|S_E|\leq k-1$ it leads to a contradiction with the fact that $|V(C_1^G)|\geq k$ since $V(C_1^G)\subseteq V(D_1^G)\subseteq S_V$ and $|S_V|\leq k-1$.
 \end{proof}
@@ -1461,7 +1552,7 @@ To overcome this limitation, we present a new theorem that removes the restricti
 \begin{theorem}\label{th:cyclic-part-inflation-kve}
 	Let $H$ be an arbitrary graph on $v$ vertices, such that each pair of vertices is connected by at least $e$ edges and let $k$ be an integer greater than zero for which it holds that
 	$$k\leq 2e(v-2).$$
-	Let $G$ be a cyclic part inflation of $H$. If $\lambda(H)\geq k$ and for each cyclic part the size of minimal edge cut in each of them is at least $\frac{k}{2}$, then $G$ is cyclically $k$-connected.
+	Let $G$ be a cyclic part inflation of $H$. If $\lambda(H)\geq k$ and for each cyclic part the size of minimal edge-cut in each of them is at least $\frac{k}{2}$, then $G$ is cyclically $k$-connected.
 \end{theorem}
 
 \begin{proof}
@@ -1647,11 +1738,11 @@ We now proceed to demonstrate practical applications of the theorems presented i
 		\label{fig:4-6-poles-inflation}
 	\end{figure}
 
-	Let $H$ be a graph from \cref{fig:4-6-poles-before} and let $C_1,C_2,C_3,C_4$ be cyclic 6-parts, not necessarily distinct, such that the size of minimal independent edge cut in each is of size at least three. Let $G$ be a cyclic part inflation of $H$, such that each cyclic part $C_i$ corresponds to the vertex $c_i$ in $H$ for each $i\in\{1,2,3,4\}$, as visible in \cref{fig:4-6-poles-inflation}.
+	Let $H$ be a graph from \cref{fig:4-6-poles-before} and let $C_1,C_2,C_3,C_4$ be cyclic 6-parts, not necessarily distinct, such that the size of minimal independent edge-cut in each is of size at least three. Let $G$ be a cyclic part inflation of $H$, such that each cyclic part $C_i$ corresponds to the vertex $c_i$ in $H$ for each $i\in\{1,2,3,4\}$, as visible in \cref{fig:4-6-poles-inflation}.
 	
 	Since the number of vertices ($v$) is four, each pair of vertices is connected by $2$ edges ($e$), we can choose $k=6$ and the inequality 
 	$$k\leq 2e(v-2)$$
-	will hold, specifically $6\leq 4\cdot 2$. It is evident that $\lambda(H)=6$ and the condition of the sizes of the minimal independent edge cuts in each cyclic part being $\frac{k}{2}=3$ is fulfilled. This means that by \cref{th:cyclic-part-inflation-kve} the graph $G$ is cyclically 6-connected. By cutting out just one of the cyclic parts we obtain a cycle separating edge cut of size 6, thus $\zeta(G)=6$.
+	will hold, specifically $6\leq 4\cdot 2$. It is evident that $\lambda(H)=6$ and the condition of the sizes of the minimal independent edge-cuts in each cyclic part being $\frac{k}{2}=3$ is fulfilled. This means that by \cref{th:cyclic-part-inflation-kve} the graph $G$ is cyclically 6-connected. By cutting out just one of the cyclic parts we obtain a cycle separating edge-cut of size 6, thus $\zeta(G)=6$.
 	
 	This example emerged from a specific challenge encountered during the development of this thesis, specifically when investigating the necessary conditions for a graph $G$ to achieve a cyclic edge connectivity of $\zeta(G)=6$.
 \end{example}
@@ -1701,9 +1792,15 @@ Now we present an example showcasing the use of \cref{th:cyclic-part-inflations}
 	Consider a potentially cyclically $k$-connected multipole $M$ and a multipole $K_1$ consisting of a single vertex with three dangling edges. What conditions are necessary for their partial junction $M* K_1$ to be potentially cyclically $k$-connected?
 \end{problem}
 
+TODO: problem, superpozície. Tuším Máčajová, ale aj Kochol majú v článku graf, ktorý povedia že je cyklicky 6-súvislý, ale nemajú to nijak dokázané. Každopádne je problém že tam je ten jeden vrchol na hranách. Takže možné riešenie máme v práci, a to s tým postupným spájaním a pridávaním jednotlivých dvojíc bodov vždy keď spojíme dvojicu, a potom keď spojíme obe polky tak aj posledný bod pridáme (ale to asi nepojde).
+
+Takže, toto chceme dať ako možný problém, konkrétne teda spomenúť, že ako vieme brať do uvahy iba také nezávislé rezy, ktoré môžu byť nejak problematické a nejak zlepšiť ten dolný odhad na veľkosť rezu keď spravíme junction?
+
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
 \markboth{Conclusion}{Conclusion}
+
+\todo{}
 
 % BIBLIOGRAPHY
 \newpage
