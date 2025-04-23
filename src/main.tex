@@ -155,7 +155,7 @@ Research has shown that high cyclic \mbox{edge-connectivity} correlates with var
 
 Our work focuses on cubic graphs constructed from smaller building blocks. Through several theoretical results, we establish conditions for these blocks that enable us to determine the cyclic \mbox{edge-connectivity} of the resulting graphs.
 
-Such constructions of graphs with specific cyclic edge-connectivity remain relatively unexplored. The second author has explored how these building blocks with specific properties can be extended to form graphs with desired cyclic edge-connectivity \cite{Rajnik_phd}. However, this research focused primarily on the existence of such graphs rather than determining the cyclic edge-connectivity of graphs built from more than two building blocks.
+Such constructions of graphs with specific cyclic edge-connectivity remain relatively unexplored. Rajník has explored how these building blocks with specific properties can be extended to form graphs with desired cyclic edge-connectivity \cite{Rajnik_phd}. However, this research focused primarily on the existence of such graphs rather than determining the cyclic edge-connectivity of graphs built from more than two building blocks.
 
 \todo{}
 
@@ -176,6 +176,8 @@ While we work only with cyclic connectivity, for the sake of providing the defin
 \section{Multipoles}\label{sec:multipoles}
 
 In our work, we allow a specific type of graph, which allows ends of its edges to not be incident with a vertex, resulting in a graph with dangling, or even so-called 7ptd edges. Such structures are called \textit{multipoles}. This term was first used by Fiol in 1991 \cite{Fiol1991}, however we will be following a definition by Nedela and Škoviera \cite{Nedela1996}.
+
+\todo{asi chceme dať preč isolated edges!}
 
 \begin{definition}[\cite{Nedela1996}]
 	A \textit{multipole} is a pair $M=(V,E)$ of distinct finite sets of vertices $V$ and edges $E$, where every edge $e\in E$ has two edge ends, which may or need not be incident with a vertex.
@@ -415,6 +417,8 @@ The distance between two semiedges $a$ and $b$ is equal to
 
 Since we allow these dangling and isolated edges, we can introduce so-called \textit{edge severing}. By severing an edge $e=e_1e_2$, we mean the removal of $e$, along with adding two new edges: $e_1e_3$ and $e_4e_2$, where $e_3$ and $e_4$ are new edge ends. It is evident that by severing a link we obtain two new dangling edges, by severing a dangling edge we obtain a new dangling edge and an isolated edge, and by severing an isolated edge we obtain two new isolated edges. In our work this also applies to cuts. When we say that and edge has been \textit{cut}, it means it has been severed.
 
+\todo{lepšie definuj cuts, asi sa vieš pozrieť do ŠVK práce.}
+
 \section{Edge-cuts and Connectivity}\label{sec:edge-cuts}
 
 As the name suggests, an \textit{edge-cut} decomposes a graph into multiple connected components. It is a set of edges of a graph $G$, such that if we sever every edge in the set, the resulting graph will not be connected. There is also a second way to denote an edge-cut, which is helpful when trying to determine how will the vertices be split after severing the edges. Note that by $E(V_1,V_2)$ we denote the set of edges, which have one end in $V_1$ and the other in $V_2$.
@@ -514,7 +518,7 @@ This means, that if a graph $G$ does not contain a cycle separating edge-cut, it
 
 More properties of cyclic edge connectivity are regarded in \cref{ch:cyclic-edge-connectivity}.
 
-\subsection{Transitive graphs}
+\section{Transitive graphs}
 
 In proving the results of our work, we have used so-called \textit{transitive graphs}, for which there are some proved theorems and can be helpful with their properties for our results. To properly define them, we need to dive a bit into an algebraic graph theory, and prove what it means for a graph to be transitive. All of these definitions were taken from a book by Godsil and Royle \cite{algebraic-graph-theory}.
 
@@ -539,6 +543,8 @@ Thus there is a cubic vertex-transitive graph of arbitrary girth, implying arbit
 \chapter{Cyclic Edge Connectivity}\label{ch:cyclic-edge-connectivity}
 
 From this point forward, unless explicitly stated otherwise, all graphs and multipoles discussed will be cyclic. While fundamental concepts of cyclic edge-connectivity were introduced in \cref{sec:cyclic-edge-connectivity}, this chapter extends these foundations and presents important theoretical developments for our thesis, with emphasis on cubic graphs.
+
+\todo{sem niekde aj známe výsledky, Rajník to má na strane 10}
 
 We begin by examining a result by Nedela and Škoviera regarding the upper bound of cyclic edge-connectivity in cubic graphs. 
 
@@ -579,11 +585,17 @@ By this definition, if there is a problem of deciding if a multipole $M$ is a cy
 	Let $M_1$ and $M_2$ be cyclic $k$-parts such that both $M_1$ and $M_2$ are diﬀerent from the cycle of length $k$ or $k\leq 5$. Let $G$ be a junction of $M_1$ and $M_2$. Then $G$ is cyclically $k$-connected unless the girth of $G$ is smaller than $k$.
 \end{theorem}
 
+Several theoretical results regarding a lower bound of the order of these cyclic parts were proven.
+
 \begin{lemma}[{{\cite[Lemma 5.1]{Rajnik_phd}}}]\label{lem:rajnik5.1}
 	Let $M$ be an $s$-pole with girth at least $k$ different from a $k$-cycle for some $s\leq k$. Then $|M| \geq 2k - 4$.
 \end{lemma}
 
-A cyclic part which is a single cycle $C_k$ is called \textit{trivial}, otherwise it is nontrivial. A cyclic part minimal under inclusion is called an \textit{atom}. Two atoms of a single graph may differ in in the number of vertices \cite{atoms-of-cyclic}, those with the minimum number of vertices are called \textit{proper} atoms.
+\begin{theorem}[{{\cite[Theorem 7]{atoms-of-cyclic}}}]
+	Let $P$ be a nontrivial cyclic $k$-part. Then either $|P|\geq 2k-3$, or $k = 6$ and $|P|= 2k-4 = 8$. Moreover, if $P$ is an atom , then $|P| \geq 2k$, or $k = 3$ and $|P| = 2k-1 = 5$.
+\end{theorem}
+
+Let $C_k$ denote the $k$-pole consisting of the $k$-cycle where each vertex is additionally incident with one dangling edge. A cyclic part which is a single cycle $C_k$ is called \textit{trivial}, otherwise it is nontrivial. A cyclic part minimal under inclusion is called an \textit{atom}. Two atoms of a single graph may differ in in the number of vertices \cite{atoms-of-cyclic}, those with the minimum number of vertices are called \textit{proper} atoms.
 
 \begin{proposition}[{{\cite[Proposition 5]{atoms-of-cyclic}}}]
 	Let $G$ be a connected graph of girth $g$. Then $\zeta(G)<g$ if and only if it has a nontrivial proper atom.
@@ -718,9 +730,21 @@ Our research extends this understanding of cyclic edge connectivity in inflation
 
 \chapter{Junctions of cyclic multipoles}
 
+This chapter investigates the junctions of multipoles and identifies the conditions under which they yield graphs with the desired cyclic edge-connectivity. We aim to develop a theoretical framework that enables us to prove the cyclic edge-connectivity of junctions by establishing specific conditions for the multipoles.
+
+The chapter is divided into two main sections. In \cref{sec:cyclic-part-results}, we develop methods to determine whether a cyclic multipole is a cyclic part without needing to find the original graph from which this cyclic multipole could be obtained as a cyclic part. Moreover we find conditions for multipoles, such that their junction has the desired cyclic edge-connectivity. \cref{sec:junction-multiple-results} examines graphs that emerge from junctions of two or more multipoles. We demonstrate that when building graphs iteratively from smaller multipoles, the final structure has the desired cyclic edge-connectivity if each intermediate step satisfies the conditions of our theoretical frameworks.
+
+To demonstrate the practical application of our theorems, we conclude by presenting specific conditions that multipoles must satisfy to achieve desired cyclic edge-connectivity in their combinations. Furthermore, we analyze particular graphs from several publications \cite{Kochol1996, Macajova2006} where cyclic edge-connectivity was claimed without formal proof. Using our theoretical framework, we provide formal proofs validating these claims.
+
+We now establish the necessary conditions for multipoles that can be used to construct graphs with desired cyclic edge-connectivity. Two key restrictions emerge: first, the multipole cannot contain any independent edge-cut yielding a cyclic multipole with a small number of semiedges, as this could imply the existence of a small independent edge-cut in the resulting graph as well, contradicting the desired cyclic edge-connectivity. Second, if the multipole itself is cyclic and not a graph, meaning some partial junction must still be performed to obtain a graph, it cannot have a small number of semiedges. The reason is that the resulting graph would contain this cyclic multipole with small number of semiedges, again contradicting the desired cyclic edge-connectivity.
+
+For this reason we introduce a new property of multipoles, which proves to be fundamental in our subsequent theorems.
+
 \begin{definition}
 	Let $M$ be a multipole. We say that $M$ is \textit{potentially cyclically $k$-connected} if it has at least $k$ semiedges when cyclic and not a graph, and there exists no independent edge-cut whose removal yields a cyclic component with less than $k$ semiedges.
 \end{definition}
+
+The term \textit{potentially} is used because these multipoles can serve as building blocks for constructing graphs with the desired cyclic edge-connectivity, provided they meet certain additional requirements. This is visible in the subsequent theorems concerning graph construction from such multipoles.
 
 Since a graph can be viewed as a special case of a multipole, we can examine the relationship between their property of being cyclically $k$-connected and potentially cyclically $k$-connected. As the following lemma demonstrates, these properties are, in fact, equivalent.
 
@@ -734,7 +758,7 @@ Since a graph can be viewed as a special case of a multipole, we can examine the
 	Conversely, suppose $G$ is not cyclically \mbox{$k$-connected}. This means there exists an independent edge-cut of size $l<k$, separating $G$ into two cyclic $l$-poles $M_1$ and $M_2$, meaning $G$ is not potentially cyclically $k$-connected.
 \end{proof}
 
-The next lemma demonstrates that in a cyclic multipole, the cut separating another cyclic multipole with minimal number of semiedges must be independent.
+The next lemma demonstrates that in a cyclic multipole, the cut separating another cyclic multipole with minimal number of semiedges must be independent. The idea of the proof comes from the observation that if such a cut was not independent, it could be modified to create a new cut yielding a cyclic multipole with fewer semiedges, thus contradicting our assumption about the minimality of the number of semiedges.
 
 \begin{lemma}\label{lem:smallest-cut-in-mpoles-is-independent}
 	Let $M$ be a cyclic $k$-pole containing a cyclic multipole with fewer than $k$ semiedges. Let $X$ be such a multipole with minimal number $l$ of semiedges. Then the edge-cut yielding $X$ is independent.
@@ -748,7 +772,7 @@ The next lemma demonstrates that in a cyclic multipole, the cut separating anoth
 	Therefore, this modification either yields a cyclic multipole with fewer than $l$ semiedges, contradicting the minimality of $l$, or creates an empty cut, implying $M$ itself has fewer than $k$ semiedges, again leading to a contradiction.
 \end{proof}
 
-We now prove an equivalence lemma for multipoles with at least one semiedge, where we show that the property of being potentially cyclically \mbox{$k$-connected} is equivalent to them not containing a cyclic multipole with a small number of semiedges.
+Using this lemma we now prove an equivalence lemma for multipoles with at least one semiedge, where we show that the property of being potentially cyclically \mbox{$k$-connected} is equivalent to them not containing a cyclic multipole with a small number of semiedges.
 
 \begin{lemma}
 	A multipole $M$ with at least one semiedge is potentially cyclically $k$-connected if and only if  there exists no cyclic multipole in $M$ with less than $k$ semiedges.
@@ -770,7 +794,23 @@ This lemma is widely used in our proofs, where we come to contradictions with th
 
 \section{Cyclic parts}\label{sec:cyclic-part-results}
 
-Let $C_k$ denote the $k$-pole consisting of the $k$-cycle where each vertex is additionally incident with one dangling edge.
+The concept of cyclic parts, introduced by Nedela and Škoviera \cite{atoms-of-cyclic}, is valuable for investigating \todo{str. 17 Rajník}. In \cref{ch:cyclic-part-inflations}, we develop a method for constructing graphs with desired cyclic edge-connectivity through junctions of cyclic parts. This makes it particularly important to study whether a given cyclic multipole is as a cyclic part -- a problem that involves finding an original graph with specific cyclic edge-connectivity from which this cyclic multipole can be obtained.
+
+Researchers have explored methods for completing cyclic $k$-parts into cyclically $k$-connected graphs. Andersen et al. \cite{Andersen1988} demonstrated that for $k=4$, this can be achieved through a junction with a 4-pole consisting of two adjacent vertices, each with two dangling edges \cite[Lemma 7]{Andersen1988}. Rajník \cite{Rajnik_phd} extended this research to $k=5$.
+
+\begin{theorem}[{{\cite[Theorem 4.9]{Rajnik_phd}}}]
+	Let $H$ be a cyclic 5-part. If $H$ is not a cycle of length 5, then $H$ can be extended to a cyclically 5-connected cubic graph by performing a junction with a specific 5-pole, which consists of three vertices arranged in a path of length two, with additional dangling edges attached to form a cubic multipole.
+\end{theorem}
+
+Rajník \cite{Rajnik_phd} identified a problem in creating an algorithm to determine whether a cyclic multipole is a cyclic part. Currently, for arbitrary $k$, this process requires finding a universal $k$-adjunct, performing a junction with the $k$-pole, and applying existing algorithms, such as that of Dvořák et al. \cite{Dvorak2004}, to verify whether the result has cyclic edge-connectivity equal to $k$.
+
+\begin{problem}[{{\cite[Problem 2.6]{Rajnik_phd}}}]
+	Find an algorithm that for a given $k$-pole $M$ decides if $M$ is a cyclic $k$-part or not.
+\end{problem}
+
+We present an alternative approach that solves this problem by examining the cyclic multipole directly. Our method involves constructing an infinite family of universal adjuncts with specific properties from transitive graphs, using which we can solve this problem by exploring whether the cyclic multipole contains another cyclic multipole with a small number of semiedges or not. While this approach does not provide an explicit algorithm, it offers a different perspective on the problem
+
+First, we need to prove that all $k$-cycles are cyclic $k$-parts.
 
 \begin{lemma}\label{lem:each-cycle-cyclic-part}
 	For each integer $k\geq 1$ the $k$-pole $C_k$ is a cyclic $k$-part. 
@@ -867,7 +907,7 @@ We now present a helpful lemma which formally establishes that a cyclic $k$-part
 	Suppose by contradiction, that $P$ contains a cyclic $l$-pole $Q$ where $l<k$. Since $P$ is a cyclic $k$-part, there exists a graph $G$ with $\zeta(G)=k$ formed by the junction of $P$ and some cyclic $k$-part $P'$. However since the cyclic $l$-pole $Q$ is in $G$, it implies the existence of an independent cycle-separating edge-cut of size at most $l<k$ in $G$. This contradicts the fact that $\zeta(G)=k$.
 \end{proof}
 
-We now present a lemma that determines the upper bound on the number of vertices in an acyclic multipole. The proof uses an intuition of viewing such multipoles as forests, where instead of the leaf vertices there are semiedges.
+Following is a lemma that determines the upper bound on the number of vertices in an acyclic multipole. The proof uses an intuition of viewing such multipoles as forests, where instead of the leaf vertices there are semiedges.
 
 \begin{lemma}\label{lem:number-of-vertices-in-acyclic-k-pole}
 	Let $M$ be an acyclic $k$-pole for some integer $k$. Then $|M|\leq k-2$. 
@@ -881,7 +921,7 @@ We now present a lemma that determines the upper bound on the number of vertices
 
 A more formal proof would proceed by performing $k$ partial junctions, each connecting a semiedge to a multipole consisting of a single vertex with one dangling edge, and then determining the number of internal vertices in the resulting tree structure.
 
-The following theorem, one of our main results, establishes necessary conditions for achieving desired cyclic edge-connectivity in graphs formed by a junction of two multipoles. While this theorem is a modification of a theorem proved by the second author \cite{Rajnik_phd} and it follows a similar proof structure, it required several modifications to address additional edge cases arising from our consideration of a broader class of multipoles. In the original proof, cyclic $k$-parts were used where our version employs cyclic potentially cyclically $k$-connected $k$-poles.
+The following theorem, one of our main results, establishes necessary conditions for achieving desired cyclic edge-connectivity in graphs formed by a junction of two multipoles. While this theorem is a modification of a theorem proved by Rajník \cite{Rajnik_phd} and it follows a similar proof structure, it required several modifications to address additional edge cases arising from our consideration of a broader class of multipoles. In the original proof, cyclic $k$-parts were used where our version employs cyclic potentially cyclically $k$-connected $k$-poles.
 
 \begin{theorem}\label{th:junction-of-kpoles-cyclic-edge-connectivity}
 	Let $M_1$ and $M_2$ be cyclic potentially cyclically $k$-connected $k$-poles. Let both $M_1$ and $M_2$ be different from the cycle of length $k$ or $k\leq 5$. \mbox{Let $G$ be the junction} of $M_1$ and $M_2$. Then $\zeta(G)=k$ unless the girth of $G$ is smaller than $k$.
@@ -949,16 +989,12 @@ The following theorem, one of our main results, establishes necessary conditions
 	
 	Thus for each $i\in\{1,2,3,4\}$ we have $r_i\geq k$ or $r_{i+1}\geq k$, from which it follows that
 	\begin{align*}
-		r_1 =a+b+c&\geq a+b+d+e=k \\
-		&\text{ and }\\
-		r_3 =b+e+f &\geq a+b+d+e=k
+	r_1 =a+b+c\geq a+b+d+e=k \text{ and } r_3 =b+e+f \geq a+b+d+e=k
 	\end{align*}
 	
 	or
 	\begin{align*}
-		r_2 =a+d+f &\geq a+b+d+e=k \\
-		&\text{ and }\\
-		r_4 =c+d+e&\geq a+b+d+e=k
+		r_2 =a+d+f \geq a+b+d+e=k \text{ and } r4 =c+d+e\geq a+b+d+e=k
 	\end{align*}
 	is true. After summing, the first inequalities imply that $c+f\geq a+2d+e\geq a+e$ and the second imply that $c+f\geq a+2b+e\geq a+e$. In both cases we have obtained $c+f\geq a+e$. However we have 
 	$$l=b+c+d+f<a+b+d+e=k$$
@@ -968,6 +1004,8 @@ The following theorem, one of our main results, establishes necessary conditions
 	
 	If the girth of $G$ would be less than $k$, then ${\zeta(G)<k}$ as well, because of \cref{prop:cyclic-con-less-than-girth}.
 \end{proof}
+
+Note that the main property around which this theorem operates is the girth of a graph. A small girth implies small cyclic edge-connectivity, as mentioned earlier. We demonstrate that when performing a partial junction of multipoles, if the distances between pairs of semiedges in these multipoles are sufficiently large, the resulting multipole will also have large girth. This proves valuable in constructing infinite families of universal adjuncts. In such constructions, we aim to maintain large distances between the pairs of semiedges, ensuring that after junction with any multipole, the resulting graph will have large girth, regardless of the distances in the multipole.
 
 \begin{lemma}\label{lem:cyclic-multipoles-with-girth-and-distance}
 	Let $M_1$ and $M_2$ be multipoles with girth at least $k$. Let $d_i$ be the minimal distance between a pair of distinct semiedges in $M_i$. Let $M$ be a partial junction $M_1*M_2$. If $d_1+d_2\geq k-2$ then $g(M)\geq k$.
@@ -995,14 +1033,12 @@ The following theorem, one of our main results, establishes necessary conditions
 	Therefore, the total length of this path is at least $2+d_1+d_2 \geq 2+(k-2) = k$, implying $C$ has length at least $k$.
 \end{proof}
 
-If we would be able to construct a cyclic $k$-pole for each $k$, such that it contains a cycle, has girth at least $k$ and does not create short cycles when connected to another cyclic $k$-pole, we could make it easier to decide if given cyclic $k$-pole is a cyclic $k$-part. If it does not contain a cyclic $l$-pole such that $l<k$, the \cref{th:junction-of-kpoles-cyclic-edge-connectivity} can be applied and thus it would be a cyclic $k$-part. However we first need to find such cyclic $k$-poles for each $k$.
+We now address the existence of infinite families of universal $k$-adjuncts. Rather than providing specific constructions, our approach just demonstrates their existence for any value of $k$. These universal $k$-adjuncts must satisfy several properties. They must possess sufficiently large girth and should not create short cycles when joined with other multipoles. Moreover, they must be potentially cyclically $k$-connected, meaning they cannot contain cyclic multipoles with a small number of semiedges.
 
-Rajník \cite{Rajnik_phd} introduced these structures as \textit{adjuncts}, or more specifically, \textit{universal adjuncts}. A $k$-pole $U_k$ is defined as a universal $k$-adjunct if, for any cyclic $k$-part $M$ and any junction between them, $M*U_k$ is cyclically $k$-connected.
-
-While the mentioned work focuses on finding minimal universal adjuncts, our objective is different: we aim to either construct universal $k$-adjuncts for arbitrary $k$ or simply prove their existence for each positive integer $k$. The following lemma establishes the existence through properties of Cayley graphs.
+While an explicit construction of such multipoles would have practical value, our theoretical framework requires only the proof of their existence. The following lemma provides this existence proof using properties of transitive graphs.
 
 \begin{lemma}\label{lem:cyclic-k-pole-no-short-cycles-exists}
-	For each $k\geq 1$, there exists a cyclic $k$-pole with the following properties:
+	For every $k\geq 1$, there exists a cyclic $k$-pole, denoted by $W_k$, with the following properties:
 	\begin{enumerate}[label=(\roman*)]
 		\item it is potentially cyclically $k$-connected,
 		\item the distance between any pair of semiedges is at least $k-2$.
@@ -1076,7 +1112,7 @@ While the mentioned work focuses on finding minimal universal adjuncts, our obje
 	Therefore, $N$ must be cyclic, meaning the edge-cut in $G$ separating $M$ and $N$ is cycle-separating and of size $l<k$. This contradicts $\zeta(G)=2k$, proving that $G'$ cannot contain any cyclic multipole with fewer than $k$ semiedges.
 \end{proof}
 
-Let us denote the cyclic $k$-poles constructed in this way as $W_k$.
+\todo{Toto je main result, nejak to predstav}
 
 The following theorem builds upon our previous results concerning cyclic parts. We demonstrate that the problem of determining whether or not a cyclic multipole is a cyclic part does not have to rely on finding an original graph from which the cyclic part could be obtained, but rather only examine the properties of the multipole itself.
 
@@ -1096,9 +1132,29 @@ The following theorem builds upon our previous results concerning cyclic parts. 
 	Thus we see that $G$ is a cyclic cubic graph with girth at least $k$, resulting from the junction ${M*W_k}$. Since both $M$ and $W_k$ are potentially cyclically \mbox{$k$-connected}, both are different from a cycle of length $k$ or $k<4$ and their junction $G$ has girth at least $k$, we can apply \cref{th:junction-of-kpoles-cyclic-edge-connectivity} and conclude that $\zeta(G)=k$. Because of this fact, we have proved that $M$ is in fact a cyclic $k$-part.
 \end{proof}
 
-\section{Junctions of multiple multipoles}
+\todo{toto nejak uzavri, že sa nám to podarilo a že to je nový pohľad, spomeň ten Rajníkov problém s algoritmom a že to vie priniesť nový pohľad na tento problém lebo netreba hľadať pôvodný graf? Ale že sa nám nepodarilo spraviť ten algoritmus}
 
-In this section we explore junctions of possibly more than two multipoles, and what properties of the multipoles must hold for the result to have desired cyclic connectivity.
+\section{Junctions of multiple multipoles}\label{sec:junction-multiple-results}
+
+In this section, we explore how to construct graphs with desired cyclic connectivity through junctions of multiple multipoles, establishing the necessary properties these multipoles must possess.
+
+Previous research in this area has primarily focused on specific cases. For instance, the junction of cyclic $k$-parts (where $k\in{4,5}$) with adjuncts has been studied by several researchers \cite{Rajnik_phd, Andersen1988}, as mentioned in the section before.
+
+In the study of snarks, that is cubic graphs which are not 3-edge-colourable, Kochol introduced the concept of \textit{superposition}. This technique involves replacing edges with multipoles called superedges and vertices with supervertices. He denoted such superpositions of a graph $G$ as $S(G)$ and used this method to construct larger cyclically 5-connected snarks from smaller cyclically 5-connected graphs:
+
+\begin{theorem}[{{\cite[Theorem 1]{kochol-snarks-without-small-cycles}}}]
+	Let $G$ be a cyclically 5-edge-connected cubic graph of order $n$ and with girth $c$ equal to 5. Then there exists a cyclically 5-edge-connected snark $S(G)$ of order $22n+14$ and with girth $c$.
+\end{theorem}
+
+Several other specific constructions have been explored in snarks. Goedgebeur, Máčajová, and Škoviera \cite{Goedgebeur2019, Goedgebeur2020} investigated constructions of snarks with cyclic connectivity 4 up to order 44, while Rajník \cite{Rajnik_mgr} generated all snarks with girth 6 and cyclic connectivity 4 and 5 up to order 40.
+
+Using dot product of graphs, which is similar to junction of multipoles, Chladný and Škoviera \cite{Chladny2010} proved that each irreducible snark, that is snark where the severing of every nontrivial edge-cut yields 3-edge-colourable components, can be decomposed into cyclically 5-connected irreducible snarks:
+
+\begin{theorem}[{{\cite[Theorem C]{Chladny2010}}}]
+	Every irreducible snark $G$ different from the dumbbell graph can be decomposed into a collection $\{H_1, \dots , H_n\}$ of cyclically 5-connected irreducible snarks such that $G$ can be reconstructed from them by repeated dot products.
+\end{theorem}
+
+Our approach differs from these previous works by developing a more general theoretical framework. Rather than focusing on specific values of $k$ in cyclically $k$-connected graphs, we aim to create a versatile framework applicable to arbitrary values of $k$.
 
 As our work frequently involves discussing smallest independent edge-cuts in multipoles, we introduce the following notation.
 
@@ -1106,7 +1162,7 @@ As our work frequently involves discussing smallest independent edge-cuts in mul
 	For a multipole $M$, let $i(M)$ denote the size of its smallest independent edge-cut, or $\infty$ if $M$~contains no such cut.
 \end{definition}
 
-Now we prove a helpful lemma, establishing the size of the smallest independent edge-cut of a partial junction of two multipoles.
+The following lemma establishes a fundamental property regarding independent edge-cuts in partial junctions. This result serves as a cornerstone for analyzing the structural properties of junctions of multipoles and provides a lower bound for the size of their minimal independent edge-cuts.
 
 \begin{lemma}\label{lem:size-of-minimal-potentially-cycle-separating-after-junction}
 	Let $M_1$ and $M_2$ be multipoles and let $M$ be the result of a partial junction $M_1*M_2$ of size $j$. Then $i(M)\geq \min\{i(M_1),i(M_2),j\}$.
@@ -1120,7 +1176,7 @@ Now we prove a helpful lemma, establishing the size of the smallest independent 
 	Since $m_X<j$, severing only the edges created by the partial junction cannot disconnect the graph, as it would not cut all such edges (because $m_X<j$) and both $M_1$ and $M_2$ are connected (since ${\min\{i(M_1),i(M_2),j\}>0}$). Therefore, the cut needs to contain some edges from $M_1$ or $M_2$, suppose $M_1$. However, since these edges would be an independent edge-cut in $M_1$, it would mean that $m_X\geq i(M_1)$, leading to a contradiction.
 \end{proof}
 
-We now present a theorem which establishes the conditions under which a partial junction of two potentially cyclically $k$-connected multipoles remains potentially cyclically $k$-connected. \todo{viac textu sem určite, toto treba lepšie uviesť}
+We now present a pivotal theorem in our theoretical framework that addresses the problem introduced in our work: under what conditions does the partial junction of two potentially cyclically $k$-connected multipoles preserve the property of being potentially cyclically $k$-connected? This theorem not only serves as a building block for more complex constructions but also offers insights into the structural relationships between cyclic connectivity and partial junctions, with regard to sizes of minimal independent edge-cuts in multipoles.
 
 \begin{theorem}\label{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges}
 	Let $M_1$ and $M_2$ be potentially cyclically $k$-connected multipoles. Let $M$ be a result of a partial junction $M_1*M_2$ of size $j$. Let us denote by $s_i$ the number of remaining semiedges after the partial junction in $M_i$, meaning ${s_i=|S(M_i)|-j}$. If all of the following conditions hold:
@@ -1201,6 +1257,49 @@ We now present a theorem which establishes the conditions under which a partial 
 	The fact that ${i(M)\geq \min\{i(M_1), i(M_2), j\}}$ follows from \cref{lem:size-of-minimal-potentially-cycle-separating-after-junction}.
 \end{proof}
 
+\todo{text! Prečo je to zlé? Prečo ideme aj do tohoto?}
+
+\begin{definition}
+	Let $M$ be a multipole and consider a partial junction $*_f$ between $M$ and another multipole $M'$, resulting in multipole $N=M*_fM'$.  Let $\mathcal{F}$ denote the set of all independent edge-cuts in $M$. For any cut $F\in\mathcal{F}$, let $M_1$ and $M_2$ denote the two components obtained by severing $F$ in $M$. Then the \textit{independent cut-semiedge index} of $M$ in $*_f$, denoted by $I_S(M, *_f)$ is defined as
+	$$I_S(M, *_f)=\min\limits_{F\in\mathcal{F}} \left\{|F|+\min\{|S(M_1)\cap S(M)|, |S(M_2)\cap S(M)|\}\right\}.$$
+\end{definition}
+
+In other words, for each independent edge-cut $F$, we:
+\begin{enumerate}
+	\item Count the size of the cut $|F|$,
+	\item For each resulting component, count its semiedges that were original semiedges of $M$, excluding those used in the partial junction,
+	\item Take the smaller of these semiedge counts and add it to the size of the cut.
+\end{enumerate}
+The $I_S(M, *_f)$ is then the minimum of these sums over all possible independent edge-cuts.
+
+Using this we can prove a similar theorem to \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges}:
+
+\begin{theorem}
+	Let $M_1$ and $M_2$ be potentially cyclically $k$-connected multipoles. Let $M$ be a result of a partial junction $M_1*_fM_2$ of size $j$. Let us denote by $s_i$ the number of remaining semiedges after the partial junction in $M_i$, meaning ${s_i=|S(M_i)|-j}$. If all of the following conditions hold:
+	\begin{enumerate}[label=(\roman*)]
+		\item $I_S(M_1, *_f)+I_S(M_2, *_f)\geq k$,
+		\item $s_1+s_2\geq k$,
+		\item $I_S(M_1, *_f)+s_2\geq k$ and $s_1+I_S(M_2, *_f)\geq k$,
+	\end{enumerate}
+	then $M$ is potentially cyclically $k$-connected and TODO veľkosť výsledného rezu.
+\end{theorem}
+
+\begin{proof}
+	Let us denote the $j$-cut obtained after the partial junction junction $M_1*M_2$ by $S$. Suppose by contradiction that $M$ contains a cyclic $l$-pole $X_1$ such that $l<k$ and $l$ is the smallest possible. Let $T$ be the minimal edge-cut in $M$ yielding $X_1$ and denote the second component by $X_2$. We maintain the notation used in the previous theorem, an illustration is depicted in \cref{fig:illustration-for-multiple-multipoles-proof}.
+	
+	We first prove that $A_1$ and $A_2$ are non-empty. Suppose that one is empty, say $A_1$. Then $M_2$ would contain the whole cyclic $l$-pole $X_1$, contradicting the assumption about $M_2$.
+	
+	Next, we prove that $A_3$ and $A_4$ cannot be empty at the same time, meaning $X_2$ cannot be empty. Suppose that both were empty, meaning $X_1=M$. This would mean that $|S(M)|=|S(X_1)|=l<k$, contradicting the fact that $s_1+s_2\geq k$.
+	
+	The cut $T$ separating $X_1$ from $X_2$ is independent by \cref{lem:smallest-cut-in-mpoles-is-independent}. Now we shall explore $A_3$ and $A_4$. If both are non-empty, $c$ and $f$ represent independent edge-cuts in $M_1$ and $M_2$ respectively, meaning ${c+x_1\geq I_S(M_1, *_f)}$ and ${f+x_2\geq I_S(M_2, *_f)}$. However ${I_S(M_1, *_f)+I_S(M_2, *_f)\geq k}$, thus $c+f+x_1+x_2\geq k$, contradicting the assumption that ${b+c+d+f+x_1+x_2<k}$.
+	
+	Now suppose one of $A_3$ and $A_4$ is empty, say $A_3$. In this case $c$ represents an independent edge-cut in $M_1$, thus ${c+x_1\geq I_S(M_1, *_f)}$. Also, we see that in this case $x_3=0$ and thus $x_2=s_2$. Since ${I_S(M_1, *_f)+s_2\geq k}$, it holds that $c+x_1+x_2\geq k$, contradicting the assumption that ${b+c+d+f+x_1+x_2<k}$.
+	
+	As all possible cases lead to contradictions, we conclude that $M$ is potentially cyclically \mbox{$k$-connected}.
+	
+	TODO čo výsledný henten rez?
+\end{proof}
+
 The size of a smallest independent edge-cut in a multipole proves to be an important property for establishing that the result is potentially cyclically $k$-connected. As we demonstrate in the following theorem, this property remains significant when considering junctions, thus resulting in graphs.
 
 \begin{theorem}\label{th:cyclic-edge-connectivity-of-potentially-with-independent-cuts}
@@ -1214,6 +1313,8 @@ The size of a smallest independent edge-cut in a multipole proves to be an impor
 	
 	Since $T$ is independent and all $A_1,\,\dots,\,A_4$ are non-empty $c$ and $f$ represent independent edge-cuts in $M_1$ and $M_2$ respectively. This means that ${c\geq i(M_1)}$ and ${f\geq i(M_2)}$. However, from the assumption of the theorem it holds that ${i(M_1)+i(M_2)\geq k}$, thus ${c+f\geq k}$, contradicting the assumption that ${b+c+d+f<k}$.
 \end{proof}
+
+\todo{text! Prečo ideme toto robiť? Nedáme to až za subdivízie, kde vysvetlíme že subdivízie vedia robiť problém lebo v nejakom momente môžeme mať menej polhrán ako k?}
 
 \begin{lemma}\label{lem:adding-point-to-partial-junction-of-two}
 	Let $M$ be a potentially cyclically $k$-connected multipole with at least $k+1$ semiedges, obtained from a partial junction of multipoles $M_1$ and $M_2$ satisfying the conditions of \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges}. Let $N$ be the result of a partial junction of size two between $M$ and a multipole consisting of a single vertex $v$ with three dangling edges, where the new edges $vw_1$ and $vw_2$ are created such that $w_i\in V(M_i)$ for $i\in{1,2}$. Then $N$ is potentially cyclically $k$-connected.
@@ -1276,6 +1377,8 @@ The size of a smallest independent edge-cut in a multipole proves to be an impor
 	
 	Therefore, $X'$ is a cyclic multipole with fewer than $k$ semiedges in $M$, contradicting the assumption that $M$ is potentially cyclically $k$-connected.
 \end{proof}
+
+\todo{nejak to uzavri, že máme takýto framework a čo s ním vieme robiť.}
 
 \subsection{Examples}
 
@@ -1422,12 +1525,18 @@ First construction is the junction of 3 potentially 5-connected cyclic 5-poles a
 	At last, we perform a junction of $M'$ and $M_3$ forming $G$. By \cref{th:cyclic-edge-connectivity-of-potentially-with-independent-cuts} it holds that $G$ is cyclically 5-connected.
 \end{example}
 
+We now present specific constructions mentioned in published articles, where a cyclic edge-connectivity of a constructed graph has been provided without a formal proof. In these examples we present these constructions along with a formal proof, where we utilize our theoretical framework.
+
 \begin{example}
 	Consider the graph $G_{1,i}$ presented by Máčajová and Škoviera in 2006 \cite{Macajova2006}, depicted in \todo{FIGURE}. The authors presented this graph as having cyclic connectivity equal to 6, however they have not provided a proof supporting this statement. In this example we prove this statement by utilizing our theorems.
 	
 	\todo{Chceme tu vysvetliť čo sú tie supervertices/superedges?}
 	
 	\todo{Chceme poriadne vysvetliť snarky, Isaacs snark a podobne?}
+	
+	\todo{Rajník, 63 Proposition 4, vie nám to pomôcť že nemá to most, ak bude treba dokazovať.}
+	
+	POZOR má rez 2.
 	
 	Postup:
 	\begin{enumerate}
@@ -1440,7 +1549,7 @@ First construction is the junction of 3 potentially 5-connected cyclic 5-poles a
 \end{example}
 
 \begin{example}
-	Sem hento z \cite{Kochol1996}. Problém - ako sa zmení najmenší nezávislý rez po subdivíziach?
+	Sem hento z \cite{Kochol1996}. Problém - ako sa zmení najmenší nezávislý rez po subdivíziach? POZOR je tam 2 rez
 \end{example}
 
 \chapter{Cyclic part Inflations}\label{ch:cyclic-part-inflations}
@@ -1785,13 +1894,19 @@ Now we present an example showcasing the use of \cref{th:cyclic-part-inflations}
 
 Ako zisťovať veľkosť minimálnych nezávislých rezov, prípadne potenciálnu cyklickú k-súvislosť multipólov, ktoré dostaneme z nejakého grafu so známymi hodnotami tým že napríklad odstránime vrcholy, alebo prerežeme hrany.
 
-Ako lepšie využiť veľkosť nezávislých rezov? Berieme do úvahy ľubovoľné, ale možno vieme to robiť nejak špecifickejšie.
-
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
 \markboth{Conclusion}{Conclusion}
 
-\todo{}
+In this thesis we have made several contributions to the study of cyclic edge-connectivity in cubic graphs, particularly focusing on constructions from smaller building blocks. Our work has extended existing theoretical frameworks and introduced new approaches for analyzing and constructing graphs with specific cyclic edge-connectivity.
+
+First, we have developed a theoretical framework for determining whether a cyclic multipole is a cyclic part without needing to find the original graph. The main result is in \cref{th:alternative-definition-of-cyclic-part}, which establishes that a cyclic multipole is a cyclic part if and only if it does not contain a cyclic multipole with a small number of semiedges. This result provides a more direct method for identifying cyclic parts, eliminating the need for constructing the original graph from which the cyclic part could be obtained.
+
+Second, we have established new conditions for junctions of multiple multipoles to achieve desired cyclic edge-connectivity. Our theoretical framework, particularly through \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges} and \cref{th:cyclic-edge-connectivity-of-potentially-with-independent-cuts}, provides specific conditions under which these constructions maintain cyclic edge-connectivity. These results are particularly valuable as they apply to arbitrary values of the cyclic edge-connectivity, extending beyond the specific cases studied in previous research.
+
+Third, we have introduced and analyzed the concept of cyclic part inflations, extending the traditional notion of inflations. Through \cref{th:cyclic-part-inflations} and \cref{th:cyclic-part-inflation-kve}, we have established conditions under which these constructions preserve cyclic edge-connectivity, providing new methods for constructing cyclically $k$-connected graphs. This approach offers greater flexibility than traditional inflations, since it allows inflations of the graph not only with $k$-cycles, but arbitrary cyclic $k$-parts.
+
+Our work has also demonstrated practical applications of these theoretical results through several examples, including verifying the cyclic edge-connectivity claims made in previous publications without formal proofs. These examples not only validate our theoretical framework but also illustrate its practical utility in analyzing complex graph structures.
 
 % BIBLIOGRAPHY
 \newpage
