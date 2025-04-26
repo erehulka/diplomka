@@ -558,7 +558,8 @@ In this chapter, as mentioned, we extend the fundamental definitions from the ch
 
 \section{Cyclic Vertex Connectivity}
 
-A vertex set $X$ in a connected graph is called a \textit{cycle-separating} vertex cut if removing $X$ and any resulting isolated edges yields two components, each containing a cycle. We say that $G$ is cyclically $k$-vertex-connected if it contains no cycle-separating vertex cut with fewer than $k$ vertices. Analogous to cyclic edge-connectivity, the cyclic vertex-connectivity of a graph is defined as the largest integer $k$ for which $G$ is cyclically $k$-vertex-connected.
+We can also examine cyclic connectivity in graphs from an alternative perspective by using vertex cuts. A vertex set $X$ of a graph $G$ is called a \mbox{\textit{cycle-separating}} vertex-cut if $G$ can be expressed as a union
+of two edge-disjoint cyclic subgraphs $G_1$ and $G_2$ such that $V(G_1) \cap V(G_2) = X$. We say that a graph is cyclically \mbox{$k$-vertex-connected} if it contains no cycle-separating vertex-cut with fewer than $k$ vertices. Analogous to cyclic \mbox{edge-connectivity}, the cyclic \mbox{vertex-connectivity} of a graph is defined as the largest integer $k$ for which $G$ is cyclically \mbox{$k$-vertex-connected}.
 
 While this property might appear to offer a distinct perspective for analyzing cubic graphs, the following theorem demonstrates that, in cubic graphs, cyclic vertex-connectivity and cyclic edge-connectivity are actually equivalent properties.
 
@@ -1257,7 +1258,9 @@ We now present a pivotal theorem in our theoretical framework that addresses the
 	The fact that ${i(M)\geq \min\{i(M_1), i(M_2), j\}}$ follows from \cref{lem:size-of-minimal-potentially-cycle-separating-after-junction}.
 \end{proof}
 
-\todo{text! Prečo je to zlé? Prečo ideme aj do tohoto?}
+This shows that the size of a smallest independent edge-cut in a multipole is a valuable property when analyzing the cyclic edge-connectivity of graphs constructed from these multipoles. Specifically, if we perform a partial junction between two multipoles that are potentially cyclically $k$-connected, and if the sum of the sizes of their smallest independent edge-cuts is sufficiently large, then the resulting multipole will also remain potentially cyclically $k$-connected (it is also necessary for the multipoles to satisfy certain conditions relating the number of semiedges to the size of their smallest independent edge-cuts, but all of these conditions concern independent edge-cuts).
+
+Although this lemma proves useful, as shown in the examples section (\cref{subs:examples}), in many cases we encounter difficulties related to the size of the smallest independent edge-cuts. In particular examples, the multipoles that serve as building blocks are obtained by removing vertices from graphs with specific properties, which can result in multipoles having relatively small independent edge-cuts. However, not all independent edge-cuts are problematic in terms of undermining the desired cyclic edge-connectivity of the resulting graph. To clarify this idea, we introduce a new definition and notation, which will allow us to handle smaller independent edge-cuts in relation to the number of semiedges and a partial junction with another multipole.
 
 \begin{definition}
 	Let $M$ be a multipole and consider a partial junction $*_f$ between $M$ and another multipole $M'$, resulting in multipole $N=M*_fM'$.  Let $\mathcal{F}$ denote the set of all independent edge-cuts in $M$. For any cut $F\in\mathcal{F}$, let $M_1$ and $M_2$ denote the two components obtained by severing $F$ in $M$. Then the \textit{independent cut-semiedge index} of $M$ in $*_f$, denoted by $I_S(M, *_f)$ is defined as
@@ -1272,9 +1275,9 @@ In other words, for each independent edge-cut $F$, we:
 \end{enumerate}
 The $I_S(M, *_f)$ is then the minimum of these sums over all possible independent edge-cuts.
 
-Using this we can prove a similar theorem to \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges}:
+This notion allows smaller independent edge-cuts, if they are dividing semiedges into two components. Using this we can prove a similar theorem to \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges}, but with using independent cut-semiedge indices. 
 
-\begin{theorem}
+\begin{theorem}\label{th:potentially-cyclically-connected-independent-semiedge-index}
 	Let $M_1$ and $M_2$ be potentially cyclically $k$-connected multipoles. Let $M$ be a result of a partial junction $M_1*_fM_2$ of size $j$. Let us denote by $s_i$ the number of remaining semiedges after the partial junction in $M_i$, meaning ${s_i=|S(M_i)|-j}$. If all of the following conditions hold:
 	\begin{enumerate}[label=(\roman*)]
 		\item $I_S(M_1, *_f)+I_S(M_2, *_f)\geq k$,
@@ -1314,31 +1317,6 @@ The size of a smallest independent edge-cut in a multipole proves to be an impor
 	Since $T$ is independent and all $A_1,\,\dots,\,A_4$ are non-empty $c$ and $f$ represent independent edge-cuts in $M_1$ and $M_2$ respectively. This means that ${c\geq i(M_1)}$ and ${f\geq i(M_2)}$. However, from the assumption of the theorem it holds that ${i(M_1)+i(M_2)\geq k}$, thus ${c+f\geq k}$, contradicting the assumption that ${b+c+d+f<k}$.
 \end{proof}
 
-\todo{text! Prečo ideme toto robiť? Nedáme to až za subdivízie, kde vysvetlíme že subdivízie vedia robiť problém lebo v nejakom momente môžeme mať menej polhrán ako k?}
-
-\begin{lemma}\label{lem:adding-point-to-partial-junction-of-two}
-	Let $M$ be a potentially cyclically $k$-connected multipole with at least $k+1$ semiedges, obtained from a partial junction of multipoles $M_1$ and $M_2$ satisfying the conditions of \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges}. Let $N$ be the result of a partial junction of size two between $M$ and a multipole consisting of a single vertex $v$ with three dangling edges, where the new edges $vw_1$ and $vw_2$ are created such that $w_i\in V(M_i)$ for $i\in{1,2}$. Then $N$ is potentially cyclically $k$-connected.
-\end{lemma}
-
-\begin{proof}
-	Since $M$ has at least $k+1$ semiedges, $N$ has at least $k$ semiedges. We therefore only need to verify that there exists no independent edge-cut yielding a cyclic multipole with fewer than $k$ semiedges.
-	
-	Suppose, by contradiction, that such a cut exists, and let $X$ be the resulting cyclic $l$-pole where $l<k$ and $l$ is minimal. We can make several observations about $X$:
-	\begin{enumerate}[label=(\roman*)]
-		\item $X$ must contain vertex $v$, as otherwise $X$ would exist in $M$, contradicting the fact that $M$ is potentially cyclically $k$-connected.
-		\item $X$ must contain both $w_1$ and $w_2$. If not, $X$ would have at least two dangling edges from $v$, and by excluding $v$, we would obtain a cyclic multipole with fewer than $l$ semiedges, contradicting the minimality of $l$. Note that the multipole would remain cyclic since $v$ with two dangling edges cannot be part of any cycle.
-	\end{enumerate}
-	
-	Given these observations, we consider all possible configurations of $X$:
-	\begin{itemize}
-		\item $X$ contains whole $M_1,M_2$. However then $X=N$, thus it has at least $k$ semiedges, leading to a contradiction.
-		\item If $X$ contains all of $M_1$ but not all of $M_2$ (without loss of generality), then since $X$ contains $w_2$, the cut must intersect $M_2$. This yields at least $i(M_2)$ semiedges from the cut in $M_2$, $s_1-1$ from $M_1$, and one from $v$. The total number of semiedges is at least $i(M_2)+s_1$, which by assumption is $\geq k$, leading to a contradiction.
-		\item If $X$ contains neither $M_1$ nor $M_2$ entirely, then $X$ must have at least $i(M_1)+i(M_2)$ semiedges. Since $i(M_1)+i(M_2)\geq k$, this leads to a contradiction.
-	\end{itemize}
-
-	As all cases lead to contradictions, we conclude that $N$ is potentially cyclically $k$-connected.
-\end{proof}
-
 \begin{lemma}
 	Let $G$ be cyclically $k$-connected graph. Let $M$ be a multipole obtained from $G$ by subdividing some edges and adding a dangling edge to each new vertex created by these subdivisions. Then $i(M)\geq k$.
 \end{lemma}
@@ -1363,11 +1341,11 @@ The size of a smallest independent edge-cut in a multipole proves to be an impor
 		\item $V(X)\cap V(M)$ is non-empty because $X$ is cyclic and no cycle can exist solely through vertices created by subdivisions, each cycle must contain at least one former vertex.
 		\item $V(M'-X)\cap V(M)$ must be non-empty. Otherwise, $V(M'-X)$ would contain only vertices created by the subdivisions, implying $X$ has at least $s_1+2s_2$ semiedges (where $s_1$ is the number of semiedges from subdivision vertices in $X$, and $s_2$ is the number of such vertices not in $X$). The factor of 2 in $s_2$ appears because to separate each subdivision vertex from its neighbors requires cutting two edges. Since $s_1+s_2\geq k$, this contradicts $X$ being an $l$-pole with $l<k$.
 	\end{itemize}
-
+	
 	Let $X'$ be the component in $M$ induced by $V(X)\cap V(M)$. We prove that $X'$ has fewer than $k$ semiedges. Consider the edge-cuts in $M$ and $M'$:
 	$$|E(V(X)\cap V(M), V(M'-X)\cap V(M))|\leq |E(V(X),V(M'-X))|$$
 	This inequality holds because any edge in the left cut corresponds to at least one edge in the right cut (possibly more if the edge was subdivided). Each severed edge creates one semiedge in each component. Additionally, $X'$ does not contain semiedges that were incident with subdivision vertices in $X$. Therefore, $X'$ has at most as many semiedges as $X$, which has fewer than $k$ semiedges.
-
+	
 	Finally, we prove $X'$ is cyclic. Let $C$ be a cycle in $X$. We can construct a corresponding cycle $C'$ in $X'$ as follows: for each edge $e$ in $C$,
 	\begin{itemize}
 		\item if $e$ exists in $X'$ (was not subdivided), include $e$ in $C'$
@@ -1378,15 +1356,124 @@ The size of a smallest independent edge-cut in a multipole proves to be an impor
 	Therefore, $X'$ is a cyclic multipole with fewer than $k$ semiedges in $M$, contradicting the assumption that $M$ is potentially cyclically $k$-connected.
 \end{proof}
 
-\todo{nejak to uzavri, že máme takýto framework a čo s ním vieme robiť.}
+\begin{lemma}\label{lem:adding-point-to-partial-junction-of-two}
+	Let $M$ be a potentially cyclically $k$-connected multipole with at least $k+1$ semiedges, obtained from a partial junction of multipoles $M_1$ and $M_2$ satisfying the conditions of \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges}. Let $N$ be the result of a partial junction of size two between $M$ and a multipole consisting of a single vertex $v$ with three dangling edges, where the new edges $vw_1$ and $vw_2$ are created such that $w_i\in V(M_i)$ for $i\in{1,2}$. Then $N$ is potentially cyclically $k$-connected.
+\end{lemma}
 
-\subsection{Examples}
+\begin{proof}
+	Since $M$ has at least $k+1$ semiedges, $N$ has at least $k$ semiedges. We therefore only need to verify that there exists no independent edge-cut yielding a cyclic multipole with fewer than $k$ semiedges.
+	
+	Suppose, by contradiction, that such a cut exists, and let $X$ be the resulting cyclic $l$-pole where $l<k$ and $l$ is minimal. We can make several observations about $X$:
+	\begin{enumerate}[label=(\roman*)]
+		\item $X$ must contain vertex $v$, as otherwise $X$ would exist in $M$, contradicting the fact that $M$ is potentially cyclically $k$-connected.
+		\item $X$ must contain both $w_1$ and $w_2$. If not, $X$ would have at least two dangling edges from $v$, and by excluding $v$, we would obtain a cyclic multipole with fewer than $l$ semiedges, contradicting the minimality of $l$. Note that the multipole would remain cyclic since $v$ with two dangling edges cannot be part of any cycle.
+	\end{enumerate}
+	
+	Given these observations, we consider all possible configurations of $X$:
+	\begin{itemize}
+		\item $X$ contains whole $M_1,M_2$. However then $X=N$, thus it has at least $k$ semiedges, leading to a contradiction.
+		\item If $X$ contains all of $M_1$ but not all of $M_2$ (without loss of generality), then since $X$ contains $w_2$, the cut must intersect $M_2$. This yields at least $i(M_2)$ semiedges from the cut in $M_2$, $s_1-1$ from $M_1$, and one from $v$. The total number of semiedges is at least $i(M_2)+s_1$, which by assumption is $\geq k$, leading to a contradiction.
+		\item If $X$ contains neither $M_1$ nor $M_2$ entirely, then $X$ must have at least $i(M_1)+i(M_2)$ semiedges. Since $i(M_1)+i(M_2)\geq k$, this leads to a contradiction.
+	\end{itemize}
 
-First construction is the junction of 3 potentially 5-connected cyclic 5-poles along with one point in the middle.
+	As all cases lead to contradictions, we conclude that $N$ is potentially cyclically $k$-connected.
+\end{proof}
+
+In this section we provide a theoretical framework to prove the cyclic edge-connectivity of graphs built from smaller multipoles. There are two properties which prove to be very valuable: the multipoles can not contain cyclic multipoles with a small number of semiedges, and the size of their smallest independent edge-cuts should be large enough. Apart from these theorems regarding partial junctions we have proved more specific things, like partial junction with one vertex, or edge subdivisions. We showcase these results in the following subsection, where we demonstrate the usage on specific examples.
+
+\subsection{Examples}\label{subs:examples}
+
+We first demonstrate examples which arose as problems during writing this thesis, in other words these were the problems we were looking at when we wanted to come up with ideas as when a graph which results from a set of partial junctions has the desired cyclic edge-connectivity. At the end however we provide examples which come from specific articles, where the authors have concluded a cyclic connectivity of a graph without providing a formal proof. We try and look at these graphs in a perspective of junctions of multipoles, so we can apply our theoretical framework and formally prove these claims.
+
+First however are the examples, where we showcase the sufficient conditions for the multipoles, so that a graph resulting from partial junctions between these multipoles has the desired cyclic edge-connectivity.
+
+\begin{example}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[every node/.style={circle, draw, fill=white}]
+			\node (M1) at (0,0) {$M_1$};
+			\node (M2) at (2,0) {$M_2$};
+			\node (M3) at (4,0) {$M_3$};
+			\node (M4) at (6,0) {$M_4$};
+			
+			\node (M5) at (0,-2) {$M_5$};
+			\node (M6) at (2,-2) {$M_6$};
+			\node (M7) at (4,-2) {$M_7$};
+			\node (M8) at (6,-2) {$M_8$};
+			
+			\draw (M1.10) -- (M2.170) (M1.-10) -- (M2.190);
+			\draw (M2.10) -- (M3.170) (M2.-10) -- (M3.190);
+			\draw (M3.10) -- (M4.170) (M3.-10) -- (M4.190);
+			
+			\draw (M5) -- (M6) (M5.15) -- (M6.165) (M5.-15) -- (M6.195);
+			\draw (M6) -- (M7) (M6.15) -- (M7.165) (M6.-15) -- (M7.195);
+			\draw (M7) -- (M8) (M7.15) -- (M8.165) (M7.-15) -- (M8.195);
+			
+			\draw (M1.-100) -- (M5.100) (M1.-80) -- (M5.80) (M1) -- (M6);
+			\draw (M6) -- (M2);
+			\draw (M7) -- (M3);
+			\draw (M7) -- (M4);
+			\draw (M4.-100) -- (M8.100) (M4.-80) -- (M8.80);
+		\end{tikzpicture}
+		\caption{Cyclically 5-connected graph constructed from 8 multipoles}
+		\label{fig:cyclically-5-con-graph-from-8-mult}
+	\end{figure}
+
+	Let $M_1,\dots,M_8$ be potentially cyclically 5-connected multipoles, such that:
+	\begin{itemize}
+		\item $M_6$ and $M_7$ are 8-poles, and other are 5-poles,
+		\item Let either $i(M_1)$ or $i(M_2)$ be at least 2, and other at least 3.
+	\end{itemize}
+	Let $G$ be the graph shown in \cref{fig:cyclically-5-con-graph-from-8-mult}, resulting from a sequence of partial junctions between $M_1,\dots,M_8$. By utilizing the theorems proved in our work, we prove that the result is cyclically 5-connected.
+	
+	First, take the partial junction $M_1*M_2$ of size two. By \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges} the result is potentially cyclically \mbox{5-connected} and $i(M_1*M_2)\geq 2$. Similarly we perform two more partial junctions of size two, first with $M_3$, and then with $M_4$ such that we will obtain an \mbox{8-pole} ${N_1=((M_1*M_2)*M_3)*M_4}$. It holds that $N_1$ is potentially cyclically 5-connected and $i(N_1)\geq 2$.
+	
+	Now take the partial junction $M_5*M_6$ of size three. By \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges} the result is potentially cyclically \mbox{5-connected} and $i(M_5*M_6)\geq 3$. Again, we perform two more partial junctions of size three, first with $M_7$, and then with $M_8$ such that we will obtain an 8-pole ${N_2=((M_5*M_6)*M_7)*M_8}$. It holds that $N_2$ is potentially cyclically 5-connected and $i(N_2)\geq 3$.
+	
+	Finally, we perform a junction $N_1*N_2$ such that the resulting graph $G$ will be as shown in \cref{fig:cyclically-5-con-graph-from-8-mult}. By \cref{th:cyclic-edge-connectivity-of-potentially-with-independent-cuts} it holds that $G$ is cyclically 5-connected.
+	
+	Note that the graph illustrated in \cref{fig:cyclically-5-con-graph-from-8-mult} represents just one possible outcome of the described sequence of partial junctions. Our theorems do not specify on which semiedges the partial junction should be performed, thus the showcased result represents only one of the possible outcomes.
+\end{example}
+
+\begin{example}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[every node/.style={fill=none}]
+			% Define vertices
+			\foreach \i in {1,...,6} {
+				\node[draw, circle] (M\i) at ({60*\i}:2) {$M_{\i}$};
+			}
+			
+			\foreach \i in {1,...,6} {
+				\node[draw=none] (Mouter\i) at ({60*\i}:3) {};
+			}
+			
+			% Draw triple parallel edges
+			\foreach \i [remember=\i as \last (initially 6)] in {1,...,6} {
+				\draw ($(M\last.{180+(\last-1)*60})$) -- ($(M\i.{(\last-1)*60})$);
+				\draw ($(M\last.{195+(\last-1)*60})$) -- ($(M\i.{-15+(\last-1)*60})$);
+				\draw ($(M\last.{165+(\last-1)*60})$) -- ($(M\i.{15+(\last-1)*60})$);
+			}
+			
+			\foreach \i in {1,...,6} {
+				\draw (M\i) -- (Mouter\i);
+			}
+		\end{tikzpicture}
+		\caption{Potentially cyclically 6-connected multipole constructed from six 7-poles}
+		\label{fig:potentially-cyc-6-from-6-7-poles}
+	\end{figure}
+	
+	Let $M_1,\dots,M_6$ be potentially cyclically 6-connected 7-poles. Let $i(M_j)\geq 3$ for each ${j\in\{1,\,\dots,\,6\}}$. We prove that the multipole $M$ shown in \cref{fig:potentially-cyc-6-from-6-7-poles} resulting from a sequence of partial junctions between $M_1,\,\dots,\,M_6$ is potentially cyclically \mbox{6-connected}.
+	
+	First take the partial junction $M_1*M_2$ of size three. By \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges} the result is potentially cyclically \mbox{6-connected} and $i(M_1*M_2)\geq 3$. Similarly we perform a partial junction of the result and $M_3$, obtaining a potentially cyclically 6-connected 9-pole ${N_1=(M_1*M_2)*M_3}$, such that $i(N_1)\geq 3$.
+	
+	We perform the same operations on $M_4,M_5$ and $M_6$, obtaining ${N_2=(M_4*M_5)*M_6}$ with the same properties. We then perform a partial junction $N_1*N_2$ of size 6, resulting in a 6-pole $N$. By \cref{th:connecting-potentially-cyclically-connected-with-number-of-resulting-semiedges} it holds that $N$ is potentially cyclically 6-connected.
+	
+	Again, note that the multipole illustrated in \cref{fig:potentially-cyc-6-from-6-7-poles} represents just one possible outcome of the described sequence of partial junctions.
+\end{example}
 
 \begin{example}\label{ex:junctions-multiple-first}
-	\todo{Toto prerobím}
-	Suppose we want to connect three 5-poles, along with one point in the middle, and we want to decide whether the result is cyclically 5-connected. The illustration can be seen in \cref{fig:3-5-poles-connected}. We can put some requirements on the connected 5-poles, and by utilizing proved theorems we can prove that in these cases, the result will in fact be potentially cyclically 5-connected.
+	Suppose we want to connect three 5-poles, along with one vertex in the middle, and we want to decide whether the result is cyclically 5-connected. The illustration can be seen in \cref{fig:3-5-poles-connected}. We can put some requirements on the connected 5-poles, and by utilizing proved theorems we can prove that in these cases, the result will in fact be potentially cyclically 5-connected.
 	
 	\begin{figure}
 		\centering
@@ -1528,28 +1615,110 @@ First construction is the junction of 3 potentially 5-connected cyclic 5-poles a
 We now present specific constructions mentioned in published articles, where a cyclic edge-connectivity of a constructed graph has been provided without a formal proof. In these examples we present these constructions along with a formal proof, where we utilize our theoretical framework.
 
 \begin{example}
-	Consider the graph $G_{1,i}$ presented by Máčajová and Škoviera in 2006 \cite{Macajova2006}, depicted in \todo{FIGURE}. The authors presented this graph as having cyclic connectivity equal to 6, however they have not provided a proof supporting this statement. In this example we prove this statement by utilizing our theorems.
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/create-Fi-from-Isaacs}
+		\caption{\cite{Macajova2006} Construction of 6-pole $F^i$ from Isaacs snark $I_i$}
+		\label{fig:construction-fi-from-isaacs}
+	\end{figure}
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/snark-Gi-from-Isaacs}
+		\caption{\cite{Macajova2006} Cyclically 6-connected graph $G_{1,i}$}
+		\label{fig:cyc-6-graph-Macajova}
+	\end{figure}
 	
-	\todo{Chceme tu vysvetliť čo sú tie supervertices/superedges?}
+	Consider the graph $G_{1,i}$ presented by Máčajová and Škoviera in 2006 \cite{Macajova2006}, depicted in \cref{fig:cyc-6-graph-Macajova}. This graph can be viewed as a junction of 6-poles $F^i$, $i\geq 7$, created from Isaacs snarks \cite{Isaacs1975}, along with the construction in the middle of the cycle. The process of creation of these 6-poles is depicted in \cref{fig:construction-fi-from-isaacs}. Even though the authors describe this graph as a result of a superposition, we will not dive deep into this theory and present the result as a result of partial junctions.
 	
-	\todo{Chceme poriadne vysvetliť snarky, Isaacs snark a podobne?}
+	The authors presented this graph as having cyclic connectivity equal to 6, however they have not provided a proof supporting this statement. In this example we prove this statement by utilizing our theorems.
 	
-	\todo{Rajník, 63 Proposition 4, vie nám to pomôcť že nemá to most, ak bude treba dokazovať.}
+	First observation is that the size of a smallest independent edge-cut in $F_i$, $i\geq 7$ is two. However, each of these independent 2-cuts divide the semiedges into both components, meaning each component contains at least one semiedge, which implies that $I_S(F_i,*)\geq 3$ for arbitrary $i\geq 7$ and $*$.
 	
-	POZOR má rez 2.
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/Gi-first-partial-junction}
+		\caption{Partial junction $F^7*F^7$}
+		\label{fig:Gi-first-partial-junction}
+	\end{figure}
+
+	This means, that by \cref{th:potentially-cyclically-connected-independent-semiedge-index} the partial junction $F^7*F^7$, depicted in \cref{fig:Gi-first-partial-junction}, is potentially cyclically 6-connected, let us denote this construction by $M_1$. It can be verified that there is no more independent 2-cut, thus $i(M_1)\geq 3$, which implies $I_S(M_1, *)\geq 3$ for arbitrary partial junction.
+		
+	\begin{figure}
+		\centering
+		\begin{subfigure}[b]{0.32\textwidth}
+			\centering
+			\includegraphics[height=5cm, width=\textwidth, keepaspectratio]{images/Gi-first-multipole}
+			\caption{Multipole $N_1$}
+			\label{fig:Gi-first-multipole}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\centering
+			\includegraphics[height=5cm, width=\textwidth, keepaspectratio]{images/Gi-second-multipole}
+			\caption{Multipole $N_2$}
+			\label{fig:Gi-second-multipole}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\centering
+			\includegraphics[height=5cm, width=\textwidth, keepaspectratio]{images/Gi-inner-multipole}
+			\caption{Multipole $I$}
+			\label{fig:Gi-inner-multipole}
+		\end{subfigure}
+		\caption{Multipoles used in building the graph $G_i$}
+	\end{figure}
 	
-	Postup:
-	\begin{enumerate}
-		\item Ukáž že tie Isaacsove komponenty sú potenciálne cyklicky k-súvislé - dá sa nahliadnuť, alebo to chceme nejak dokázať?
-		\item Ukáž že najmenší nezávislý rez je aspoň 3 - rovnako, nejak dokázať, alebo proste povedať že sa dá nahliadnuť.
-		\item Pospájaj
-		\item Sprav subdivízie
-		\item Pripoj vnútro.
-	\end{enumerate}
+	Using this knowledge we can construct the multipole $N_1$ depicted in \cref{fig:Gi-first-multipole} inductively by performing junctions of $F_i$ and by utilizing \cref{th:potentially-cyclically-connected-independent-semiedge-index} it will be potentially cyclically 6-connected. It can be verified that the size of a smallest independent edge-cut in $N_1$ is still at least three. Same way we construct the multipole $N_2$ depicted in \cref{fig:Gi-second-multipole}. which holds the same properties.
+	
+	\begin{figure}
+		\centering
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/Gi-before-subdivision}
+			\caption{Graph $N$}
+			\label{fig:Gi-without-middle-before-subdivisions}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/multipole-to-Gi-without-middle}
+			\caption{Multipole $N'$}
+			\label{fig:Gi-without-middle-after-subdivisions}
+		\end{subfigure}
+		\caption{$N$ before and after subdivisions}
+	\end{figure}
+	
+	Then we perform a junction $N_1*N_2$ and by \cref{th:cyclic-edge-connectivity-of-potentially-with-independent-cuts} the resulting graph $N$, depicted in \cref{fig:Gi-without-middle-before-subdivisions} is cyclically 6-connected.
+	
+	Next we perform subdivisions, obtaining the multipole $N'$ depicted in \cref{fig:Gi-without-middle-after-subdivisions}, and by \cref{th:subdivisions-potentially-cyclically-connected} the multipole is potentially cyclically 6-connected with the size of a smallest independent edge-cut at least 6.
+	
+	Now let $I$ be the multipole depicted in \cref{fig:Gi-inner-multipole}. It can be verified that there is no independent edge-cut of size 2, thus $i(I)\geq 3$, and as well it is potentially cyclically 6-connected, since it has 7 semiedges and does not contain a cyclic multipole with at most 5 semiedges. This means, that by \cref{th:cyclic-edge-connectivity-of-potentially-with-independent-cuts} the graph $G_{1,i}=N'*I$, depicted at the beginning in \cref{fig:cyc-6-graph-Macajova} is cyclically 6-connected
 \end{example}
 
 \begin{example}
-	Sem hento z \cite{Kochol1996}. Problém - ako sa zmení najmenší nezávislý rez po subdivíziach? POZOR je tam 2 rez
+	\begin{figure}
+		\centering
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/Kochol-final-graph}
+			\caption{Graph $G_{118}$}
+			\label{fig:Kochol-final-graph-G118}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/Kochol-multipole-A}
+			\caption{Multipole $A$}
+			\label{fig:Kochol-multipole-A}
+		\end{subfigure}
+		\caption{\cite{Kochol1996} Graph $G_{118}$ built from multipoles $A$.}
+	\end{figure}
+	
+	Consider the graph $G_{118}$ presented by Kochol in 1996 \cite{Kochol1996}, depicted in \cref{fig:Kochol-final-graph-G118}. This graph can be viewed as a junction of 6-poles $A$, created from Isaacs snark $I_5$ \cite{Isaacs1975} by removing two vertices, along with the construction in the middle of the cycle. The multipole $A$ is depicted in \cref{fig:Kochol-multipole-A}. Even though the author describes this graph as a result of a superposition, we will not dive deep into this theory and present the result as a result of partial junctions.
+	
+	The author presented this graph as having cyclic connectivity equal to 6, however without a formal proof. In this example we prove this statement by utilizing our theorems.
+	
 \end{example}
 
 \chapter{Cyclic part Inflations}\label{ch:cyclic-part-inflations}
@@ -1893,6 +2062,8 @@ Now we present an example showcasing the use of \cref{th:cyclic-part-inflations}
 \chapter{Problems for further research}
 
 Ako zisťovať veľkosť minimálnych nezávislých rezov, prípadne potenciálnu cyklickú k-súvislosť multipólov, ktoré dostaneme z nejakého grafu so známymi hodnotami tým že napríklad odstránime vrcholy, alebo prerežeme hrany.
+
+Ako zisťovať hodnotu toho independent semiedge indexu po partial junction?
 
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
