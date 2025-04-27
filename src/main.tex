@@ -2063,9 +2063,33 @@ Now we present an example showcasing the use of \cref{th:cyclic-part-inflations}
 
 \chapter{Problems for further research}\label{ch:problems-for-research}
 
-Ako zisťovať veľkosť minimálnych nezávislých rezov, prípadne potenciálnu cyklickú k-súvislosť multipólov, ktoré dostaneme z nejakého grafu so známymi hodnotami tým že napríklad odstránime vrcholy, alebo prerežeme hrany.
+In this chapter, we present problems encountered during our research, including unresolved problems and questions that emerged later. Some of these issues arose from examples in \cref{subs:examples}, where we had to manually verify certain properties of multipoles, such as the size of smallest independent edge-cuts, when we could not apply our theoretical framework.
 
-Ako zisťovať hodnotu toho independent semiedge indexu po partial junction?
+The first problem concerns the independent cut-semiedge index of a multipole created through partial junction. While we have developed a theoretical framework for establishing lower bounds on the size of smallest independent edge-cuts in multipoles formed by partial junctions, we lack similar results applicable for this index.
+
+\begin{problem}
+	Let $M=M_1*_fM_2$ be a multipole. Given the values $I_S(M_1,*_f)$ and $I_S(M_2,*_f)$, and considering another partial junction $M*_gN$ with some multipole $N$, what is the lower bound of $I_S(M,*_g)$?
+\end{problem}
+
+This property presents unique challenges because it depends not only on the multipole itself but also on which semiedges will be used in future partial junctions. This makes it difficult to establish a lemma similar to \cref{lem:size-of-minimal-independent-after-junction}, as simply in independent edge-cuts we do not distinguish between semiedges that will remain and those used in the partial junction.
+
+The following problem also comes from the exploring of the examples. Specifically, we obtained multipoles from Isaacs snarks by removing a pair of vertices. Despite knowing their cyclic edge-connectivity, we could not formally prove that multipoles obtained by removing these vertices were potentially cyclically $k$-connected without manual verification. A theoretical framework for deriving these properties from the original graph would be valuable.
+
+\begin{problem}
+	Let $G$ be a cyclically $k$-connected graph, with $i(G)\geq l$ for some $l,k$. For a multipole $M$ obtained from $G$ by removing vertices and/or severing edges, what conditions ensure that $M$ is potentially cyclically $k$-connected, and what determines the lower bound of $i(M)$?
+\end{problem}
+
+These conditions might be specific rather than general, for instance applying only to the removal of two vertices with a known distance between them.
+
+Finally, it would be highly valuable to develop an algorithmic approach for determining whether a multipole is potentially cyclically $k$-connected, rather than a theoretical approach mentioned before.
+
+\begin{problem}
+	Develop an efficient algorithm that determines whether a given multipole $M$ is potentially cyclically $k$-connected for a given integer $k$.
+\end{problem}
+
+If $M$ is a graph, the problem is equivalent to the problem of determining whether $M$ is cyclically $k$-connected, thus the best approach is the algorithm by Dvořák et al. \cite{Dvorak2004}. A solution for multipoles might involve a modification of this algorithm to handle multipoles and search for cyclic multipoles with the smallest number of semiedges, or by performing a junction of the multipole on input with some other multipole, specific for this problem, and running the original algorithm.
+
+Given the fundamental importance of the question whether a multipole is potentially cyclically $k$-connected in our work, developing an efficient method to determine this property would be particularly valuable.
 
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
