@@ -151,17 +151,17 @@ In the study of cubic, that is 3-regular graphs, the traditional edge-connectivi
 
 Cyclic edge-connectivity, on the other hand, offers a wider range of values by imposing additional condition on edge-cuts. Specifically, the cyclic edge-connectivity of a graph $G$ is defined as the size of the smallest cycle-separating edge-cut -- an edge-cut whose removal yields two components, each containing a cycle. Unlike traditional edge-connectivity, this property has no fixed upper bound in cubic graphs, enabling the study of graphs with high cyclic edge-connectivity.
 
-Research has shown that high cyclic \mbox{edge-connectivity} correlates with various structural properties of cubic graphs \cite{Doslic2003, McCuaig1992, Andersen1988, Thomassen1983}. Moreover, it has been proven that the smallest possible counterexample for several open problems must have high cyclic edge-connectivity \cite{Macajova2020, Kochol2004}.
-
-\todo{asi aj nejaké conjectures ešte}
-
-\todo{aký je cieľ, pozri ako to bolo v BC práci}
+Research has shown that high cyclic \mbox{edge-connectivity} correlates with various structural properties of cubic graphs \cite{Andersen1988, Doslic2003, McCuaig1992, Thomassen1983}, and several conjectures about high cyclic edge-connectivity have been proposed \cite{Fleischner1988, Thomassen1986}. Moreover, it has been proven that the smallest possible counterexample for several open problems must have high cyclic edge-connectivity \cite{Kochol2004, Macajova2020}.
 
 Our work focuses on cubic graphs constructed from smaller building blocks. Through several theoretical results, we establish conditions for these blocks that enable us to determine the cyclic \mbox{edge-connectivity} of the resulting graphs.
 
+To formalize these building blocks, we use the concept of \textit{multipoles}, which can be explained as a special type of graphs where each edge has two ends that do not necessarily need to be incident with vertices. These special edges can be connected together to form classical edges between vertices, allowing the construction of larger multipoles and ultimately complete graphs. These connections are formally denoted as \textit{junctions}.
+
+Our aim is to develop theoretical tools for proving that such constructions of cubic graphs achieve desired cyclic edge-connectivity when the used multipoles satisfy specific conditions. We demonstrate these results through concrete examples and provide formal proofs of cyclic edge-connectivity for certain graphs where such proofs were previously missing.
+
 Such constructions of graphs with specific cyclic edge-connectivity remain relatively unexplored. Rajník has explored how these building blocks with specific properties can be extended to form graphs with desired cyclic edge-connectivity \cite{Rajnik_phd}. However, this research focused primarily on the existence of such graphs rather than determining the cyclic edge-connectivity of graphs built from more than two building blocks.
 
-\todo{}
+In \cref{ch:preliminaries}, we introduce the necessary definitions and concepts fundamental to this thesis. \cref{ch:cyclic-edge-connectivity} extends the knowledge of cyclic edge-connectivity and introduces concepts essential to our results. In \cref{ch:junctions-of-multipoles}, we present our findings on junctions of multipoles, establishing helpful properties of multipoles and provide theorems that prove these junctions achieve desired cyclic edge-connectivity, along with their practical applications. \cref{ch:cyclic-part-inflations} introduces the concept of \textit{cyclic part inflations}, where vertices in an original graph are replaced by multipoles satisfying specific conditions. We present several theorems for this concept and demonstrate their applications. Finally, in \cref{ch:problems-for-research} we provide potential problems for future research.
 
 \chapter{Preliminaries}\label{ch:preliminaries}
 
@@ -800,7 +800,7 @@ The following theorem is particularly relevant to our work as it establishes con
 
 Our research extends this understanding of cyclic edge-connectivity in inflations by developing additional theorems and introducing a novel approach where vertices are replaced by arbitrary cyclic parts rather than just cycles. These developments are explored in detail in \cref{ch:cyclic-part-inflations}.
 
-\chapter{Junctions of multipoles}
+\chapter{Junctions of multipoles}\label{ch:junctions-of-multipoles}
 
 This chapter investigates the junctions of multipoles and identifies the conditions under which they yield graphs with desired cyclic edge-connectivity. We aim to develop a theoretical framework that enables us to prove the cyclic edge-connectivity of junctions of multipoles, by identifying specific conditions these multipoles must satisfy.
 
@@ -1856,7 +1856,7 @@ We now examine a similar construction from another article. While the proof foll
 			\caption{Multipole $A$}
 			\label{fig:Kochol-multipole-A}
 		\end{subfigure}
-		\caption{\cite{Kochol1996} Graph $G_{118}$ built from multipoles $A$.}
+		\caption{\cite{Kochol1996} Graph $G_{118}$ built from multipoles $A$}
 	\end{figure}
 	
 	Consider the graph $G_{118}$ presented by Kochol in 1996 \cite{Kochol1996}, depicted in \cref{fig:Kochol-final-graph-G118}. This graph can be viewed as a junction of 6-poles $A$, created from Isaacs snark $I_5$ \cite{Isaacs1975} by removing two vertices, along with the construction in the middle of the cycle. The multipole $A$ is depicted in \cref{fig:Kochol-multipole-A}. Even though the author describes this graph as a result of a superposition, as before we will not dive deep into this theory and present the result as a result of partial junctions.
