@@ -151,25 +151,25 @@ In the study of cubic, that is 3-regular graphs, the traditional edge-connectivi
 
 Cyclic edge-connectivity, on the other hand, offers a wider range of values by imposing additional condition on edge-cuts. Specifically, the cyclic edge-connectivity of a graph $G$ is defined as the size of a smallest cycle-separating edge-cut -- an edge-cut whose removal yields two components, each containing a cycle. Unlike traditional edge-connectivity, this property has no fixed upper bound in cubic graphs, enabling the~study of graphs with high cyclic edge-connectivity.
 
-Research has shown that high cyclic \mbox{edge-connectivity} correlates with various structural properties of cubic graphs \cite{Andersen1988, Doslic2003, McCuaig1992, Thomassen1983}, and several conjectures about high cyclic edge-connectivity have been proposed \cite{Fleischner1988, jaeger1980conjecture, Thomassen1986}. Moreover, it has been proven that the smallest possible counterexample for several open problems must have high cyclic edge-connectivity \cite{Kochol2004, Macajova2020}.
+Research has shown, that high cyclic \mbox{edge-connectivity} correlates with various structural properties of cubic graphs \cite{Andersen1988, Doslic2003, McCuaig1992, Thomassen1983}, and several conjectures about high cyclic edge-connectivity have been proposed \cite{Fleischner1988, jaeger1980conjecture, Thomassen1986}. Moreover, it has been proven that smallest possible counterexamples to several open problems must have high cyclic edge-connectivity \cite{Kochol2004, Macajova2020}.
 
-Our work focuses on cubic graphs constructed from smaller building blocks. To formalize these building blocks, we use the concept of \textit{multipoles}, which can be explained as an extended type of graphs where each edge has two ends that do not necessarily need to be incident with vertices. These special edges can be connected together to form classical edges between vertices, allowing the construction of larger multipoles and ultimately complete graphs. These connections are formally called \textit{junctions}.
+Our work focuses on cubic graphs constructed from smaller building blocks. To formalize these building blocks, we use the concept of \textit{multipoles}, which can be explained as an extended type of graphs, where each edge has two ends that do not necessarily need to be incident with vertices. These special edges can be connected together to form classical edges between vertices, allowing the construction of larger multipoles and ultimately complete graphs. These connections are formally called \textit{junctions}.
 
-Our aim is to develop theoretical tools for proving that such constructions of cubic graphs achieve desired cyclic edge-connectivity when the used multipoles satisfy specific conditions. We demonstrate these results through concrete examples and provide formal proofs of cyclic edge-connectivity for certain graphs where such proofs were previously missing.
+Such constructions of graphs with specific cyclic edge-connectivity remain relatively unexplored. Rajník \cite{Rajnik_phd} and Andersen et al. \cite{Andersen1988} have explored how multipoles with specific properties can be extended to form graphs with desired cyclic edge-connectivity. However, these works focused primarily on the existence of such graphs, rather than determining the cyclic edge-connectivity of graphs built from more than two building blocks.
 
-Such constructions of graphs with specific cyclic edge-connectivity remain relatively unexplored. Rajník \cite{Rajnik_phd} and Andersen et al. \cite{Andersen1988} have explored how multipoles with specific properties can be extended to form graphs with desired cyclic edge-connectivity. However, these works focused primarily on the existence of such graphs rather than determining the cyclic edge-connectivity of graphs built from more than two building blocks.
+Our aim is to develop theoretical tools for proving that such constructions of cubic graphs achieve desired cyclic edge-connectivity, when the used multipoles satisfy specific conditions. We demonstrate these results through concrete examples, and provide formal proofs of cyclic edge-connectivity for certain graphs, where such proofs were previously missing.
 
-In \cref{ch:preliminaries}, we introduce the necessary definitions and concepts fundamental to this thesis. \cref{ch:cyclic-edge-connectivity} further extends the theory of cyclic edge-connectivity and introduces concepts essential to our results. In \cref{ch:junctions-of-multipoles}, we present our findings on junctions of multipoles, establishing helpful properties of multipoles and provide theorems that prove these junctions achieve desired cyclic edge-connectivity, along with their practical applications. \cref{ch:cyclic-part-inflations} introduces the concept of \textit{cyclic part inflations}, where vertices in an original graph are replaced by multipoles satisfying specific conditions. We present several theorems for this concept and demonstrate their applications. Finally, in \cref{ch:problems-for-research} we provide potential problems for future research.
+In \cref{ch:preliminaries}, we introduce the necessary definitions and concepts fundamental to this thesis. \cref{ch:cyclic-edge-connectivity} further extends the theory of cyclic edge-connectivity and introduces concepts essential to our results. In \cref{ch:junctions-of-multipoles}, we present our findings on junctions of multipoles, establishing helpful properties of multipoles, and provide theorems that prove these junctions achieve desired cyclic edge-connectivity, along with their practical applications. \cref{ch:cyclic-part-inflations} introduces the concept of \textit{cyclic part inflations}, where vertices in an original graph are replaced by multipoles satisfying specific conditions. We present several theorems for this concept and demonstrate their applications. Finally, in \cref{ch:problems-for-research}, we provide potential problems for future research.
 
 \chapter{Preliminaries}\label{ch:preliminaries}
 
-In this chapter, we establish the fundamental definitions essential for understanding our thesis. We begin with basic graph theory concepts and specify the types of graphs considered in our work, as well as present the definitions of (vertex)-connectivity and edge-connectivity. We then introduce the theoretical framework for our building blocks through the concept of multipoles, along with the formal definitions for connecting these blocks. Following this, we introduce the concept of cyclic edge-connectivity -- a~key concept further developed in \cref{ch:cyclic-edge-connectivity}. At the end, we discuss transitive graphs, which prove valuable in proving the existence of multipoles with specific properties required for our theoretical results.
+In this chapter, we establish the fundamental definitions essential for understanding our thesis. We begin with basic graph theory concepts and specify the types of graphs considered in our work, as well as present the definitions of (vertex)-connectivity and edge-connectivity. We then introduce the theoretical framework for our building blocks through the concept of multipoles, along with the formal definitions of connecting these blocks. Following this, we introduce the concept of cyclic edge-connectivity -- a~key concept further developed in \cref{ch:cyclic-edge-connectivity}. At the end, we discuss transitive graphs, which prove valuable in proving the existence of multipoles with specific properties required for our theoretical results.
 
 \section{Basic notions}
 
 Definitions not provided in our work can be found in the book \quotes{Graph Theory} by Diestel \cite{Diestel}. All graphs considered in this work are undirected and finite. We permit multiple edges, as well as loops.
 
-A \textit{girth} of a graph $G$, denoted by $g(G)$ is the minimum length of a cycle in $G$. If $G$ does not contain a cycle, we set the girth to $\infty$.
+The \textit{girth} of a graph $G$, denoted by $g(G)$, is the minimum length of a cycle in $G$. If $G$ does not contain a cycle, we set the girth to $\infty$.
 
 The \textit{distance} between two vertices $x$ and $y$ in a graph $G$, denoted by $d_G(x,y)$, is defined as the length of a shortest path between $x$ and $y$ in $G$. If no such path exists, we set $d_G(x,y)=\infty$. If the specific graph $G$ is evident from the context, we shall only use $d(x,y)$.
 
@@ -183,16 +183,16 @@ As the name suggests, an \textit{edge-cut} decomposes a graph into multiple conn
 	Let $G$ be a graph and $\{V_1,V_2\}$ a partition of $V(G)$. By $E(V_1,V_2)$ we denote the set of edges which have one end in $V_1$ and the other in $V_2$.
 \end{definition}
 
-Note that $E(V_1,V_2)$ is indeed an edge-cut, when we remove all of these edges, there will not be any edge between a vertex in $V_1$ and $V_2$, splitting the graph into two components. The sets $V_1$ and $V_2$ are called the \textit{sides} of the cut. This can help visualize how vertices will be partitioned after the removal of edges.
+Note that $E(V_1,V_2)$ is indeed an edge-cut, when we remove all of these edges, there will not be any edge between a vertex in $V_1$ and $V_2$, splitting the graph into two components. The sets $V_1$ and $V_2$ are called the \textit{sides} of the cut. This can help visualize how vertices will be partitioned after the removal of the edges.
 
-In our work, however, we do not remove these edges but instead introduce the~concept of edge severing, which is formally defined in \cref{sec:multipoles}.
+In our work, however, we do not remove these edges, but instead introduce the~concept of edge severing, which is formally defined in \cref{sec:multipoles}.
 
 A graph which results from a graph $G$ by removing edges from a set $S$ is denoted by $G-S$. Note that this does not require $S$ to be an edge-cut, the result can still be connected.
 
 A graph $G$ is \textit{k-edge-connected} for $k\in\mathbb{N}$, if $|G|>k$ and $G-S$ is connected for every subset $S$ of $E(G)$, such that $|S|<k$. In other words, there is no edge-cut of size less than $k$.
 
 \begin{definition}
-	Let $G$ be a graph. The \textit{edge-conectivity} of $G$, denoted by $\lambda(G)$ is the~largest integer $k$ for which $G$ is $k$-edge-connected.
+	Let $G$ be a graph. The \textit{edge-conectivity} of $G$, denoted by $\lambda(G)$, is the~largest integer $k$ for which $G$ is $k$-edge-connected.
 \end{definition}
 
 Informally, this is the size of a smallest edge-cut in the graph. It holds that for each non-trivial graph $G$, we have $\lambda(G)\leq\delta(G)$ \cite{Diestel}. The proof comes from the fact that all edges incident with a vertex are indeed edge-cuts, separating the vertex from the~rest of the graph, meaning there is an edge-cut of size $\delta(G)$ in each graph. Also it holds that if $G$ is disconnected then $\lambda(G)=0$.
@@ -201,18 +201,18 @@ Informally, this is the size of a smallest edge-cut in the graph. It holds that 
 
 In contrast to edge-connectivity, as the name suggests, vertex-connectivity focuses on the removal of vertices rather than edges. A \textit{vertex-cut} is therefore defined as a subset of vertices, whose removal results in a disconnected graph. A graph $G$ is \textit{k-(vertex)-connected} for $k\in\mathbb{N}$, if $|G|>k$ and $G-X$ is connected for every subset $X$~of $V(G)$ with $|X|<k$. In other words, there is no vertex-cut in $G$ of size less than $k$.
 
-Similarly to edge-connectivity, a \textit{(vertex)-connectivity} of $G$, denoted by $\kappa(G)$ is the~largest integer $k$ for which $G$ is $k$-connected.
+Similarly to edge-connectivity, the \textit{(vertex)-connectivity} of $G$, denoted by $\kappa(G)$, is the~largest integer $k$ for which $G$ is $k$-connected.
 
-Note that an argument similar to the one used for edge-connectivity applies to the~upper bound of $\kappa(G)$ being $\delta(G)$. We can select a vertex with minimal degree, and its neighbors form a vertex-cut (excluding loops to avoid removing the selected vertex). In complete graphs, this selection does not form a vertex-cut since only the selected vertex would remain, but the relationship still holds: the connectivity of $K_n$ is $n-1$ by definition, and $\delta(K_n)=n-1$. For any nontrivial graph $G$, these parameters are related by the inequality $\kappa(G)\leq \lambda(G) \leq \delta(G)$ \cite{Diestel}.
+Note that an argument similar to the one used for edge-connectivity applies to the~upper bound of $\kappa(G)$ being $\delta(G)$. We can select a vertex with minimal degree, and its neighbors form a vertex-cut (excluding loops to avoid removing the selected vertex). In complete graphs, this selection does not form a vertex-cut, since only the selected vertex would remain, but the relationship still holds: the connectivity of $K_n$ is $n-1$ by definition, and $\delta(K_n)=n-1$. For any nontrivial graph $G$, these parameters are related by the inequality $\kappa(G)\leq \lambda(G) \leq \delta(G)$ \cite{Diestel}.
 
 \section{Multipoles}\label{sec:multipoles}
 
-In our work, we allow an extended type of graph, which allows ends of its edges to be incident with no vertex, resulting in a graph with semiedges. Such structures are called \textit{multipoles}. These structures can serve as the mentioned building blocks to form larger graphs, as defined in this section. This term was first used by Fiol in 1991 \cite{Fiol1991}, however we will be following a definition by Nedela and Škoviera \cite{Nedela1996}.
+In our work, we allow an extended type of graph, which allows ends of its edges to be incident with no vertex, resulting in a graph with semiedges. Such structures are called \textit{multipoles}. These structures can serve as the mentioned building blocks to form larger graphs, as explained in this section. This term was first used by Fiol in 1991 \cite{Fiol1991}, however we will be following a definition by Nedela and Škoviera \cite{Nedela1996}.
 
 \begin{definition}
 	A \textit{multipole} is a pair $M=(V,E)$ of distinct finite sets of vertices $V$ and edges $E$, where every edge $e$ in $E$ has two edge ends, which may or need not be incident with a vertex.
 	
-	According to the incidence of edge ends, we define three types of edges:
+	According to the incidence of edge ends with vertices, we define three types of edges:
 	\begin{enumerate}[nolistsep]
 		\item a \textit{link} is an edge whose ends are incident with two distinct vertices,
 		\item a \textit{loop} is an edge whose ends are incident with the same vertex,
@@ -220,13 +220,13 @@ In our work, we allow an extended type of graph, which allows ends of its edges 
 	\end{enumerate}
 \end{definition}
 
-Note that we have not mentioned the case when both of the edge ends are not incident with a vertex. We do not allow such edges in our work, however in literature these are referred to as \textit{isolated edges}.
+Note that we have not mentioned the case when both edge ends are not incident with a vertex. We do not allow such edges in our work, however in literature these are referred to as \textit{isolated edges}.
 
 A multipole is \textit{connected} if there exists a path between any pair of edge ends. A~multipole $M$ is \textit{empty} if $|V(M)|=0$, otherwise it is \textit{nonempty}.
 
 The semiedges in a multipole $M$ are endowed with a linear order and we denote the tuple of its semiedges by $S(M)$. A multipole $M$ with $n$ semiedges and ${S(M) = (a_1, \cdots, a_n)}$ can also be denoted by $M(a_1,\cdots,a_n)$. Similarly to graphs, the \textit{order} of a~multipole $M$, denoted by $|M|$, is the number of its vertices. Also the \textit{degree} of a vertex $v$ of a~multipole, denoted by $\deg(v)$, is the number of edge ends incident with $v$. The minimum degree among all vertices in a multipole $M$ is denoted by $\delta(M)$. A multipole with $k$ semiedges is usually called a \textit{k-pole}. It can be seen, that a graph can be defined as a 0-pole.
 
-Now we define how multipoles can be used as building blocks to form larger structures. Let $e$ and $f$ be semiedges, such that $e\neq f$. The result of the \textit{junction} of $e$ and $f$ is a new edge between the vertices incident with $e$ and $f$ and a deletion of $e$ and $f$. The junction of two $k$-poles $M(a_1,\dots,a_k)$ and $N(b_1,\dots,b_k)$ using a bijection ${f:\{1,\dots,k\}\rightarrow\{1,\dots,k\}}$, denoted by $M*_fN$, consists of $k$ individual junctions of semiedges $a_i$ and $b_{f(i)}$ for $i$ from $1$ to $k$. If we use an arbitrary bijection we simply denote it by $M*N$. An example of a junction can be seen in \cref{fig:junction-of-two-multipoles}.
+Now we define how multipoles can be used as building blocks to form larger structures. Let $e$ and $f$ be semiedges, such that $e\neq f$. The result of the \textit{junction} of $e$ and $f$ is a new edge between the vertices incident with $e$ and $f$, and a deletion of $e$ and $f$. The junction of two $k$-poles $M(a_1,\dots,a_k)$ and $N(b_1,\dots,b_k)$ using a bijection ${f:\{1,\dots,k\}\rightarrow\{1,\dots,k\}}$, denoted by $M*_fN$, consists of $k$ individual junctions of semiedges $a_i$ and $b_{f(i)}$ for $i$ from $1$ to $k$. If we use an arbitrary bijection we simply denote it by $M*N$. An example of a junction can be seen in \cref{fig:junction-of-two-multipoles}.
 
 \begin{figure}
 	\centering
@@ -423,7 +423,7 @@ Consider two multipoles $M(a_1,\cdots,a_n)$ and $N(b_1,\cdots,b_m)$. Their \text
 	\label{fig:partial-junction-of-two-multipoles}
 \end{figure}
 
-We say that a multipole $M$ \textit{contains} a multipole $N$ (or $N$ is in $M$) if there exists a~multipole $P$ and a partial junction $*$, such that $M=N*P$. Note that each multipole contains itself, as this can be achieved using an empty partial junction with an empty multipole.
+We say that a multipole $M$ \textit{contains} a multipole $N$ (or $N$ is in $M$), if there exists a~multipole $P$ and a partial junction $*$, such that $M=N*P$. Note that each multipole contains itself, as this can be achieved using an empty partial junction with an empty multipole.
 
 Same as in graphs, a multipole is \textit{cyclic} if it contains a cycle. The \textit{distance} between two semiedges $a$ and $b$ is equal to:
 \begin{itemize}
@@ -482,7 +482,7 @@ By \textit{cutting} (or \textit{severing}) a link $e=v_1v_2$, we mean the remova
 
 When we \textit{remove} a vertex $v$, we delete $v$ along with all its incident semiedges and loops. Additionally, for each link connecting $v$ to another vertex $w$, we replace that link with a new semiedge incident with $w$, as depicted in \cref{fig:removing a vertex}.
 
-In multipoles, as in graphs, an \textit{edge-cut} is a set of links that, when severed, disconnects the multipole. We also use edge-cuts defined as the set of edges $E(V_1, V_2)$ which have one end in $V_1$ and the other in $V_2$, where $\{V_1,V_2\}$ is a partition of $V(M)$. Note that all of the edges in these edge-cuts are links, since they connect two vertices.
+In multipoles, as in graphs, an \textit{edge-cut} is a set of links that, when severed, disconnects the multipole. We also use edge-cuts defined as the set of edges $E(V_1, V_2)$, which have one end in $V_1$ and the other in $V_2$, where $\{V_1,V_2\}$ is a partition of $V(M)$. Note that all of the edges in these edge-cuts are links, since they connect two distinct vertices.
 
 Two edges are \textit{adjacent} if they share a vertex. An edge-cut is \textit{independent} if no two edges in it are adjacent.
 
@@ -491,7 +491,7 @@ We now define edge subdivisions in multipoles, following Gross et al. \cite{gros
 	Let $e$ be an edge in a multipole $M$. \textit{Subdividing} the edge $e$ means that a~new vertex $w$ is added to $V(G)$, and the edge $e$ is replaced according to its type:
 	\begin{itemize}
 		\item a loop on vertex $v$ is replaced by two edges between $v$ and $w$,
-		\item a link between vertices $x$ and $y$ is replaced by edges $xw$ and $yw$,
+		\item a link between vertices $x$ and $y$ is replaced by edges $xw$ and $wy$,
 		\item a semiedge incident to vertex $v$ is replaced by an edge $vw$ and two semiedges incident to $w$.
 	\end{itemize}
 \end{definition}
@@ -509,10 +509,10 @@ Conversely, we can define \textit{smoothing} in a multipole.
 
 Finally, we define when a multipole is induced by a vertex subset of another multipole.
 \begin{definition}
-	Let $M$ be a multipole and $W$ a subset of its vertices. Then $M[W]$ is an~\textit{induced multipole} of $M$ by $W$ if $V(M[W])=W$ and there exists a multipole $N$ such that $M=M[W]*N$.
+	Let $M$ be a multipole and $W$ a subset of its vertices. Then $M[W]$ is an~\textit{induced multipole} of $M$ by $W$, if $V(M[W])=W$ and there exists a multipole $N$, such that $M=M[W]*N$.
 \end{definition}
 
-In other words, if $W$ is empty then $M[W]$ is an empty multipole, if $W=V(M)$ then $M[W]=M$, and otherwise $M[W]$ is the multipole containing the vertices from $W$ obtained from the edge-cut $E\left(W,V(M)-W\right)$ in $M$.
+In other words, if $W$ is empty then $M[W]$ is an empty multipole, if $W=V(M)$ then $M[W]=M$, and otherwise $M[W]$ is the multipole containing the vertices from $W$, obtained from the edge-cut $E\left(W,V(M)-W\right)$ in $M$.
 
 \section{Cyclic edge-connectivity}\label{sec:cyclic-edge-connectivity}
 
@@ -577,6 +577,8 @@ Similarly to edge-connectivity, we say that a graph $G$ is \textit{cyclically k-
 
 The \textit{cycle rank} of $G$, denoted by $\beta(G)$, equals $|E|-|V|+1$. If we remove at least $\beta(G)$ edges from $G$, the resulting graph is either disconnected or acyclic. Therefore, if $G$ contains a cycle-separating edge-cut, then it contains one with no more than $\beta(G)-1$ edges \cite{atoms-of-cyclic}.
 
+\newpage
+
 \begin{definition}[Nedela and Škoviera \cite{atoms-of-cyclic}]
 	Let $G$ be a graph. The \textit{cyclic edge-conectivity} of $G$, denoted by $\zeta(G)$, is the largest integer $k$, such that $k\leq \beta(G)$ and $G$ is cyclically $k$-edge-connected.
 \end{definition}
@@ -587,7 +589,7 @@ More properties of cyclic edge-connectivity are regarded in \cref{ch:cyclic-edge
 
 \section{Transitive graphs}
 
-In proving the results of our work, we have used so-called \textit{transitive graphs}, for which there are some proved theorems and can be helpful with their properties for our results. To properly define them, we need to dive a bit into an algebraic graph theory, and prove what it means for a graph to be transitive. All of these definitions were taken from a book by Godsil and Royle \cite{algebraic-graph-theory}.
+In proving the results of our work, we have used \textit{transitive graphs}, for which there are some proved theorems and can be helpful with their properties for our results. To properly define them, we need to dive a bit into an algebraic graph theory and prove what it means for a graph to be transitive. All of these definitions were taken from a~book by Godsil and Royle \cite{algebraic-graph-theory}.
 
 An \textit{automorphism} on a graph $G$ is an isomorphism from $G$ to itself, in other words a~permutation $\sigma$ of the vertices of $G$, such that $vw\in E(G)$ if and only if $\sigma(v)\sigma(w)\in E(G)$. In other words, it is a permutation that maps edges to edges and nonedges to nonedges. A trivial case of an automorphism is an identity permutation.
 
